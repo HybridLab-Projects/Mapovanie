@@ -1,2 +1,2 @@
 # Mapovanie
-Comming soon
+Coming soon
