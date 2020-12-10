@@ -1,0 +1,7 @@
+{
+  "name": "Mapovanie",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
