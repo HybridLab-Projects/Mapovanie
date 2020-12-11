@@ -12,6 +12,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/form',
     component: () => import('@/views/Form.vue'),
   },
+  {
+    name: 'Success',
+    path: '/success',
+    component: () => import('@/views/Success.vue'),
+  },
 ]
 
 const router = createRouter({

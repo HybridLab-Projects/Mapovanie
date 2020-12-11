@@ -52,16 +52,19 @@ export default defineComponent({
 	},
 	methods: {
 		async takePicture() {
-			const image = await Camera.getPhoto({
-				quality: 90,
-				allowEditing: true,
-				resultType: CameraResultType.Uri,
-			});
-			console.log('prop', image.webPath);
-			this.$router.push({
-				name: 'Form',
-				params: { imageStringified: JSON.stringify(image) },
-			});
+			try {
+				const image = await Camera.getPhoto({
+					quality: 90,
+					allowEditing: true,
+					resultType: CameraResultType.Uri,
+				});
+				this.$router.push({
+					name: 'Form',
+					params: { image: JSON.stringify(image) },
+				});
+			} catch (err) {
+				console.log(err);
+			}
 		},
 	},
 });
