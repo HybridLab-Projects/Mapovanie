@@ -2,6 +2,9 @@
 	<ion-page>
 		<ion-header>
 			<ion-toolbar>
+				<ion-buttons slot="start">
+					<ion-back-button></ion-back-button>
+				</ion-buttons>
 				<ion-title>Pridať strom</ion-title>
 			</ion-toolbar>
 		</ion-header>
@@ -66,6 +69,8 @@ import {
 	IonImg,
 	IonButton,
 	IonIcon,
+	IonButtons,
+	IonBackButton,
 } from '@ionic/vue';
 export default defineComponent({
 	name: 'Form',
@@ -84,6 +89,8 @@ export default defineComponent({
 		IonImg,
 		IonButton,
 		IonIcon,
+		IonButtons,
+		IonBackButton,
 	},
 	ionViewWillEnter() {
 		this.treeType = '';
