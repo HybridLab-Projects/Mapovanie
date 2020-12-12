@@ -6,7 +6,11 @@
 			</ion-toolbar>
 		</ion-header>
 		<ion-content class="ion-padding">
-			<ion-img :src="image.webPath" class="ion-padding form-img"></ion-img>
+			<ion-img
+				:src="image.webPath"
+				class="ion-padding form-img"
+				@click="retakePicture()"
+			></ion-img>
 			<div class="tree-container ion-margin">
 				<ion-button
 					class="leaf-tree"
@@ -16,7 +20,10 @@
 					slot="icon-only"
 					@click="treeType = 'leaf'"
 				>
-					<div class=""></div>
+					<ion-icon
+						src="/assets/icon/leaf-tree.svg"
+						class="tree-icon"
+					></ion-icon>
 				</ion-button>
 				<ion-button
 					class="fir-tree"
@@ -24,7 +31,10 @@
 					slot="icon-only"
 					@click="treeType = 'fir'"
 				>
-					<div class=""></div>
+					<ion-icon
+						src="/assets/icon/fir-tree.svg"
+						class="tree-icon"
+					></ion-icon>
 				</ion-button>
 			</div>
 		</ion-content>
@@ -42,10 +52,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import CameraPlugin from '@/plugins/app/camera';
+import DevicePlugin from '@/plugins/app/device';
+import GeolocationPlugin from '@/plugins/app/geolocation';
 import Moment from 'moment';
-import { Plugins } from '@capacitor/core';
-
-const { Geolocation, Device } = Plugins;
 
 import {
 	IonPage,
@@ -55,12 +65,13 @@ import {
 	IonContent,
 	IonImg,
 	IonButton,
+	IonIcon,
 } from '@ionic/vue';
 export default defineComponent({
 	name: 'Form',
 	data() {
 		return {
-			image: { format: '', webPath: '' },
+			image: {},
 			treeType: '',
 		};
 	},
@@ -72,6 +83,7 @@ export default defineComponent({
 		IonContent,
 		IonImg,
 		IonButton,
+		IonIcon,
 	},
 	ionViewWillEnter() {
 		this.treeType = '';
@@ -79,15 +91,15 @@ export default defineComponent({
 		if (imageStringified) this.image = JSON.parse(imageStringified);
 	},
 	methods: {
+		async retakePicture() {
+			const image = await CameraPlugin.takePicture();
+			this.image = image;
+		},
 		async submit() {
 			try {
 				const time = Moment().format();
-				const deviceInfo = await Device.getInfo();
-				const deviceLocation = await Geolocation.getCurrentPosition({
-					enableHighAccuracy: true,
-					maximumAge: 0,
-					timeout: Infinity,
-				});
+				const deviceInfo = await DevicePlugin.getDeviceInfo();
+				const deviceLocation = await GeolocationPlugin.getCurrentPosition();
 
 				const parsedLocation: any = {};
 
@@ -175,5 +187,10 @@ export default defineComponent({
 
 .tree-unselected {
 	--box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.tree-icon {
+	font-size: 96px;
+	color: black;
 }
 </style>

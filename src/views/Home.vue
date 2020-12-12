@@ -6,7 +6,12 @@
 			</ion-toolbar>
 		</ion-header>
 		<ion-content class="ion-padding">
-			<ion-fab vertical="bottom" horizontal="center" slot="fixed">
+			<ion-fab
+				vertical="bottom"
+				horizontal="center"
+				slot="fixed"
+				class="ion-margin-bottom"
+			>
 				<ion-fab-button @click="takePicture()">
 					<ion-icon :icon="cameraOutline"></ion-icon>
 				</ion-fab-button>
@@ -18,8 +23,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { Plugins, CameraResultType } from '@capacitor/core';
-const { Camera } = Plugins;
+import CameraPlugin from '@/plugins/app/camera';
 
 import { cameraOutline } from 'ionicons/icons';
 import {
@@ -53,11 +57,7 @@ export default defineComponent({
 	methods: {
 		async takePicture() {
 			try {
-				const image = await Camera.getPhoto({
-					quality: 90,
-					allowEditing: true,
-					resultType: CameraResultType.Uri,
-				});
+				const image = await CameraPlugin.takePicture();
 				this.$router.push({
 					name: 'Form',
 					params: { image: JSON.stringify(image) },
