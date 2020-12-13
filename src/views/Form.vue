@@ -56,6 +56,7 @@
 import { defineComponent } from 'vue';
 
 import { loadingController } from '@ionic/vue';
+import Axios from 'axios';
 
 import CameraPlugin from '@/plugins/app/camera';
 import DevicePlugin from '@/plugins/app/device';
@@ -114,6 +115,15 @@ export default defineComponent({
 				const time = Moment().format();
 				const deviceInfo = await DevicePlugin.getDeviceInfo();
 				const deviceLocation = await GeolocationPlugin.getCurrentPosition();
+				await Axios.post('http://localhost:8000/api/entities', {
+					type: 'tree',
+					// eslint-disable-next-line @typescript-eslint/camelcase
+					sub_type: this.treeType,
+					longitude: deviceLocation.coords.longitude,
+					latitude: deviceLocation.coords.latitude,
+					// eslint-disable-next-line @typescript-eslint/camelcase
+					device_uuid: deviceInfo.uuid,
+				});
 				await loading.dismiss();
 
 				this.$router.push({
