@@ -13,7 +13,7 @@
 			<p>Čas: {{ time }}</p>
 			<p>Informácie o zariadení:</p>
 			<ul>
-				<li v-for="(info, i) in deviceInfo" :key="i">{{ i }}: {{ info }}</li>
+				<li>UUID: {{ deviceUUID }}</li>
 			</ul>
 			<p>Informácie o polohe:</p>
 			<ul>
@@ -62,22 +62,22 @@ export default defineComponent({
 			treeType: '',
 			time: '',
 			image: {},
-			deviceInfo: {},
+			deviceUUID: '',
 			deviceLocation: {},
 		};
 	},
 	ionViewWillEnter() {
 		const treeType = this.$route.params.treeType as string;
 		const time = this.$route.params.time as string;
+		const deviceUUID = this.$route.params.deviceUUID as string;
 		const imageStringified = this.$route.params.image as string;
-		const deviceInfoStringified = this.$route.params.deviceInfo as string;
 		const deviceLocationStringified = this.$route.params
 			.deviceLocation as string;
-		console.log(deviceLocationStringified);
+
 		this.treeType = treeType;
 		this.time = time;
+		this.deviceUUID = deviceUUID;
 		this.image = JSON.parse(imageStringified);
-		this.deviceInfo = JSON.parse(deviceInfoStringified);
 		this.deviceLocation = JSON.parse(deviceLocationStringified);
 	},
 });

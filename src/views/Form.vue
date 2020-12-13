@@ -55,9 +55,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
+import { loadingController } from '@ionic/vue';
+
 import CameraPlugin from '@/plugins/app/camera';
 import DevicePlugin from '@/plugins/app/device';
 import GeolocationPlugin from '@/plugins/app/geolocation';
+
 import Moment from 'moment';
 
 import {
@@ -104,51 +107,26 @@ export default defineComponent({
 		},
 		async submit() {
 			try {
+				const loading = await loadingController.create({
+					message: 'Odosielam...',
+				});
+				await loading.present();
 				const time = Moment().format();
 				const deviceInfo = await DevicePlugin.getDeviceInfo();
 				const deviceLocation = await GeolocationPlugin.getCurrentPosition();
-
-				const parsedLocation: any = {};
-
-				if ('coords' in deviceLocation) {
-					parsedLocation.coords = {};
-
-					if ('latitude' in deviceLocation.coords) {
-						parsedLocation.coords.latitude = deviceLocation.coords.latitude;
-					}
-					if ('longitude' in deviceLocation.coords) {
-						parsedLocation.coords.longitude = deviceLocation.coords.longitude;
-					}
-					if ('accuracy' in deviceLocation.coords) {
-						parsedLocation.coords.accuracy = deviceLocation.coords.accuracy;
-					}
-					if ('altitude' in deviceLocation.coords) {
-						parsedLocation.coords.altitude = deviceLocation.coords.altitude;
-					}
-					if ('altitudeAccuracy' in deviceLocation.coords) {
-						parsedLocation.coords.altitudeAccuracy =
-							deviceLocation.coords.altitudeAccuracy;
-					}
-					if ('heading' in deviceLocation.coords) {
-						parsedLocation.coords.heading = deviceLocation.coords.heading;
-					}
-					if ('speed' in deviceLocation.coords) {
-						parsedLocation.coords.speed = deviceLocation.coords.speed;
-					}
-				}
-
-				if ('timestamp' in deviceLocation) {
-					parsedLocation.timestamp = deviceLocation.timestamp;
-				}
+				await loading.dismiss();
 
 				this.$router.push({
 					name: 'Success',
 					params: {
 						treeType: this.treeType,
 						time,
+						deviceUUID: deviceInfo.uuid,
 						image: JSON.stringify(this.image),
-						deviceInfo: JSON.stringify(deviceInfo),
-						deviceLocation: JSON.stringify(parsedLocation),
+						deviceLocation: JSON.stringify({
+							lat: deviceLocation.coords.latitude,
+							lon: deviceLocation.coords.longitude,
+						}),
 					},
 				});
 			} catch (err) {
