@@ -6,7 +6,7 @@ export default {
     return await Camera.getPhoto({
       quality: 90,
       allowEditing: true,
-      resultType: CameraResultType.Uri,
+      resultType: CameraResultType.DataUrl,
     })
   },
 }

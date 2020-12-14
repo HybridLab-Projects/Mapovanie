@@ -115,7 +115,8 @@ export default defineComponent({
 				const time = Moment().format();
 				const deviceInfo = await DevicePlugin.getDeviceInfo();
 				const deviceLocation = await GeolocationPlugin.getCurrentPosition();
-				await Axios.post('http://localhost:8000/api/entities', {
+				const test = this.image
+				await Axios.post('/backend/api/entities', {
 					type: 'tree',
 					// eslint-disable-next-line @typescript-eslint/camelcase
 					sub_type: this.treeType,
@@ -123,6 +124,8 @@ export default defineComponent({
 					latitude: deviceLocation.coords.latitude,
 					// eslint-disable-next-line @typescript-eslint/camelcase
 					device_uuid: deviceInfo.uuid,
+					//@ts-expect-error
+					image: test.dataUrl
 				});
 				await loading.dismiss();
 

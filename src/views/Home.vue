@@ -58,6 +58,7 @@ export default defineComponent({
 		async takePicture() {
 			try {
 				const image = await CameraPlugin.takePicture();
+				console.log(image);
 				this.$router.push({
 					name: 'Form',
 					params: { image: JSON.stringify(image) },
