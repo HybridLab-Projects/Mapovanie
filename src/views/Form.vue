@@ -115,18 +115,23 @@ export default defineComponent({
 				const time = Moment().format();
 				const deviceInfo = await DevicePlugin.getDeviceInfo();
 				const deviceLocation = await GeolocationPlugin.getCurrentPosition();
-				const test = this.image
-				await Axios.post('/backend/api/entities', {
-					type: 'tree',
-					// eslint-disable-next-line @typescript-eslint/camelcase
-					sub_type: this.treeType,
-					longitude: deviceLocation.coords.longitude,
-					latitude: deviceLocation.coords.latitude,
-					// eslint-disable-next-line @typescript-eslint/camelcase
-					device_uuid: deviceInfo.uuid,
-					//@ts-expect-error
-					image: test.dataUrl
-				});
+				const test = this.image;
+				//@ts-expect-error
+				console.log(test.dataUrl);
+				await Axios.post(
+					'https://mapovanie.hybridlab.dev/backend/api/entities',
+					{
+						type: 'tree',
+						// eslint-disable-next-line @typescript-eslint/camelcase
+						sub_type: this.treeType,
+						longitude: deviceLocation.coords.longitude,
+						latitude: deviceLocation.coords.latitude,
+						// eslint-disable-next-line @typescript-eslint/camelcase
+						device_uuid: deviceInfo.uuid,
+						//@ts-expect-error
+						image: test.dataUrl,
+					}
+				);
 				await loading.dismiss();
 
 				this.$router.push({
