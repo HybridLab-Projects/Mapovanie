@@ -62,8 +62,6 @@ import CameraPlugin from '@/plugins/app/camera';
 import DevicePlugin from '@/plugins/app/device';
 import GeolocationPlugin from '@/plugins/app/geolocation';
 
-import Moment from 'moment';
-
 import {
 	IonPage,
 	IonHeader,
@@ -76,11 +74,12 @@ import {
 	IonButtons,
 	IonBackButton,
 } from '@ionic/vue';
+import { CameraPhoto } from '@capacitor/core';
 export default defineComponent({
 	name: 'Form',
 	data() {
 		return {
-			image: {},
+			image: {} as CameraPhoto,
 			treeType: '',
 		};
 	},
@@ -99,7 +98,10 @@ export default defineComponent({
 	ionViewWillEnter() {
 		this.treeType = '';
 		const imageStringified = this.$route.params.image as string;
-		if (imageStringified) this.image = JSON.parse(imageStringified);
+		if (imageStringified) {
+			const image = JSON.parse(imageStringified);
+			this.image = image;
+		}
 	},
 	methods: {
 		async retakePicture() {
@@ -107,17 +109,22 @@ export default defineComponent({
 			this.image = image;
 		},
 		async submit() {
+			const loading = await loadingController.create({
+				message: 'Odosielam...',
+			});
 			try {
-				const loading = await loadingController.create({
-					message: 'Odosielam...',
-				});
 				await loading.present();
-				const time = Moment().format();
 				const deviceInfo = await DevicePlugin.getDeviceInfo();
 				const deviceLocation = await GeolocationPlugin.getCurrentPosition();
-				const test = this.image;
-				//@ts-expect-error
-				console.log(test.dataUrl);
+				if (
+					!this.treeType ||
+					!deviceLocation.coords.longitude ||
+					!deviceLocation.coords.latitude ||
+					!deviceInfo.uuid ||
+					!this.image.dataUrl
+				) {
+					throw 'Error';
+				}
 				await Axios.post(
 					'https://mapovanie.hybridlab.dev/backend/api/entities',
 					{
@@ -128,27 +135,22 @@ export default defineComponent({
 						latitude: deviceLocation.coords.latitude,
 						// eslint-disable-next-line @typescript-eslint/camelcase
 						device_uuid: deviceInfo.uuid,
-						//@ts-expect-error
-						image: test.dataUrl,
+						image: this.image.dataUrl,
 					}
 				);
 				await loading.dismiss();
 
 				this.$router.push({
 					name: 'Success',
-					params: {
-						treeType: this.treeType,
-						time,
-						deviceUUID: deviceInfo.uuid,
-						image: JSON.stringify(this.image),
-						deviceLocation: JSON.stringify({
-							lat: deviceLocation.coords.latitude,
-							lon: deviceLocation.coords.longitude,
-						}),
-					},
 				});
 			} catch (err) {
 				console.log(err);
+
+				await loading.dismiss();
+
+				this.$router.push({
+					name: 'Fail',
+				});
 			}
 		},
 	},

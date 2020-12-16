@@ -6,8 +6,8 @@
 			</ion-toolbar>
 		</ion-header>
 		<ion-content class="ion-padding">
-			<h1>Gratulujem</h1>
-			<p>Úspešne si pridal strom do našej databázy.</p>
+			<h1>Chyba</h1>
+			<p>Niekde nastala chyba, skúste to znova neskôr</p>
 		</ion-content>
 		<ion-button class="ion-margin" router-link="/">
 			Späť na domovskú obrazovku
