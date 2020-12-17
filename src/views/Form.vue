@@ -125,19 +125,16 @@ export default defineComponent({
 				) {
 					throw 'Error';
 				}
-				await Axios.post(
-					'https://mapovanie.hybridlab.dev/backend/api/entities',
-					{
-						type: 'tree',
-						// eslint-disable-next-line @typescript-eslint/camelcase
-						sub_type: this.treeType,
-						longitude: deviceLocation.coords.longitude,
-						latitude: deviceLocation.coords.latitude,
-						// eslint-disable-next-line @typescript-eslint/camelcase
-						device_uuid: deviceInfo.uuid,
-						image: this.image.dataUrl,
-					}
-				);
+				await Axios.post('https://mapovanie.hybridlab.dev/cms/api/entities', {
+					type: 'tree',
+					// eslint-disable-next-line @typescript-eslint/camelcase
+					sub_type: this.treeType,
+					longitude: deviceLocation.coords.longitude,
+					latitude: deviceLocation.coords.latitude,
+					// eslint-disable-next-line @typescript-eslint/camelcase
+					device_uuid: deviceInfo.uuid,
+					image: this.image.dataUrl,
+				});
 				await loading.dismiss();
 
 				this.$router.push({
