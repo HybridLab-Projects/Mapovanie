@@ -23,7 +23,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import CameraPlugin from '@/plugins/app/camera';
+import { Plugins, CameraResultType } from '@capacitor/core'
+const { Camera } = Plugins
 
 import { cameraOutline } from 'ionicons/icons';
 import {
@@ -57,7 +58,12 @@ export default defineComponent({
 	methods: {
 		async takePicture() {
 			try {
-				const image = await CameraPlugin.takePicture();
+				const image = await Camera.getPhoto({
+          quality: 90,
+          allowEditing: true,
+          resultType: CameraResultType.DataUrl,
+        })
+
 				console.log(image);
 				this.$router.push({
 					name: 'Form',

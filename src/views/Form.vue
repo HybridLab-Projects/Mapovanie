@@ -58,9 +58,8 @@ import { defineComponent } from 'vue';
 import { loadingController } from '@ionic/vue';
 import Axios from 'axios';
 
-import CameraPlugin from '@/plugins/app/camera';
-import DevicePlugin from '@/plugins/app/device';
-import GeolocationPlugin from '@/plugins/app/geolocation';
+import { Plugins, CameraResultType } from '@capacitor/core'
+const { Camera, Device, Geolocation } = Plugins
 
 import {
 	IonPage,
@@ -105,7 +104,11 @@ export default defineComponent({
 	},
 	methods: {
 		async retakePicture() {
-			const image = await CameraPlugin.takePicture();
+			const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.DataUrl,
+      })
 			this.image = image;
 		},
 		async submit() {
@@ -114,8 +117,12 @@ export default defineComponent({
 			});
 			try {
 				await loading.present();
-				const deviceInfo = await DevicePlugin.getDeviceInfo();
-				const deviceLocation = await GeolocationPlugin.getCurrentPosition();
+				const deviceInfo = await Device.getInfo();
+				const deviceLocation = await Geolocation.getCurrentPosition({
+          enableHighAccuracy: true,
+          maximumAge: 0,
+          timeout: 2000,
+        })
 				if (
 					!this.treeType ||
 					!deviceLocation.coords.longitude ||
