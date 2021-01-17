@@ -1,1 +1,1 @@
-import '@/plugins/ionic'
+import '@/plugins/ionic';
