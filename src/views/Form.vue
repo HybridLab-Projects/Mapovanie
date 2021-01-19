@@ -100,10 +100,9 @@ export default defineComponent({
     this.treeType = '';
     const imageStringified = this.$route.params.image as string;
     const deviceLocationStringified = this.$route.params.deviceLocation as string;
-    const image = JSON.parse(imageStringified);
-    const deviceLocation = JSON.parse(deviceLocationStringified);
-    this.image = image;
-    this.deviceLocation = deviceLocation;
+
+    this.image = JSON.parse(imageStringified);
+    this.deviceLocation = JSON.parse(deviceLocationStringified);
   },
   methods: {
     async retakePicture() {
