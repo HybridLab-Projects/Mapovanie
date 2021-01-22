@@ -36,6 +36,7 @@ import {
   IonFabButton,
   IonIcon,
 } from '@ionic/vue';
+import Axios from 'axios';
 
 const { Camera } = Plugins;
 
@@ -58,11 +59,23 @@ export default defineComponent({
   },
   methods: {
     async takePicture() {
+      const convertBlobToBase64 = (blob: Blob): Promise<string> => new Promise(
+        (resolve, reject) => {
+          const reader = new FileReader();
+          reader.onerror = reject;
+          reader.onload = () => {
+            if (typeof reader.result === 'string') resolve(reader.result);
+            reject();
+          };
+          reader.readAsDataURL(blob);
+        },
+      );
+
       try {
         const image = await Camera.getPhoto({
           quality: 90,
           allowEditing: true,
-          resultType: CameraResultType.DataUrl,
+          resultType: CameraResultType.Uri,
         });
 
         const deviceLocation = await Geolocation.getCurrentPosition({
@@ -70,11 +83,30 @@ export default defineComponent({
           maximumAge: 0,
           timeout: 2000,
         });
+        const test = {
+          coords: {
+            latitude: deviceLocation.coords.latitude,
+            longitude: deviceLocation.coords.longitude,
+            accuracy: deviceLocation.coords.accuracy,
+            altitude: deviceLocation.coords.altitude,
+            altitudeAccuracy: deviceLocation.coords.altitudeAccuracy,
+            heading: deviceLocation.coords.heading,
+            speed: deviceLocation.coords.speed,
+          },
+          timestamp: deviceLocation.timestamp,
+        };
 
-        console.log(image);
+        if (!image?.webPath) return;
+
+        const blob = await Axios.get(image.webPath, { responseType: 'blob' }).then((res) => new Blob([res.data], { type: `image/${image.format}` }));
+        image.dataUrl = await convertBlobToBase64(blob);
+
         this.$router.push({
           name: 'Form',
-          params: { image: JSON.stringify(image), deviceLocation: JSON.stringify(deviceLocation) },
+          params: {
+            image: JSON.stringify(image),
+            deviceLocation: JSON.stringify(test),
+          },
         });
       } catch (err) {
         console.log(err);
