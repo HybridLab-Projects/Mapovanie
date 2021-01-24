@@ -7,7 +7,7 @@
     </ion-header>
     <ion-content class="ion-padding">
       <h1>Gratulujem</h1>
-      <p>Úspešne si pridal strom do našej databázy.</p>
+      <p>Úspešne si pridal záznam do našej databázy.</p>
     </ion-content>
     <ion-button
       class="ion-margin"
