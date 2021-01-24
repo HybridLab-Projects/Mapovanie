@@ -45,6 +45,7 @@ import Axios from 'axios';
 import {
   Plugins, CameraResultType, GeolocationPosition, CameraPhoto,
 } from '@capacitor/core';
+import Helpers from '@/plugins/app/helpers';
 
 const { Camera, Device, Geolocation } = Plugins;
 export default defineComponent({
@@ -79,13 +80,18 @@ export default defineComponent({
         const image = await Camera.getPhoto({
           quality: 90,
           allowEditing: true,
-          resultType: CameraResultType.DataUrl,
+          resultType: CameraResultType.Uri,
         });
         const deviceLocation = await Geolocation.getCurrentPosition({
           enableHighAccuracy: true,
           maximumAge: 0,
           timeout: 2000,
         });
+
+        if (!image?.webPath) return;
+
+        image.dataUrl = await Helpers.getBase64FromBlobUrl(image.webPath, image.format);
+
         this.image = image;
         this.deviceLocation = deviceLocation;
       } catch (err) {

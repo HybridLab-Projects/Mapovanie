@@ -25,6 +25,8 @@ import { defineComponent } from 'vue';
 
 import { Plugins, CameraResultType, Geolocation } from '@capacitor/core';
 
+import Helpers from '@/plugins/app/helpers';
+
 import { cameraOutline } from 'ionicons/icons';
 import {
   IonPage,
@@ -36,7 +38,6 @@ import {
   IonFabButton,
   IonIcon,
 } from '@ionic/vue';
-import Axios from 'axios';
 
 const { Camera } = Plugins;
 
@@ -59,18 +60,6 @@ export default defineComponent({
   },
   methods: {
     async takePicture() {
-      const convertBlobToBase64 = (blob: Blob): Promise<string> => new Promise(
-        (resolve, reject) => {
-          const reader = new FileReader();
-          reader.onerror = reject;
-          reader.onload = () => {
-            if (typeof reader.result === 'string') resolve(reader.result);
-            reject();
-          };
-          reader.readAsDataURL(blob);
-        },
-      );
-
       try {
         const image = await Camera.getPhoto({
           quality: 90,
@@ -98,8 +87,7 @@ export default defineComponent({
 
         if (!image?.webPath) return;
 
-        const blob = await Axios.get(image.webPath, { responseType: 'blob' }).then((res) => new Blob([res.data], { type: `image/${image.format}` }));
-        image.dataUrl = await convertBlobToBase64(blob);
+        image.dataUrl = await Helpers.getBase64FromBlobUrl(image.webPath, image.format);
 
         this.$router.push({
           name: 'Form',
