@@ -71,8 +71,12 @@ export default defineComponent({
     const imageStringified = this.$route.params.image as string;
     const deviceLocationStringified = this.$route.params.deviceLocation as string;
 
-    this.image = JSON.parse(imageStringified);
-    this.deviceLocation = JSON.parse(deviceLocationStringified);
+    if (!imageStringified || !deviceLocationStringified) {
+      this.$router.push({ name: 'Home' });
+    } else {
+      this.image = JSON.parse(imageStringified);
+      this.deviceLocation = JSON.parse(deviceLocationStringified);
+    }
   },
   methods: {
     async retakePicture() {
@@ -89,8 +93,9 @@ export default defineComponent({
         });
 
         if (!image?.webPath) return;
-
+        console.log('before base64', image);
         image.dataUrl = await Helpers.getBase64FromBlobUrl(image.webPath, image.format);
+        console.log('after base64', image);
 
         this.image = image;
         this.deviceLocation = deviceLocation;
