@@ -23,7 +23,7 @@
 import {
   IonPage, IonHeader, IonToolbar, IonTitle, IonContent,
 } from '@ionic/vue';
-import ExploreContainer from '@/components/ExploreContainer.vue';
+import ExploreContainer from '@/plugins/app/_components/exploreContainer.vue';
 
 export default {
   name: 'Tab1',
