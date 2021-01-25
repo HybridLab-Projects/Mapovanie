@@ -12,7 +12,7 @@ export default {
         reader.onerror = reject;
         reader.onload = () => {
           if (typeof reader.result === 'string') resolve(reader.result);
-          reject();
+          else reject();
         };
         reader.readAsDataURL(blob);
       },

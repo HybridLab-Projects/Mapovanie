@@ -5,6 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:android": "npm run build && ionic cap sync && ionic cap open android",
+    "build:ios": "npm run build && ionic cap sync && ionic cap open ios",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",

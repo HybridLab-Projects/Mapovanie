@@ -45,7 +45,7 @@ import Axios from 'axios';
 import {
   Plugins, CameraResultType, GeolocationPosition, CameraPhoto,
 } from '@capacitor/core';
-import Helpers from '@/plugins/app/helpers';
+import Helpers from '@/plugins/app/_helpers';
 
 const { Camera, Device, Geolocation } = Plugins;
 export default defineComponent({

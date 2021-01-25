@@ -1,10 +1,10 @@
 import { createApp } from 'vue';
 import { IonicVue } from '@ionic/vue';
 import App from './App.vue';
-import router from './router';
-import store from './store';
+import router from './plugins/app/_config/router';
+import store from './plugins/app/_config/store';
 
-import './plugins';
+import './custom';
 
 const app = createApp(App)
   .use(IonicVue, { mode: 'ios', swipeBackEnabled: false })

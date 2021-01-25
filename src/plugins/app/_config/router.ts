@@ -5,12 +5,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     name: 'Home',
     path: '/',
-    component: () => import('@/views/Home.vue'),
+    component: () => import('@/plugins/app/home/home.vue'),
   },
   {
     name: 'Form',
     path: '/form',
-    component: () => import('@/views/Form.vue'),
+    component: () => import('@/plugins/app/form/form.vue'),
     beforeEnter(to, from, next) {
       if (!to.params.image
       || !to.params.deviceLocation) {
@@ -23,12 +23,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     name: 'Success',
     path: '/success',
-    component: () => import('@/views/Success.vue'),
+    component: () => import('@/plugins/app/success/success.vue'),
   },
   {
     name: 'Fail',
     path: '/fail',
-    component: () => import('@/views/Fail.vue'),
+    component: () => import('@/plugins/app/fail/fail.vue'),
   },
 ];
 

@@ -25,7 +25,7 @@ import { defineComponent } from 'vue';
 
 import { Plugins, CameraResultType, Geolocation } from '@capacitor/core';
 
-import Helpers from '@/plugins/app/helpers';
+import Helpers from '@/plugins/app/_helpers';
 
 import { cameraOutline } from 'ionicons/icons';
 import {
