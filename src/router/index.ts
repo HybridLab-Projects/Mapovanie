@@ -11,6 +11,14 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Form',
     path: '/form',
     component: () => import('@/views/Form.vue'),
+    beforeEnter(to, from, next) {
+      if (!to.params.image
+      || !to.params.deviceLocation) {
+        next({ name: 'Home' });
+      } else {
+        next();
+      }
+    },
   },
   {
     name: 'Success',

@@ -8,7 +8,8 @@
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "lint:scss": "stylelint ./src/**/*.{vue,scss} --fix"
+    "lint:scss": "stylelint ./src/**/*.{vue,scss} --fix",
+    "deploy": "npm install && npm run build && rm -rf ../htdocs/js/ && rm -rf ../htdocs/css/ && rm -rf ../htdocs/assets/ && rm ../htdocs/index.html && cp -r dist/. ../htdocs/"
   },
   "dependencies": {
     "@capacitor/android": "^2.4.4",

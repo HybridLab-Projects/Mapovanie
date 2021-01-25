@@ -71,12 +71,8 @@ export default defineComponent({
     const imageStringified = this.$route.params.image as string;
     const deviceLocationStringified = this.$route.params.deviceLocation as string;
 
-    if (!imageStringified || !deviceLocationStringified) {
-      this.$router.push({ name: 'Home' });
-    } else {
-      this.image = JSON.parse(imageStringified);
-      this.deviceLocation = JSON.parse(deviceLocationStringified);
-    }
+    this.image = JSON.parse(imageStringified);
+    this.deviceLocation = JSON.parse(deviceLocationStringified);
   },
   methods: {
     async retakePicture() {
