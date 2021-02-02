@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package dev.hybridlab.mapovanie;
 
 import android.os.Bundle;
 
