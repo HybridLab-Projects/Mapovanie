@@ -11,13 +11,15 @@
         @click="retakePicture()"
       />
     </ion-content>
-    <ion-button
-      expand="block"
-      class="submit-button ion-margin"
-      @click="submit()"
-    >
-      Odoslať
-    </ion-button>
+    <ion-footer>
+      <ion-button
+        expand="block"
+        class="ion-margin"
+        @click="submit()"
+      >
+        Odoslať
+      </ion-button>
+    </ion-footer>
   </ion-page>
 </template>
 
@@ -31,6 +33,7 @@ import {
   IonContent,
   IonImg,
   IonButton,
+  IonFooter,
 } from '@ionic/vue';
 import Axios from 'axios';
 
@@ -48,6 +51,7 @@ export default defineComponent({
     IonContent,
     IonImg,
     IonButton,
+    IonFooter,
   },
   data() {
     return {

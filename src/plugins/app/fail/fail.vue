@@ -5,12 +5,15 @@
       <h1>Chyba</h1>
       <p>Niekde nastala chyba, skúste to znova neskôr</p>
     </ion-content>
-    <ion-button
-      class="ion-margin"
-      router-link="/"
-    >
-      Späť na domovskú obrazovku
-    </ion-button>
+    <ion-footer>
+      <ion-button
+        expand="block"
+        class="ion-margin"
+        router-link="/"
+      >
+        Späť na domovskú obrazovku
+      </ion-button>
+    </ion-footer>
   </ion-page>
 </template>
 
@@ -21,6 +24,7 @@ import {
   IonPage,
   IonContent,
   IonButton,
+  IonFooter,
 } from '@ionic/vue';
 
 export default defineComponent({
@@ -29,6 +33,7 @@ export default defineComponent({
     IonContent,
     IonPage,
     IonButton,
+    IonFooter,
   },
 });
 </script>
