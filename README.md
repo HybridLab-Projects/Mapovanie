@@ -1,5 +1,7 @@
 # Mapovanie
 
+Aplikácia k projektu Mapovanie
+
 ## Inštalácia a spustenie aplikácie
 
 ```bash
