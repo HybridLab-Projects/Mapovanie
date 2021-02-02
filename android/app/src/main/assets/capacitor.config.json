@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "mapovanie",
+  "appId": "dev.hybridlab.mapovanie",
+  "appName": "Mapovanie",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "dist",
