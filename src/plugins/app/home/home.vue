@@ -23,9 +23,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { Plugins, CameraResultType, Geolocation } from '@capacitor/core';
-
-import Helpers from '@/plugins/app/_helpers';
+import Camera from '@/plugins/capacitor/camera';
+import Geolocation from '@/plugins/capacitor/geolocation';
 
 import { cameraOutline } from 'ionicons/icons';
 import {
@@ -38,8 +37,6 @@ import {
   IonFabButton,
   IonIcon,
 } from '@ionic/vue';
-
-const { Camera } = Plugins;
 
 export default defineComponent({
   name: 'Home',
@@ -61,39 +58,14 @@ export default defineComponent({
   methods: {
     async takePicture() {
       try {
-        const image = await Camera.getPhoto({
-          quality: 90,
-          allowEditing: true,
-          resultType: CameraResultType.Uri,
-        });
-
-        const deviceLocation = await Geolocation.getCurrentPosition({
-          enableHighAccuracy: true,
-          maximumAge: 0,
-          timeout: 2000,
-        });
-        const test = {
-          coords: {
-            latitude: deviceLocation.coords.latitude,
-            longitude: deviceLocation.coords.longitude,
-            accuracy: deviceLocation.coords.accuracy,
-            altitude: deviceLocation.coords.altitude,
-            altitudeAccuracy: deviceLocation.coords.altitudeAccuracy,
-            heading: deviceLocation.coords.heading,
-            speed: deviceLocation.coords.speed,
-          },
-          timestamp: deviceLocation.timestamp,
-        };
-
-        if (!image?.webPath) return;
-
-        image.dataUrl = await Helpers.getBase64FromBlobUrl(image.webPath, image.format);
+        const photo = await Camera.getFullPhoto();
+        const deviceLocation = await Geolocation.getDeviceLocation();
 
         this.$router.push({
           name: 'Form',
           params: {
-            image: JSON.stringify(image),
-            deviceLocation: JSON.stringify(test),
+            image: JSON.stringify(photo),
+            deviceLocation: JSON.stringify(deviceLocation),
           },
         });
       } catch (err) {

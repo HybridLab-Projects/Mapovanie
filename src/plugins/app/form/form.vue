@@ -26,6 +26,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable @typescript-eslint/camelcase */
 import { defineComponent } from 'vue';
 
 import {
@@ -43,11 +44,12 @@ import {
 import Axios from 'axios';
 
 import {
-  Plugins, CameraResultType, GeolocationPosition, CameraPhoto,
+  Plugins, GeolocationPosition, CameraPhoto,
 } from '@capacitor/core';
-import Helpers from '@/plugins/app/_helpers';
+import Camera from '@/plugins/capacitor/camera';
+import Geolocation from '@/plugins/capacitor/geolocation';
 
-const { Camera, Device, Geolocation } = Plugins;
+const { Device } = Plugins;
 export default defineComponent({
   name: 'Form',
   components: {
@@ -77,24 +79,8 @@ export default defineComponent({
   methods: {
     async retakePicture() {
       try {
-        const image = await Camera.getPhoto({
-          quality: 90,
-          allowEditing: true,
-          resultType: CameraResultType.Uri,
-        });
-        const deviceLocation = await Geolocation.getCurrentPosition({
-          enableHighAccuracy: true,
-          maximumAge: 0,
-          timeout: 2000,
-        });
-
-        if (!image?.webPath) return;
-        console.log('before base64', image);
-        image.dataUrl = await Helpers.getBase64FromBlobUrl(image.webPath, image.format);
-        console.log('after base64', image);
-
-        this.image = image;
-        this.deviceLocation = deviceLocation;
+        this.image = await Camera.getFullPhoto();
+        this.deviceLocation = await Geolocation.getDeviceLocation();
       } catch (err) {
         console.log(err);
       }
@@ -106,25 +92,19 @@ export default defineComponent({
       try {
         await loading.present();
         const deviceInfo = await Device.getInfo();
-        if (!this.deviceLocation.coords.longitude
-            || !this.deviceLocation.coords.latitude
-            || !deviceInfo.uuid
-            || !this.image.dataUrl
-        ) {
-          throw new Error('Error');
-        }
+
+        const { longitude, latitude } = this.deviceLocation.coords;
+
         await Axios.post('https://mapovanie.hybridlab.dev/cms/api/entities', {
           type: 'bench',
-          // eslint-disable-next-line @typescript-eslint/camelcase
           sub_type: 'bench',
-          longitude: this.deviceLocation.coords.longitude,
-          latitude: this.deviceLocation.coords.latitude,
-          // eslint-disable-next-line @typescript-eslint/camelcase
+          longitude,
+          latitude,
           device_uuid: deviceInfo.uuid,
           image: this.image.dataUrl,
         });
-        await loading.dismiss();
 
+        await loading.dismiss();
         this.$router.push({
           name: 'Success',
         });
@@ -132,7 +112,6 @@ export default defineComponent({
         console.log(err);
 
         await loading.dismiss();
-
         this.$router.push({
           name: 'Fail',
         });
