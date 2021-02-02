@@ -5,7 +5,7 @@ Aplikácia k projektu Mapovanie
 ## Inštalácia a spustenie aplikácie
 
 ```bash
-npm installs
+npm install
 npm run serve
 ```
 
