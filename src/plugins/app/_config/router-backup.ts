@@ -1,36 +1,19 @@
 import { createRouter, createWebHashHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import Tabs from '../_layout/tabs.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
+    name: 'Home',
     path: '/',
-    redirect: '/tabs/home',
+    component: () => import('@/plugins/app/home/home.vue'),
   },
-  {
-    path: '/tabs/',
-    component: Tabs,
-    children: [
-      {
-        path: '',
-        redirect: '/tabs/home',
-      },
-      {
-        name: 'Home',
-        path: 'home',
-        component: () => import('@/plugins/app/home/home.vue'),
-      },
-    ],
-  },
-
-  // Without tabs
   {
     name: 'Form',
     path: '/form',
     component: () => import('@/plugins/app/form/form.vue'),
     beforeEnter(to, from, next) {
       if (!to.params.image
-          || !to.params.deviceLocation) {
+      || !to.params.deviceLocation) {
         next({ name: 'Home' });
       } else {
         next();

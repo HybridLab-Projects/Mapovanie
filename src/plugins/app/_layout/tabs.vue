@@ -31,12 +31,14 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 import {
   IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage,
 } from '@ionic/vue';
 import { ellipse, square, triangle } from 'ionicons/icons';
 
-export default {
+export default defineComponent({
   name: 'Tabs',
   components: {
     IonLabel, IonTabs, IonTabBar, IonTabButton, IonIcon, IonPage,
@@ -48,5 +50,5 @@ export default {
       triangle,
     };
   },
-};
+});
 </script>

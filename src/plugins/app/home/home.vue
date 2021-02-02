@@ -1,10 +1,6 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Mapovanie</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <i-header title="Mapovanie" />
     <ion-content class="ion-padding">
       <ion-fab
         slot="fixed"
@@ -29,9 +25,6 @@ import Geolocation from '@/plugins/capacitor/geolocation';
 import { cameraOutline } from 'ionicons/icons';
 import {
   IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonFab,
   IonFabButton,
@@ -41,9 +34,6 @@ import {
 export default defineComponent({
   name: 'Home',
   components: {
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonPage,
     IonFab,

@@ -1,10 +1,6 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Mapovanie</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <i-header title="Mapovanie" />
     <ion-content class="ion-padding">
       <h1>Gratulujem</h1>
       <p>Úspešne si pridal záznam do našej databázy.</p>
@@ -23,9 +19,6 @@ import { defineComponent } from 'vue';
 
 import {
   IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonButton,
 } from '@ionic/vue';
@@ -33,9 +26,6 @@ import {
 export default defineComponent({
   name: 'Success',
   components: {
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonPage,
     IonButton,

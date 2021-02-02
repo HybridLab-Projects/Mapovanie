@@ -1,13 +1,9 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button />
-        </ion-buttons>
-        <ion-title>Pridať lavičku</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <i-header
+      title="Pridať lavičku"
+      back
+    />
     <ion-content class="ion-padding">
       <ion-img
         :src="image.webPath"
@@ -32,14 +28,9 @@ import { defineComponent } from 'vue';
 import {
   loadingController,
   IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonImg,
   IonButton,
-  IonButtons,
-  IonBackButton,
 } from '@ionic/vue';
 import Axios from 'axios';
 
@@ -54,14 +45,9 @@ export default defineComponent({
   name: 'Form',
   components: {
     IonPage,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonImg,
     IonButton,
-    IonButtons,
-    IonBackButton,
   },
   data() {
     return {

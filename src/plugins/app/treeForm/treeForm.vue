@@ -1,13 +1,10 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button />
-        </ion-buttons>
-        <ion-title>Pridať strom</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <i-header
+      title="Pridať strom"
+      back
+    />
+
     <ion-content class="ion-padding">
       <ion-img
         :src="image.webPath"
