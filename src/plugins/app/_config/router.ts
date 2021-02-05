@@ -47,6 +47,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/fail',
     component: () => import('@/plugins/app/fail/fail.vue'),
   },
+  {
+    name: 'Login',
+    path: '/login',
+    component: () => import('@/plugins/app/login/login.vue'),
+  },
 ];
 
 const router = createRouter({
