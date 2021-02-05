@@ -20,6 +20,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'home',
         component: () => import('@/plugins/app/home/home.vue'),
       },
+      {
+        name: 'Latest',
+        path: 'latest',
+        component: () => import('@/plugins/app/latest/latest.vue'),
+      },
     ],
   },
 
