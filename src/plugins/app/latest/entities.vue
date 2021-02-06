@@ -7,19 +7,23 @@
   </ion-refresher>
 
   <ion-card
-    v-for="num in cardCount"
-    :key="num"
+    v-for="entity in entities"
+    :key="entity.id"
+    button
+    :router-link="`/entity-detail/${entity.id}`"
   >
-    <ion-img :src="require('./img/lavicka.jpg')" />
+    <ion-img :src="entity.images[0].url" />
     <ion-card-header>
-      <ion-card-subtitle>Mierová 14</ion-card-subtitle>
-      <ion-card-title>Lavička</ion-card-title>
+      <ion-card-subtitle>{{ entity.lon }} {{ entity.lat }}</ion-card-subtitle>
+      <ion-card-title v-if="entity.type === 'bench'">
+        Lavička
+      </ion-card-title>
     </ion-card-header>
 
-    <ion-card-content>
-      Keep close to Nature's heart... and break clear away, once in awhile,
-      and climb a mountain or spend a week in the woods. Wash your spirit clean.
-    </ion-card-content>
+    <!--    <ion-card-content>-->
+    <!--      Keep close to Nature's heart... and break clear away, once in awhile,-->
+    <!--      and climb a mountain or spend a week in the woods. Wash your spirit clean.-->
+    <!--    </ion-card-content>-->
   </ion-card>
 </template>
 
@@ -30,7 +34,6 @@ import {
   IonRefresher,
   IonRefresherContent,
   IonCard,
-  IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
@@ -43,7 +46,6 @@ export default defineComponent({
     IonRefresher,
     IonRefresherContent,
     IonCard,
-    IonCardContent,
     IonCardHeader,
     IonCardSubtitle,
     IonCardTitle,
@@ -54,14 +56,16 @@ export default defineComponent({
       cardCount: 2,
     };
   },
+  computed: {
+    entities() {
+      return this.$store.state.entities;
+    },
+  },
   methods: {
-    doRefresh(e: CustomEvent) {
-      setTimeout(() => {
-        console.log('Async operation has ended');
-        this.cardCount += 2;
-        // @ts-expect-error
-        e.target.complete();
-      }, 1000);
+    async doRefresh(e: CustomEvent) {
+      await this.$store.dispatch('fetchEntities');
+      // @ts-expect-error
+      e.target.complete();
     },
   },
 });

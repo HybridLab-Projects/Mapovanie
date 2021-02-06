@@ -57,6 +57,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/login',
     component: () => import('@/plugins/app/login/login.vue'),
   },
+  {
+    name: 'EntityDetail',
+    path: '/entity-detail/:id',
+    component: () => import('@/plugins/app/entity-detail/entity-detail.vue'),
+    props: true,
+  },
 ];
 
 const router = createRouter({

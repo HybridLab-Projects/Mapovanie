@@ -2,6 +2,7 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
+        <ion-title>Príspevky</ion-title>
         <ion-buttons
           v-if="value === 'entities'"
           slot="end"
@@ -13,7 +14,6 @@
             />
           </ion-button>
         </ion-buttons>
-        <ion-title>Príspevky</ion-title>
       </ion-toolbar>
     </ion-header>
 
