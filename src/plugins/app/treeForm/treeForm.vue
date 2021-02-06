@@ -55,15 +55,10 @@ import { defineComponent } from 'vue';
 import {
   loadingController,
   IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonImg,
   IonButton,
   IonIcon,
-  IonButtons,
-  IonBackButton,
 } from '@ionic/vue';
 import Axios from 'axios';
 
@@ -76,15 +71,10 @@ export default defineComponent({
   name: 'Form',
   components: {
     IonPage,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonImg,
     IonButton,
     IonIcon,
-    IonButtons,
-    IonBackButton,
   },
   data() {
     return {
