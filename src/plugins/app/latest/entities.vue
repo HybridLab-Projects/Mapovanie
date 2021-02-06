@@ -38,7 +38,7 @@ import {
 } from '@ionic/vue';
 
 export default defineComponent({
-  name: 'Latest',
+  name: 'Entities',
   components: {
     IonRefresher,
     IonRefresherContent,
