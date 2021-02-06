@@ -10,9 +10,10 @@
     v-for="num in cardCount"
     :key="num"
   >
+    <ion-img :src="require('./img/lavicka.jpg')" />
     <ion-card-header>
-      <ion-card-subtitle>Card Subtitle {{ num }}</ion-card-subtitle>
-      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle>Mierová 14</ion-card-subtitle>
+      <ion-card-title>Lavička</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
@@ -33,6 +34,7 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonImg,
 } from '@ionic/vue';
 
 export default defineComponent({
@@ -45,6 +47,7 @@ export default defineComponent({
     IonCardHeader,
     IonCardSubtitle,
     IonCardTitle,
+    IonImg,
   },
   data() {
     return {
