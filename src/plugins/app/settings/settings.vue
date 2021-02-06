@@ -18,7 +18,7 @@
           </ion-select>
         </ion-item>
 
-        <ion-item router-link="/tabs/settings/qna">
+        <ion-item router-link="/settings/qna">
           <ion-label>
             Otázky a odpovede
           </ion-label>
