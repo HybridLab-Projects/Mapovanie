@@ -6,7 +6,7 @@ const { Camera } = Plugins;
 export default {
   async getFullPhoto() {
     const photo = await Camera.getPhoto({
-      quality: 90,
+      quality: 10,
       allowEditing: false,
       resultType: CameraResultType.Uri,
     });
