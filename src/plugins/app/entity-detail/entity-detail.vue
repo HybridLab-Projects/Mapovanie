@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <ion-page v-if="entity">
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
@@ -19,7 +19,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content v-if="entity">
+    <ion-content>
       <ion-img
         :src="entity.images[0].url"
       />
@@ -75,12 +75,6 @@ export default defineComponent({
     IonTitle,
     IonBackButton,
   },
-  props: {
-    id: {
-      type: String,
-      required: true,
-    },
-  },
   data() {
     return {
       flagOutline,
@@ -88,7 +82,7 @@ export default defineComponent({
   },
   computed: {
     entity(): Entity|undefined {
-      return this.$store.getters.getEntity(this.id);
+      return this.$store.getters.getEntity(this.$route.params.id);
     },
   },
 });

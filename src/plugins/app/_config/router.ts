@@ -61,7 +61,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'EntityDetail',
     path: '/entity-detail/:id',
     component: () => import('@/plugins/app/entity-detail/entity-detail.vue'),
-    props: true,
   },
 ];
 
