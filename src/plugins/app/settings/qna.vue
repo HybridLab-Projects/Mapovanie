@@ -1,8 +1,33 @@
 <template>
   <ion-page>
-    <i-header title="Otazky a odpovede" />
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons>
+          <ion-back-button />
+        </ion-buttons>
+        <ion-title>Otázky a odpovede</ion-title>
+      </ion-toolbar>
+    </ion-header>
     <ion-content class="ion-padding">
-      <h1>Otázky</h1>
+      <ion-item>
+        <ion-label>Ako?</ion-label>
+        <ion-select interface="popover" />
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Kde?</ion-label>
+        <ion-select interface="popover" />
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Preco?</ion-label>
+        <ion-select interface="popover" />
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Kedy?</ion-label>
+        <ion-select interface="popover" />
+      </ion-item>
     </ion-content>
   </ion-page>
 </template>
@@ -12,14 +37,20 @@ import { defineComponent } from 'vue';
 
 import {
   IonPage,
+  IonToolbar,
+  IonHeader,
   IonContent,
+  IonBackButton,
 } from '@ionic/vue';
 
 export default defineComponent({
   name: 'Otazky',
   components: {
-    IonContent,
     IonPage,
+    IonToolbar,
+    IonHeader,
+    IonContent,
+    IonBackButton,
   },
 });
 </script>
