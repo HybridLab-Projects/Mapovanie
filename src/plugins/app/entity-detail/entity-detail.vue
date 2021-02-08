@@ -1,11 +1,11 @@
 <template>
-  <ion-page v-if="entity">
+  <ion-page>
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
           <ion-back-button />
         </ion-buttons>
-        <ion-title v-if="entity.type === 'bench'">
+        <ion-title v-if="entity?.type === 'bench'">
           Lavička
         </ion-title>
         <ion-buttons slot="end">
@@ -21,15 +21,15 @@
 
     <ion-content>
       <ion-img
-        :src="entity.images[0].url"
+        :src="entity?.images[0]?.url"
       />
       <div class="ion-padding">
         <ion-text>
           <h6 class="ion-color-danger">
-            {{ entity.lon }} {{ entity.lat }}
+            {{ entity?.lon }} {{ entity?.lat }}
           </h6>
           <h1
-            v-if="entity.type === 'bench'"
+            v-if="entity?.type === 'bench'"
             class="ion-no-margin"
           >
             Lavička
@@ -78,12 +78,16 @@ export default defineComponent({
   data() {
     return {
       flagOutline,
+      id: '0',
     };
   },
   computed: {
     entity(): Entity|undefined {
-      return this.$store.getters.getEntity(this.$route.params.id);
+      return this.$store.getters.getEntity(this.id);
     },
+  },
+  ionViewWillEnter() {
+    this.id = this.$route.params.id as string;
   },
 });
 </script>
