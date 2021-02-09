@@ -60,7 +60,7 @@ import {
 
 import { flagOutline } from 'ionicons/icons';
 import { Entity } from '@/plugins/app/_config/types';
-import ReportModal from './report-entity.vue';
+import ReportModal from '../entity-report/entity-report.vue';
 
 export default defineComponent({
   name: 'EntityDetail',

@@ -9,7 +9,23 @@
     </ion-header>
 
     <ion-content>
-      <h1>test</h1>
+      <ion-list>
+        <ion-item
+          button
+        >
+          <ion-label>Zmena stavu</ion-label>
+        </ion-item>
+        <ion-item
+          button
+        >
+          <ion-label>Zlá poloha</ion-label>
+        </ion-item>
+        <ion-item
+          button
+        >
+          <ion-label>Nevhodný obsah</ion-label>
+        </ion-item>
+      </ion-list>
     </ion-content>
   </ion-page>
 </template>
@@ -23,16 +39,22 @@ import {
   IonToolbar,
   IonTitle,
   IonPage,
+  IonList,
+  IonItem,
+  IonLabel,
 } from '@ionic/vue';
 
 export default defineComponent({
-  name: 'ReportEntity',
+  name: 'EntityReport',
   components: {
     IonContent,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonPage,
+    IonList,
+    IonItem,
+    IonLabel,
   },
 });
 </script>
