@@ -9,7 +9,7 @@
           Lavička
         </ion-title>
         <ion-buttons slot="end">
-          <ion-button>
+          <ion-button @click="openReportModal()">
             <ion-icon
               slot="icon-only"
               :icon="flagOutline"
@@ -55,10 +55,12 @@ import {
   IonToolbar,
   IonTitle,
   IonBackButton,
+  modalController,
 } from '@ionic/vue';
 
 import { flagOutline } from 'ionicons/icons';
 import { Entity } from '@/plugins/app/_config/types';
+import ReportModal from './report-entity.vue';
 
 export default defineComponent({
   name: 'EntityDetail',
@@ -88,6 +90,20 @@ export default defineComponent({
   },
   ionViewWillEnter() {
     this.id = this.$route.params.id as string;
+  },
+  methods: {
+    async openReportModal() {
+      console.log(this);
+      const modal = await modalController.create({
+        component: ReportModal,
+        componentProps: {
+          entity: this.entity,
+        },
+        swipeToClose: true,
+        presentingElement: document.querySelector('ion-router-outlet') as HTMLElement,
+      });
+      return modal.present();
+    },
   },
 });
 </script>
