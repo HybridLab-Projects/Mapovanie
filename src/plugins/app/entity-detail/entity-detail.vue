@@ -60,7 +60,7 @@ import {
 
 import { flagOutline } from 'ionicons/icons';
 import { Entity } from '@/plugins/app/_config/types';
-import ReportModal from '../entity-report/entity-report.vue';
+import EntityReportModalNav from '../entity-report/entity-report-nav.vue';
 
 export default defineComponent({
   name: 'EntityDetail',
@@ -95,12 +95,12 @@ export default defineComponent({
     async openReportModal() {
       console.log(this);
       const modal = await modalController.create({
-        component: ReportModal,
+        component: EntityReportModalNav,
         componentProps: {
           entity: this.entity,
         },
         swipeToClose: true,
-        presentingElement: document.querySelector('ion-router-outlet') as HTMLElement,
+        presentingElement: document.querySelector('ion-router-outlet') as HTMLIonRouterOutletElement,
       });
       return modal.present();
     },

@@ -1,33 +1,35 @@
 <template>
-  <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>
-          Nahlásiť
-        </ion-title>
-      </ion-toolbar>
-    </ion-header>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Nahlásiť
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-    <ion-content>
-      <ion-list>
-        <ion-item
-          button
-        >
-          <ion-label>Zmena stavu</ion-label>
-        </ion-item>
-        <ion-item
-          button
-        >
-          <ion-label>Zlá poloha</ion-label>
-        </ion-item>
-        <ion-item
-          button
-        >
-          <ion-label>Nevhodný obsah</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  </ion-page>
+  <ion-content>
+    <ion-list>
+      <ion-item
+        button
+        @click="sendReport()"
+      >
+        <ion-label>Zmena stavu</ion-label>
+      </ion-item>
+      <ion-item
+        button
+        @click="sendReport()"
+      >
+        <ion-label>Zlá poloha</ion-label>
+      </ion-item>
+
+      <ion-item
+        button
+        @click="sendReport()"
+      >
+        <ion-label>Nevhodný obsah</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
 </template>
 
 <script lang="ts">
@@ -38,11 +40,11 @@ import {
   IonHeader,
   IonToolbar,
   IonTitle,
-  IonPage,
   IonList,
   IonItem,
   IonLabel,
 } from '@ionic/vue';
+import EntityReportSuccess from './entity-report-success.vue';
 
 export default defineComponent({
   name: 'EntityReport',
@@ -51,10 +53,15 @@ export default defineComponent({
     IonHeader,
     IonToolbar,
     IonTitle,
-    IonPage,
     IonList,
     IonItem,
     IonLabel,
+  },
+  methods: {
+    sendReport() {
+      const ionNav = document.querySelector('ion-nav') as HTMLIonNavElement;
+      ionNav.push(EntityReportSuccess);
+    },
   },
 });
 </script>
