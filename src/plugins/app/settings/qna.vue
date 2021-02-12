@@ -8,25 +8,18 @@
         <ion-title>Otázky a odpovede</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content class="ion-padding">
-      <ion-item>
-        <ion-label>Ako?</ion-label>
-        <ion-select interface="popover" />
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Kde?</ion-label>
-        <ion-select interface="popover" />
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Preco?</ion-label>
-        <ion-select interface="popover" />
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Kedy?</ion-label>
-        <ion-select interface="popover" />
+    <ion-content>
+      <ion-item
+        v-for="(question,i) in questions"
+        :key="i"
+        @click="toggleSelectedQuestion(i)"
+      >
+        <ion-label> {{ question.title }} </ion-label>
+        <ion-text v-if="selectedQuestion === i">
+          <p>
+            {{ question.answer }}
+          </p>
+        </ion-text>
       </ion-item>
     </ion-content>
   </ion-page>
@@ -41,6 +34,7 @@ import {
   IonHeader,
   IonContent,
   IonBackButton,
+  IonText,
 } from '@ionic/vue';
 
 export default defineComponent({
@@ -51,6 +45,31 @@ export default defineComponent({
     IonHeader,
     IonContent,
     IonBackButton,
+    IonText,
+  },
+  data() {
+    return {
+      questions: [
+        {
+          title: 'Ako',
+          answer: "f you're visiting this page, you're likely here because you're searching for a random sentence. Sometimes a random word just is",
+        },
+        {
+          title: 'Preco',
+          answer: 'as;dflkjfa',
+        },
+        {
+          title: 'How',
+          answer: 'LAJSdlalkjd',
+        },
+      ],
+      selectedQuestion: -1,
+    };
+  },
+  methods: {
+    toggleSelectedQuestion(questionId: any) {
+      this.selectedQuestion = this.selectedQuestion === questionId ? '' : questionId;
+    },
   },
 });
 </script>

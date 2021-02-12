@@ -1,18 +1,20 @@
 <template>
   <ion-page>
     <i-header title="Nastavenia" />
-    <ion-content class="ion-padding">
+    <ion-content>
       <ion-list>
         <ion-item>
           <ion-label>Jazyk</ion-label>
           <ion-select
+            v-model="lang"
             value="sk"
             placeholder="Jazyk"
+            @ionChange="log"
           >
             <ion-select-option value="sk">
               Slovenčina
             </ion-select-option>
-            <ion-select-option value="eng">
+            <ion-select-option value="en">
               English
             </ion-select-option>
           </ion-select>
@@ -37,20 +39,30 @@ import {
   IonList,
   IonItem,
   IonLabel,
+  IonSelect,
+  IonSelectOption,
 } from '@ionic/vue';
 
 export default defineComponent({
   name: 'Settings',
-  //   data() {
-  //       return {
-  //       },
-  //   },
   components: {
     IonContent,
     IonPage,
     IonList,
     IonItem,
     IonLabel,
+    IonSelect,
+    IonSelectOption,
+  },
+  data() {
+    return {
+      lang: 'sk',
+    };
+  },
+  methods: {
+    log() {
+      console.log(this.lang);
+    },
   },
 });
 </script>
