@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-buttons>
+        <ion-buttons slot="start">
           <ion-back-button />
         </ion-buttons>
         <ion-title>Otázky a odpovede</ion-title>
@@ -55,7 +55,7 @@ import {
 import { chevronDown } from 'ionicons/icons';
 
 export default defineComponent({
-  name: 'Otazky',
+  name: 'QnA',
   components: {
     IonPage,
     IonToolbar,
@@ -90,8 +90,8 @@ export default defineComponent({
     };
   },
   methods: {
-    toggleSelectedQuestion(questionId: any) {
-      this.selectedQuestion = this.selectedQuestion === questionId ? '' : questionId;
+    toggleSelectedQuestion(questionId: number) {
+      this.selectedQuestion = this.selectedQuestion === questionId ? -1 : questionId;
     },
   },
 });

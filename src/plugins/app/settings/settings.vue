@@ -20,7 +20,10 @@
           </ion-select>
         </ion-item>
 
-        <ion-item router-link="/settings/qna">
+        <ion-item
+          button
+          router-link="/settings/qna"
+        >
           <ion-label>
             Otázky a odpovede
           </ion-label>
