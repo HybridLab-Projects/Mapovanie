@@ -63,6 +63,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/plugins/app/login/login.vue'),
   },
   {
+    name: 'EntityDetail',
+    path: '/entity-detail/:id',
+    component: () => import('@/plugins/app/entity-detail/entity-detail.vue'),
+  },
+  {
     name: 'QnA',
     path: '/settings/qna',
     component: () => import('@/plugins/app/settings/qna.vue'),
