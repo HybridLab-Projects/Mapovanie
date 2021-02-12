@@ -1,5 +1,6 @@
 # Mapovanie
-![Build Status](https://github.com/HybridLab-Projects/Mapovanie/workflows/Build/badge.svg)
+
+![Build Status](https://img.shields.io/github/workflow/status/HybridLab-Projects/Mapovanie/Build?style=for-the-badge)
 
 Aplikácia k projektu Mapovanie
 
