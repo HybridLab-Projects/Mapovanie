@@ -17,6 +17,14 @@
           <ion-icon :icon="ellipse" />
           <ion-label>Najnovšie</ion-label>
         </ion-tab-button>
+
+        <ion-tab-button
+          tab="settings"
+          href="/tabs/settings"
+        >
+          <ion-icon :icon="settings" />
+          <ion-label>Nastavenia</ion-label>
+        </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
   </ion-page>
@@ -28,7 +36,7 @@ import { defineComponent } from 'vue';
 import {
   IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage,
 } from '@ionic/vue';
-import { ellipse, triangle } from 'ionicons/icons';
+import { ellipse, triangle, settings } from 'ionicons/icons';
 
 export default defineComponent({
   name: 'Tabs',
@@ -39,6 +47,7 @@ export default defineComponent({
     return {
       ellipse,
       triangle,
+      settings,
     };
   },
 });

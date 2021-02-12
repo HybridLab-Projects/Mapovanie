@@ -25,6 +25,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'latest',
         component: () => import('@/plugins/app/latest/latest.vue'),
       },
+      {
+        name: 'Settings',
+        path: 'settings',
+        component: () => import('@/plugins/app/settings/settings.vue'),
+      },
     ],
   },
 
@@ -56,6 +61,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Login',
     path: '/login',
     component: () => import('@/plugins/app/login/login.vue'),
+  },
+  {
+    name: 'QnA',
+    path: '/settings/qna',
+    component: () => import('@/plugins/app/settings/qna.vue'),
   },
 ];
 
