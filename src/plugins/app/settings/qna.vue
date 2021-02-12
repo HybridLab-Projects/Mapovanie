@@ -9,18 +9,28 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-item
-        v-for="(question,i) in questions"
-        :key="i"
-        @click="toggleSelectedQuestion(i)"
-      >
-        <ion-label> {{ question.title }} </ion-label>
-        <ion-text v-if="selectedQuestion === i">
-          <p>
-            {{ question.answer }}
-          </p>
-        </ion-text>
-      </ion-item>
+      <ion-list>
+        <div
+          v-for="(question,i) in questions"
+          :key="i"
+        >
+          <ion-item
+            :lines="selectedQuestion === i ? 'none' : 'inset'"
+            button
+            :detail-icon="selectedQuestion === i ? chevronDown : 'chevron-forward'"
+            @click="toggleSelectedQuestion(i)"
+          >
+            <ion-label> {{ question.title }} </ion-label>
+          </ion-item>
+          <ion-item v-if="selectedQuestion === i">
+            <ion-text>
+              <p>
+                {{ question.answer }}
+              </p>
+            </ion-text>
+          </ion-item>
+        </div>
+      </ion-list>
     </ion-content>
   </ion-page>
 </template>
@@ -34,8 +44,15 @@ import {
   IonHeader,
   IonContent,
   IonBackButton,
+  IonButtons,
+  IonTitle,
+  IonLabel,
   IonText,
+  IonItem,
+  IonList,
 } from '@ionic/vue';
+
+import { chevronDown } from 'ionicons/icons';
 
 export default defineComponent({
   name: 'Otazky',
@@ -45,25 +62,31 @@ export default defineComponent({
     IonHeader,
     IonContent,
     IonBackButton,
+    IonButtons,
+    IonTitle,
+    IonLabel,
     IonText,
+    IonItem,
+    IonList,
   },
   data() {
     return {
       questions: [
         {
-          title: 'Ako',
-          answer: "f you're visiting this page, you're likely here because you're searching for a random sentence. Sometimes a random word just is",
+          title: 'Čo je Mapovanie?',
+          answer: 'You have a choice of over 60 carefully selected Bratislava hotels, botels, pensions, apartments ranging from budget to luxury',
         },
         {
-          title: 'Preco',
-          answer: 'as;dflkjfa',
+          title: 'Ako sa mapuje?',
+          answer: 'Salivary gland tumours treated in the stomatological clinics in Bratislava',
         },
         {
-          title: 'How',
-          answer: 'LAJSdlalkjd',
+          title: 'Prečo mapujeme?',
+          answer: 'Kiev occupies the highest spot in the ranking, followed by Istanbul, Bratislava, Upper Silesia and Sofia in the top-5 manufacturing hubs',
         },
       ],
       selectedQuestion: -1,
+      chevronDown,
     };
   },
   methods: {
