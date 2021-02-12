@@ -1,5 +1,5 @@
 # Mapovanie
-![Build Status](https://github.com/HybridLab-Projects/Mapovanie/workflows/CI_PUSH/badge.svg)
+![Build Status](https://github.com/HybridLab-Projects/Mapovanie/workflows/Build/badge.svg)
 
 Aplikácia k projektu Mapovanie
 
