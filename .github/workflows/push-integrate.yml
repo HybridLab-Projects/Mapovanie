@@ -1,0 +1,28 @@
+name: Build
+
+on:
+  push:
+      branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.15.x'
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run lint:scss
+
+
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.15.x'
+      - run: npm ci
+      - run: npm run build
