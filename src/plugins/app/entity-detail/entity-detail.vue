@@ -24,13 +24,28 @@
         :src="entity?.images[0]?.url"
       />
       <div class="ion-padding">
-        <ion-text>
-          <h6 class="ion-color-danger">
-            {{ entity?.lon }} {{ entity?.lat }}
-          </h6>
+        <ion-text
+          color="medium"
+          class="d-flex"
+        >
+          <ion-icon
+            :icon="locationOutline"
+            size="large"
+            class="ion-margin-end"
+          />
+          <h5 class="font-weight-bold ion-align-self-center ion-no-margin">
+            {{ entity?.address?.split(',')[0] }}
+          </h5>
+        </ion-text>
+        <ion-text class="d-flex ion-margin-top">
+          <ion-icon
+            :icon="mapOutline"
+            size="large"
+            class="ion-margin-end"
+          />
           <h1
             v-if="entity?.type === 'bench'"
-            class="ion-no-margin"
+            class="ion-no-margin ion ion-align-self-center"
           >
             Lavička
           </h1>
@@ -58,7 +73,7 @@ import {
   modalController,
 } from '@ionic/vue';
 
-import { flagOutline } from 'ionicons/icons';
+import { flagOutline, locationOutline, mapOutline } from 'ionicons/icons';
 import { Entity } from '@/plugins/app/_config/types';
 import EntityReportModalNav from '../entity-report/entity-report-nav.vue';
 
@@ -80,6 +95,8 @@ export default defineComponent({
   data() {
     return {
       flagOutline,
+      locationOutline,
+      mapOutline,
       id: '0',
     };
   },

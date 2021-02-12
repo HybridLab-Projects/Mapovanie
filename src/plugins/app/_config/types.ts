@@ -17,4 +17,5 @@ export interface Entity {
         }
     ];
     date: string;
+    address: string;
 }
