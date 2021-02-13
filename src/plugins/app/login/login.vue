@@ -17,6 +17,7 @@
         class="ion-margin"
         router-link="/tabs"
       >
+        <ion-icon :icon="logoFacebook" />
         Prihlásenie cez Facebook
       </ion-button>
     </ion-footer>
@@ -35,6 +36,8 @@ import {
   IonText,
 } from '@ionic/vue';
 
+import { logoFacebook } from 'ionicons/icons';
+
 export default defineComponent({
   name: 'Login',
   components: {
@@ -45,8 +48,19 @@ export default defineComponent({
     IonImg,
     IonText,
   },
+  data() {
+    return {
+      logoFacebook,
+    };
+  },
 });
 </script>
 
 <style lang="scss" scoped>
+.ion-margin {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  margin-bottom: 50%;
+}
 </style>
