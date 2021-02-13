@@ -15,7 +15,7 @@
       <ion-button
         expand="block"
         class="ion-margin"
-        router-link="/tabs"
+        @click="login()"
       >
         Prihlásenie cez Facebook
       </ion-button>
@@ -44,6 +44,12 @@ export default defineComponent({
     IonFooter,
     IonImg,
     IonText,
+  },
+  methods: {
+    async login() {
+      await this.$store.dispatch('login');
+      await this.$router.push({ name: 'Home' });
+    },
   },
 });
 </script>
