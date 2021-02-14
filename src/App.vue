@@ -15,8 +15,7 @@ export default defineComponent({
     IonRouterOutlet,
   },
   async created() {
-    this.$store.dispatch('fetchEntities');
-    this.$store.dispatch('checkLogin');
+    await this.$store.dispatch('fetchEntities');
   },
 });
 

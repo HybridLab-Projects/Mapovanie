@@ -1,4 +1,7 @@
 /* eslint-disable no-undef,func-names,prefer-const */
+
+import store from '@/plugins/app/_config/store';
+
 export default {
   initFacebookSdk() {
     return new Promise((resolve) => {
@@ -9,9 +12,8 @@ export default {
           xfbml: true, // parse social plugins on this page
           version: 'v2.10', // use graph api current version
         });
-        FB.getLoginStatus((test) => {
-          console.log(test);
-          resolve();
+        FB.getLoginStatus(() => {
+          store.dispatch('checkLogin').then(() => resolve());
         });
       };
 

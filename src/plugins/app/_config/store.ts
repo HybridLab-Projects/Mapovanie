@@ -1,5 +1,5 @@
 import { createStore, createLogger } from 'vuex';
-import { Entity, State } from '@/plugins/app/_config/types';
+import { Entity, State, User } from '@/plugins/app/_config/types';
 import Axios from 'axios';
 
 import { Plugins } from '@capacitor/core';
@@ -10,15 +10,19 @@ const { FacebookLogin } = Plugins;
 
 export default createStore<State>({
   state: {
-    entities: [] as Array<Entity>,
+    entities: [],
+    token: '',
+    user: {} as User,
   },
   mutations: {
     entitiesFetched(state, entities) {
       state.entities = entities;
     },
-    // userLoggedIn(state, user) {
-    //
-    // }
+    userLoggedIn(state, userData) {
+      state.token = userData.data.token;
+      state.user = userData.data.user;
+      router.push({ name: 'Home' });
+    },
   },
   actions: {
     async fetchEntities({ commit }) {
@@ -39,6 +43,7 @@ export default createStore<State>({
           // eslint-disable-next-line @typescript-eslint/camelcase
           const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token });
           console.log('FB: ', data);
+          commit('userLoggedIn', data);
           await router.push({ name: 'Home' });
         } else {
           console.error('FB: Failed getting token');
@@ -47,7 +52,7 @@ export default createStore<State>({
         console.error('Login: ', err);
       }
     },
-    async checkLogin() {
+    async checkLogin({ commit }) {
       try {
         const result = await FacebookLogin.getCurrentAccessToken() as FacebookLoginResponse;
         if (result.accessToken) {
@@ -55,7 +60,7 @@ export default createStore<State>({
           // eslint-disable-next-line @typescript-eslint/camelcase
           const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token });
           console.log('FB: ', data);
-          await router.push({ name: 'Home' });
+          commit('userLoggedIn', data);
         } else {
           console.error('FB: Failed getting token');
         }
@@ -63,11 +68,20 @@ export default createStore<State>({
         console.error('Login: ', err);
       }
     },
+    async logout({ commit }) {
+      try {
+        await FacebookLogin.logout();
+        await router.push({ name: 'Login' });
+      } catch (err) {
+        console.error('logout: ', err);
+      }
+    },
   },
   getters: {
     getEntity: (state) => (id: number|string): Entity|undefined => state.entities.find(
       (entity) => entity.id === +id,
     ),
+    isUserLoggedIn: (state) => !!state.token,
   },
   plugins: [createLogger()],
 });

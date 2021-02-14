@@ -48,7 +48,6 @@ export default defineComponent({
   methods: {
     async login() {
       await this.$store.dispatch('login');
-      await this.$router.push({ name: 'Home' });
     },
   },
 });
