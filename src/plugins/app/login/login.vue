@@ -2,7 +2,7 @@
   <ion-page>
     <i-header title="Mapovanie" />
     <ion-content class="ion-padding ion-text-center">
-      <ion-img :src="require('./img/login.png')" />
+      <ion-img :src="require('./img/login.svg')" />
       <ion-text>
         <h1>Welcome</h1>
         <p>
