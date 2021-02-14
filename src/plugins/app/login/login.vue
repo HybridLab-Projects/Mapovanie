@@ -32,7 +32,7 @@ import {
   IonButton,
   IonFooter,
   IonImg,
-  IonText,
+  IonText, loadingController,
 } from '@ionic/vue';
 
 export default defineComponent({
@@ -47,7 +47,11 @@ export default defineComponent({
   },
   methods: {
     async login() {
+      const test = await loadingController.create({ message: 'Prihlasujem...' });
+      await test.present();
       await this.$store.dispatch('login');
+      await test.dismiss();
+      console.log('JE TO TAM');
     },
   },
 });

@@ -18,11 +18,14 @@ export default createStore<State>({
     entitiesFetched(state, entities) {
       state.entities = entities;
     },
-    userSuccessfullyLoggedIn(state, userData) {
+    userLoggedIn(state, userData) {
       state.token = userData.data.token;
       state.user = userData.data.user;
-      // router.push({ name: 'Home' });
-      router.replace({ name: 'Home' });
+    },
+    userLoggedOut(state) {
+      state.token = '';
+      state.user = {} as User;
+      state.entities = [];
     },
   },
   actions: {
@@ -44,7 +47,8 @@ export default createStore<State>({
           // eslint-disable-next-line @typescript-eslint/camelcase
           const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token });
           console.log('FB: ', data);
-          commit('userSuccessfullyLoggedIn', data);
+          commit('userLoggedIn', data);
+          await router.push({ name: 'Home' });
         } else {
           console.error('FB: Failed getting token');
         }
@@ -60,23 +64,25 @@ export default createStore<State>({
           // eslint-disable-next-line @typescript-eslint/camelcase
           const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token });
           console.log('FB: ', data);
-          commit('userSuccessfullyLoggedIn', data);
+          commit('userLoggedIn', data);
           console.log('AKAKAK');
+          await router.push({ name: 'Home' });
           await SplashScreen.hide();
         } else {
           console.error('FB: Failed getting token');
-          await router.replace({ name: 'Login' });
+          await router.push({ name: 'Login' });
           await SplashScreen.hide();
         }
       } catch (err) {
         console.error('Login: ', err);
-        await router.replace({ name: 'Login' });
+        await router.push({ name: 'Login' });
         await SplashScreen.hide();
       }
     },
     async logout({ commit }) {
       try {
         await FacebookLogin.logout();
+        commit('userLoggedOut');
         await router.push({ name: 'Login' });
       } catch (err) {
         console.error('logout: ', err);

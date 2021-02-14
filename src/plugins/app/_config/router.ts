@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import Tabs from '../_layout/tabs.vue';
-// import store from './store';
+// eslint-disable-next-line import/no-cycle
+import store from './store';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -79,6 +80,16 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes,
+});
+
+// eslint-disable-next-line consistent-return
+router.beforeEach((to, from) => {
+  if (!store.getters.isUserLoggedIn && !(to.name === 'Index' || to.name === 'Login')) {
+    return 'login';
+  }
+  if (store.getters.isUserLoggedIn && to.name === 'Login') {
+    return '/tabs/';
+  }
 });
 
 export default router;
