@@ -6,7 +6,7 @@ import { Plugins } from '@capacitor/core';
 import { FacebookLoginResponse } from '@capacitor-community/facebook-login';
 import router from './router';
 
-const { FacebookLogin } = Plugins;
+const { FacebookLogin, SplashScreen } = Plugins;
 
 export default createStore<State>({
   state: {
@@ -18,10 +18,11 @@ export default createStore<State>({
     entitiesFetched(state, entities) {
       state.entities = entities;
     },
-    userLoggedIn(state, userData) {
+    userSuccessfullyLoggedIn(state, userData) {
       state.token = userData.data.token;
       state.user = userData.data.user;
-      router.push({ name: 'Home' });
+      // router.push({ name: 'Home' });
+      router.replace({ name: 'Home' });
     },
   },
   actions: {
@@ -43,8 +44,7 @@ export default createStore<State>({
           // eslint-disable-next-line @typescript-eslint/camelcase
           const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token });
           console.log('FB: ', data);
-          commit('userLoggedIn', data);
-          await router.push({ name: 'Home' });
+          commit('userSuccessfullyLoggedIn', data);
         } else {
           console.error('FB: Failed getting token');
         }
@@ -60,12 +60,18 @@ export default createStore<State>({
           // eslint-disable-next-line @typescript-eslint/camelcase
           const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token });
           console.log('FB: ', data);
-          commit('userLoggedIn', data);
+          commit('userSuccessfullyLoggedIn', data);
+          console.log('AKAKAK');
+          await SplashScreen.hide();
         } else {
           console.error('FB: Failed getting token');
+          await router.replace({ name: 'Login' });
+          await SplashScreen.hide();
         }
       } catch (err) {
         console.error('Login: ', err);
+        await router.replace({ name: 'Login' });
+        await SplashScreen.hide();
       }
     },
     async logout({ commit }) {

@@ -1,11 +1,13 @@
 import { createRouter, createWebHashHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import Tabs from '../_layout/tabs.vue';
+// import store from './store';
 
 const routes: Array<RouteRecordRaw> = [
   {
+    name: 'Index',
     path: '/',
-    redirect: 'login',
+    component: () => import('@/plugins/app/index/index.vue'),
   },
   {
     path: '/tabs/',
