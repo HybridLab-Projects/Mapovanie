@@ -91,12 +91,13 @@ const router = createRouter({
 });
 
 // eslint-disable-next-line consistent-return
-router.beforeEach((to, from) => {
+router.beforeEach((to, from, next) => {
   if (!store.getters.isUserLoggedIn && !(to.name === 'Index' || to.name === 'Login')) {
-    return 'login';
-  }
-  if (store.getters.isUserLoggedIn && to.name === 'Login') {
-    return '/tabs/';
+    next({ name: 'Index' });
+  } else if (store.getters.isUserLoggedIn && to.name === 'Login') {
+    next({ name: 'Home' });
+  } else {
+    next();
   }
 });
 

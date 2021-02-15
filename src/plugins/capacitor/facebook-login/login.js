@@ -13,7 +13,7 @@ export default {
           version: 'v2.10', // use graph api current version
         });
         FB.getLoginStatus(() => {
-          store.dispatch('checkLogin').then(() => resolve());
+          resolve();
         });
       };
 
