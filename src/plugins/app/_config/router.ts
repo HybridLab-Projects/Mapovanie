@@ -9,6 +9,14 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Index',
     path: '/',
     component: () => import('@/plugins/app/index/index.vue'),
+    beforeEnter(to, from, next) {
+      console.log('/', from);
+      if (!from.name) {
+        next();
+      } else {
+        next({ name: 'Home' });
+      }
+    },
   },
   {
     path: '/tabs/',

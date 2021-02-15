@@ -4,9 +4,10 @@ import Axios from 'axios';
 
 import { Plugins } from '@capacitor/core';
 import { FacebookLoginResponse } from '@capacitor-community/facebook-login';
+// eslint-disable-next-line import/no-cycle
 import router from './router';
 
-const { FacebookLogin, SplashScreen } = Plugins;
+const { FacebookLogin, SplashScreen, Storage } = Plugins;
 
 export default createStore<State>({
   state: {
@@ -35,6 +36,7 @@ export default createStore<State>({
           'https://mapovanie.hybridlab.dev/cms/api/entities',
         );
         commit('entitiesFetched', data.data);
+        await Storage.set({ key: 'entities', value: JSON.stringify(data.data) });
       } catch (err) {
         console.log(err);
       }
@@ -48,6 +50,8 @@ export default createStore<State>({
           const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token });
           console.log('FB: ', data);
           commit('userLoggedIn', data);
+          await Storage.set({ key: 'userToken', value: JSON.stringify(data.data.token) });
+          await Storage.set({ key: 'userData', value: JSON.stringify(data.data.user) });
           await router.push({ name: 'Home' });
         } else {
           console.error('FB: Failed getting token');
@@ -66,6 +70,8 @@ export default createStore<State>({
           console.log('FB: ', data);
           commit('userLoggedIn', data);
           console.log('AKAKAK');
+          await Storage.set({ key: 'userToken', value: JSON.stringify(data.data.token) });
+          await Storage.set({ key: 'userData', value: JSON.stringify(data.data.user) });
           await router.push({ name: 'Home' });
           await SplashScreen.hide();
         } else {
@@ -83,6 +89,9 @@ export default createStore<State>({
       try {
         await FacebookLogin.logout();
         commit('userLoggedOut');
+        await Storage.remove({ key: 'entities' });
+        await Storage.remove({ key: 'userToken' });
+        await Storage.remove({ key: 'userData' });
         await router.push({ name: 'Login' });
       } catch (err) {
         console.error('logout: ', err);
