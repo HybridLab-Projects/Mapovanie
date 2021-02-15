@@ -14,7 +14,7 @@ export default {
         });
         FB.getLoginStatus(() => {
           resolve();
-        });
+        }, true);
       };
 
       (function (d, s, id) {
