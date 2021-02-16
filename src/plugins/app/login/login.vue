@@ -11,9 +11,13 @@
         </p>
       </ion-text>
     </ion-content>
-    <ion-footer>
+    <ion-footer style="text-align:center">
       <ion-button
-        expand="block"
+        style="
+        --background: #1877F2;
+        --border-radius: 5px;
+        margin-bottom: 60%;
+        width: 80%;"
         class="ion-margin"
         router-link="/tabs"
       >
@@ -57,10 +61,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.ion-margin {
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-  margin-bottom: 50%;
-}
+
 </style>
