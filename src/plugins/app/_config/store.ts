@@ -43,7 +43,7 @@ export default createStore<State>({
     },
     async login({ commit }) {
       try {
-        const result = await FacebookLogin.login({ permissions: ['email'] }) as FacebookLoginResponse;
+        const result = await FacebookLogin.login({ permissions: ['email', 'public_profile'] }) as FacebookLoginResponse;
         if (result.accessToken) {
           console.log('FB data: ', result.accessToken);
           // eslint-disable-next-line @typescript-eslint/camelcase
