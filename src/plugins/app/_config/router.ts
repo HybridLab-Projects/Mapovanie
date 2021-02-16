@@ -58,6 +58,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/plugins/app/fail/fail.vue'),
   },
   {
+    name: 'Slides',
+    path: '/slides',
+    component: () => import('@/plugins/app/slides/slides.vue'),
+  },
+  {
     name: 'Login',
     path: '/login',
     component: () => import('@/plugins/app/login/login.vue'),
