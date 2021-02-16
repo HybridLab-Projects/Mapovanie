@@ -97,8 +97,8 @@ const router = createRouter({
 
 // eslint-disable-next-line consistent-return
 router.beforeEach((to, from, next) => {
-  if (!store.getters.isUserLoggedIn && !(to.name === 'Index' || to.name === 'Login')) {
-    next({ name: 'Index' });
+  if (!store.getters.isUserLoggedIn && !(to.name === 'Index' || to.name === 'Login' || to.name === 'Slides')) {
+    next({ name: 'Login' });
   } else if (store.getters.isUserLoggedIn && to.name === 'Login') {
     next({ name: 'Home' });
   } else {
