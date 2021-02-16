@@ -67,7 +67,7 @@ import {
 import { arrowForwardOutline } from 'ionicons/icons';
 
 export default defineComponent({
-  name: 'Success',
+  name: 'Slides',
   components: {
     IonContent,
     IonPage,
