@@ -19,6 +19,12 @@
       >
         Prihlásenie cez Facebook
       </ion-button>
+      <ion-button
+        router-link="/slides"
+        class="ion-margin"
+      >
+        slides
+      </ion-button>
     </ion-footer>
   </ion-page>
 </template>
