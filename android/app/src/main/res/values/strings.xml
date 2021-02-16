@@ -4,4 +4,7 @@
     <string name="title_activity_main">Mapovanie</string>
     <string name="package_name">dev.hybridlab.mapovanie</string>
     <string name="custom_url_scheme">dev.hybridlab.mapovanie</string>
+
+    <string name="facebook_app_id">206368621072696</string>
+    <string name="fb_login_protocol_scheme">206368621072696</string>
 </resources>

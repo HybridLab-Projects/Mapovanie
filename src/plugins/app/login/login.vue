@@ -15,7 +15,7 @@
       <ion-button
         expand="block"
         class="ion-margin"
-        router-link="/tabs"
+        @click="login()"
       >
         Prihlásenie cez Facebook
       </ion-button>
@@ -32,7 +32,7 @@ import {
   IonButton,
   IonFooter,
   IonImg,
-  IonText,
+  IonText, loadingController,
 } from '@ionic/vue';
 
 export default defineComponent({
@@ -44,6 +44,15 @@ export default defineComponent({
     IonFooter,
     IonImg,
     IonText,
+  },
+  methods: {
+    async login() {
+      const test = await loadingController.create({ message: 'Prihlasujem...' });
+      await test.present();
+      await this.$store.dispatch('login');
+      await test.dismiss();
+      console.log('JE TO TAM');
+    },
   },
 });
 </script>

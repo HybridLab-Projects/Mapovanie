@@ -14,8 +14,8 @@ export default defineComponent({
     IonApp,
     IonRouterOutlet,
   },
-  created() {
-    this.$store.dispatch('fetchEntities');
+  async created() {
+    await this.$store.dispatch('fetchEntities');
   },
 });
 

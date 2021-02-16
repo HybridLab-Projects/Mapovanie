@@ -9,7 +9,7 @@
             v-model="lang"
             value="sk"
             placeholder="Jazyk"
-            @ionChange="log"
+            @ionChange="log()"
           >
             <ion-select-option value="sk">
               Slovenčina
@@ -26,6 +26,14 @@
         >
           <ion-label>
             Otázky a odpovede
+          </ion-label>
+        </ion-item>
+        <ion-item
+          button
+          @click="logout()"
+        >
+          <ion-label>
+            Odhlásiť sa
           </ion-label>
         </ion-item>
       </ion-list>
@@ -65,6 +73,9 @@ export default defineComponent({
   methods: {
     log() {
       console.log(this.lang);
+    },
+    logout() {
+      this.$store.dispatch('logout');
     },
   },
 });
