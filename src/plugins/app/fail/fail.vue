@@ -9,7 +9,7 @@
       <ion-button
         expand="block"
         class="ion-margin"
-        router-link="/"
+        router-link="/tabs"
       >
         Späť na domovskú obrazovku
       </ion-button>

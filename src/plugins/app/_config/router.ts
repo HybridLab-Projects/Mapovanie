@@ -9,14 +9,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Index',
     path: '/',
     component: () => import('@/plugins/app/index/index.vue'),
-    beforeEnter(to, from, next) {
-      console.log('/', from);
-      if (!from.name) {
-        next();
-      } else {
-        next({ name: 'Home' });
-      }
-    },
   },
   {
     path: '/tabs/',
@@ -95,7 +87,6 @@ const router = createRouter({
   routes,
 });
 
-// eslint-disable-next-line consistent-return
 router.beforeEach((to, from, next) => {
   if (!store.getters.isUserLoggedIn && !(to.name === 'Index' || to.name === 'Login' || to.name === 'Slides')) {
     next({ name: 'Login' });
