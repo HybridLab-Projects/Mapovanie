@@ -37,7 +37,7 @@
             <h2>Ready to Play?</h2>
             <ion-button
               fill="clear"
-              router-link="/"
+              @click="finishSlides()"
             >
               Continue
               <ion-icon
@@ -62,9 +62,14 @@ import {
   IonSlide,
   IonButton,
   IonImg,
+  IonIcon,
 } from '@ionic/vue';
 
 import { arrowForwardOutline } from 'ionicons/icons';
+
+import { Plugins } from '@capacitor/core';
+
+const { Storage } = Plugins;
 
 export default defineComponent({
   name: 'Slides',
@@ -75,11 +80,18 @@ export default defineComponent({
     IonSlide,
     IonButton,
     IonImg,
+    IonIcon,
   },
   data() {
     return {
       arrowForwardOutline,
     };
+  },
+  methods: {
+    async finishSlides() {
+      await Storage.set({ key: 'slides', value: 'true' });
+      await this.$router.push({ name: 'Index' });
+    },
   },
 });
 </script>

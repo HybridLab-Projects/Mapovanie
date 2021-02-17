@@ -1,14 +1,26 @@
 import { createRouter, createWebHashHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
+import { Plugins } from '@capacitor/core';
 import Tabs from '../_layout/tabs.vue';
 // eslint-disable-next-line import/no-cycle
 import store from './store';
+
+const { Storage } = Plugins;
 
 const routes: Array<RouteRecordRaw> = [
   {
     name: 'Index',
     path: '/',
     component: () => import('@/plugins/app/index/index.vue'),
+    async beforeEnter(to, from, next) {
+      const slides = await Storage.get({ key: 'slides' });
+      console.log('slides', slides);
+      if (!slides.value) {
+        next({ name: 'Slides' });
+      } else {
+        next();
+      }
+    },
   },
   {
     path: '/tabs/',
