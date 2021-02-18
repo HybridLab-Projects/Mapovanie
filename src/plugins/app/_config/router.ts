@@ -13,7 +13,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     component: () => import('@/plugins/app/index/index.vue'),
     async beforeEnter(to, from, next) {
-      const slides = await Storage.get({ key: 'slides' });
+      const slides = await Storage.get({ key: 'slidesFinished' });
       console.log('slides', slides);
       if (!slides.value) {
         next({ name: 'Slides' });

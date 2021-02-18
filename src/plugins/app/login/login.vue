@@ -10,22 +10,22 @@
           Lorem ipsum dolor sit amet, consectetur adipisicing elit./n
         </p>
       </ion-text>
-    </ion-content>
-    <ion-footer>
       <ion-button
         expand="block"
         class="ion-margin"
         @click="login()"
       >
-        Prihlásenie cez Facebook
+        Prihlásiť sa
       </ion-button>
-      <ion-button
-        router-link="/slides"
-        class="ion-margin"
-      >
-        slides
-      </ion-button>
-    </ion-footer>
+      <div class="ion-text-center">
+        <ion-button
+          router-link="/slides"
+          fill="clear"
+        >
+          Zobraziť úvod
+        </ion-button>
+      </div>
+    </ion-content>
   </ion-page>
 </template>
 
@@ -36,7 +36,6 @@ import {
   IonPage,
   IonContent,
   IonButton,
-  IonFooter,
   IonImg,
   IonText, loadingController,
 } from '@ionic/vue';
@@ -47,7 +46,6 @@ export default defineComponent({
     IonContent,
     IonPage,
     IonButton,
-    IonFooter,
     IonImg,
     IonText,
   },

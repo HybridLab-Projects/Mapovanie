@@ -89,8 +89,8 @@ export default defineComponent({
   },
   methods: {
     async finishSlides() {
-      await Storage.set({ key: 'slides', value: 'true' });
-      await this.$router.push({ name: 'Index' });
+      await Storage.set({ key: 'slidesFinished', value: 'true' });
+      await this.$router.push({ name: 'Login' });
     },
   },
 });

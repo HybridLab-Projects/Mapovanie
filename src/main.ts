@@ -16,7 +16,7 @@ import router from './plugins/app/_config/router';
 import store from './plugins/app/_config/store';
 
 const app = createApp(App)
-  .use(IonicVue, { mode: 'ios' })
+  .use(IonicVue, { mode: 'ios', swipeBackEnabled: false })
   .use(router)
   .use(store);
 
