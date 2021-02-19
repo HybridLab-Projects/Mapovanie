@@ -3,7 +3,7 @@
     <i-header title="Mapovanie" />
     <ion-content class="ion-padding ion-text-center">
       <ion-img :src="require('./img/login.svg')" />
-      <ion-text class="ion-margin-bottom">
+      <ion-text>
         <h1>Welcome</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -20,14 +20,14 @@
       >
         <ion-icon
           size="large"
-          class=""
           :icon="logoFacebook"
         />
-        <h5 class="ion-no-margin ion-padding">
-          Prihlásiť cez Facebook
+        <h5 class="ion-no-margin ion-padding font-weight-bold">
+          Continue with Facebook
         </h5>
       </ion-button>
       <ion-button
+        :strong="true"
         expand="block"
         size="large"
         class="ion-margin-top apple-login"
@@ -36,10 +36,10 @@
         <ion-icon
           size="large"
           class=""
-          :icon="logoFacebook"
+          :icon="logoApple"
         />
-        <h5 class="ion-no-margin ion-padding">
-          Prihlásiť cez Apple ID
+        <h5 class="ion-no-margin ion-padding font-weight-bold">
+          Continue with Apple
         </h5>
       </ion-button>
       <div class="ion-text-center">
@@ -65,7 +65,7 @@ import {
   IonText, loadingController,
 } from '@ionic/vue';
 
-import { logoFacebook } from 'ionicons/icons';
+import { logoFacebook, logoApple } from 'ionicons/icons';
 
 export default defineComponent({
   name: 'Login',
@@ -79,6 +79,7 @@ export default defineComponent({
   data() {
     return {
       logoFacebook,
+      logoApple,
     };
   },
   methods: {
@@ -95,15 +96,24 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .fb-login {
-  --background: #1877F2;
+  --background: #1877f2;
   --border-radius: 5px;
 }
-.apple-login {
-  --background: #ffffff;
-  --border-radius: 5px;
-  --color: #000000;
-  --border-width: 2px;
-  --border-color: #000000;
-  --border-style: solid;
+@media (prefers-color-scheme: dark) {
+  .apple-login {
+    --background: #fff;
+    --border-radius: 5px;
+    --color: #000;
+    --background-hover: #ccc;
+
+  }
+}
+@media (prefers-color-scheme: light) {
+  .apple-login {
+    --background: #000;
+    --border-radius: 5px;
+    --color: #fff;
+    --background-hover: #333;
+  }
 }
 </style>
