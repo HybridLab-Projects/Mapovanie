@@ -42,6 +42,14 @@
           Prihlásiť cez Apple ID
         </h5>
       </ion-button>
+      <div class="ion-text-center">
+        <ion-button
+          router-link="/slides"
+          fill="clear"
+        >
+          Zobraziť úvod
+        </ion-button>
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -54,7 +62,7 @@ import {
   IonContent,
   IonButton,
   IonImg,
-  IonText,
+  IonText, loadingController,
 } from '@ionic/vue';
 
 import { logoFacebook } from 'ionicons/icons';
@@ -72,6 +80,15 @@ export default defineComponent({
     return {
       logoFacebook,
     };
+  },
+  methods: {
+    async login() {
+      const test = await loadingController.create({ message: 'Prihlasujem...' });
+      await test.present();
+      await this.$store.dispatch('login');
+      await test.dismiss();
+      console.log('JE TO TAM');
+    },
   },
 });
 </script>

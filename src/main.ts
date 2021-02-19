@@ -5,11 +5,15 @@ import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
 import IHeader from '@/plugins/app/_layout/header.vue';
 
+import './custom';
+
+// @ts-expect-error
+// eslint-disable-next-line import/extensions
+import login from '@/plugins/capacitor/facebook-login/login.js';
+
 import App from './App.vue';
 import router from './plugins/app/_config/router';
 import store from './plugins/app/_config/store';
-
-import './custom';
 
 const app = createApp(App)
   .use(IonicVue, { mode: 'ios', swipeBackEnabled: false })
@@ -17,7 +21,7 @@ const app = createApp(App)
   .use(store);
 
 router.isReady().then(() => {
-  app.mount('#app');
+  login.initFacebookSdk().then(() => app.mount('#app'));
 });
 
 /* PWA components */
