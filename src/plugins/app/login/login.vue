@@ -16,7 +16,7 @@
         expand="block"
         size="large"
         class="ion-margin-top fb-login"
-        router-link="/tabs"
+        @click="login()"
       >
         <ion-icon
           size="large"
@@ -62,7 +62,9 @@ import {
   IonContent,
   IonButton,
   IonImg,
-  IonText, loadingController,
+  IonText,
+  loadingController,
+  IonIcon,
 } from '@ionic/vue';
 
 import { logoFacebook, logoApple } from 'ionicons/icons';
@@ -75,6 +77,7 @@ export default defineComponent({
     IonButton,
     IonImg,
     IonText,
+    IonIcon,
   },
   data() {
     return {
