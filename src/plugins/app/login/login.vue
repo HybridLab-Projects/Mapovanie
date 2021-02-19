@@ -2,20 +2,45 @@
   <ion-page>
     <i-header title="Mapovanie" />
     <ion-content class="ion-padding ion-text-center">
-      <ion-img :src="require('./img/login.png')" />
+      <ion-img :src="require('./img/login.svg')" />
       <ion-text>
         <h1>Welcome</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit./n
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit./n
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
         </p>
       </ion-text>
       <ion-button
         expand="block"
-        class="ion-margin"
+        size="large"
+        class="ion-margin-top fb-login"
         @click="login()"
       >
-        Prihlásiť sa
+        <ion-icon
+          size="large"
+          :icon="logoFacebook"
+        />
+        <h5 class="ion-no-margin ion-padding font-weight-bold">
+          Continue with Facebook
+        </h5>
+      </ion-button>
+      <ion-button
+        :strong="true"
+        expand="block"
+        size="large"
+        class="ion-margin-top apple-login"
+        router-link="/tabs"
+      >
+        <ion-icon
+          size="large"
+          class=""
+          :icon="logoApple"
+        />
+        <h5 class="ion-no-margin ion-padding font-weight-bold">
+          Continue with Apple
+        </h5>
       </ion-button>
       <div class="ion-text-center">
         <ion-button
@@ -37,8 +62,12 @@ import {
   IonContent,
   IonButton,
   IonImg,
-  IonText, loadingController,
+  IonText,
+  loadingController,
+  IonIcon,
 } from '@ionic/vue';
+
+import { logoFacebook, logoApple } from 'ionicons/icons';
 
 export default defineComponent({
   name: 'Login',
@@ -48,6 +77,13 @@ export default defineComponent({
     IonButton,
     IonImg,
     IonText,
+    IonIcon,
+  },
+  data() {
+    return {
+      logoFacebook,
+      logoApple,
+    };
   },
   methods: {
     async login() {
@@ -62,4 +98,25 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.fb-login {
+  --background: #1877f2;
+  --border-radius: 5px;
+}
+@media (prefers-color-scheme: dark) {
+  .apple-login {
+    --background: #fff;
+    --border-radius: 5px;
+    --color: #000;
+    --background-hover: #ccc;
+
+  }
+}
+@media (prefers-color-scheme: light) {
+  .apple-login {
+    --background: #000;
+    --border-radius: 5px;
+    --color: #fff;
+    --background-hover: #333;
+  }
+}
 </style>

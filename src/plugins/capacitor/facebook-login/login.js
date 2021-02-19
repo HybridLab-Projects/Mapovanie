@@ -1,7 +1,5 @@
 /* eslint-disable no-undef,func-names,prefer-const */
 
-import store from '@/plugins/app/_config/store';
-
 export default {
   initFacebookSdk() {
     return new Promise((resolve) => {
