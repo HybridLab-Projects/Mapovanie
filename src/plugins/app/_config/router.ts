@@ -5,7 +5,7 @@ import Tabs from '../_layout/tabs.vue';
 // eslint-disable-next-line import/no-cycle
 import store from './store';
 
-const { Storage } = Plugins;
+const { Storage, SplashScreen } = Plugins;
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -16,6 +16,7 @@ const routes: Array<RouteRecordRaw> = [
       const slides = await Storage.get({ key: 'slidesFinished' });
       console.log('slides', slides);
       if (!slides.value) {
+        await SplashScreen.hide();
         next({ name: 'Slides' });
       } else {
         next();
