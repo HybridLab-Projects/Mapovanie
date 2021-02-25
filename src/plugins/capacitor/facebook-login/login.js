@@ -8,7 +8,7 @@ export default {
           appId: '206368621072696',
           cookie: true, // enable cookies to allow the server to access the session
           xfbml: true, // parse social plugins on this page
-          version: 'v2.10', // use graph api current version
+          version: 'v10.0', // use graph api current version
         });
         FB.getLoginStatus(() => {
           resolve();
