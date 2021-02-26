@@ -22,11 +22,13 @@ export default createStore<State>({
     userLoggedIn(state, userData) {
       state.token = userData.data.token;
       state.user = userData.data.user;
+      Axios.defaults.headers.common = { Authorization: `Bearer ${userData.data.token}` };
     },
     userLoggedOut(state) {
       state.token = '';
       state.user = {} as User;
       state.entities = [];
+      delete Axios.defaults.headers.common.Authorization;
     },
   },
   actions: {
