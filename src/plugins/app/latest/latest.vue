@@ -91,7 +91,8 @@ export default defineComponent({
       filterOutline,
     };
   },
-  methods: {
+  async created() {
+    await this.$store.dispatch('fetchEntities');
   },
 });
 </script>
