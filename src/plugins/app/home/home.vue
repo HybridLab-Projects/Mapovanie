@@ -28,7 +28,7 @@ import {
   IonContent,
   IonFab,
   IonFabButton,
-  IonIcon,
+  IonIcon, alertController,
 } from '@ionic/vue';
 
 export default defineComponent({
@@ -60,6 +60,14 @@ export default defineComponent({
         });
       } catch (err) {
         console.log(err);
+        const alert = await alertController
+          .create({
+            cssClass: 'my-custom-class',
+            header: 'Error',
+            message: err.message,
+            buttons: ['OK'],
+          });
+        await alert.present();
       }
     },
   },

@@ -29,6 +29,7 @@ import { defineComponent } from 'vue';
 
 import {
   loadingController,
+  alertController,
   IonPage,
   IonContent,
   IonImg,
@@ -102,9 +103,15 @@ export default defineComponent({
         console.log(err);
 
         await loading.dismiss();
-        this.$router.push({
-          name: 'Fail',
-        });
+
+        const alert = await alertController
+          .create({
+            cssClass: 'my-custom-class',
+            header: 'Error',
+            message: err,
+            buttons: ['OK'],
+          });
+        await alert.present();
       }
     },
   },
