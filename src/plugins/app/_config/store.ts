@@ -14,6 +14,7 @@ export default createStore<State>({
     entities: [],
     token: '',
     user: {} as User,
+    leaderboardUsers: [],
   },
   mutations: {
     entitiesFetched(state, entities) {
@@ -30,12 +31,15 @@ export default createStore<State>({
       state.entities = [];
       delete Axios.defaults.headers.common.Authorization;
     },
+    leaderboardUsersFetched(state, usersData) {
+      state.leaderboardUsers = usersData.data;
+    },
   },
   actions: {
     async fetchEntities({ commit }) {
       try {
         const { data } = await Axios.get(
-          'https://mapovanie.hybridlab.dev/cms/api/entities',
+          'https://mapovanie.hybridlab.dev/cms/api/users',
         );
         commit('entitiesFetched', data.data);
         await Storage.set({ key: 'entities', value: JSON.stringify(data.data) });
@@ -97,6 +101,16 @@ export default createStore<State>({
         await router.push({ name: 'Login' });
       } catch (err) {
         console.error('logout: ', err);
+      }
+    },
+    async fetchLeaderboardUsers({ commit }) {
+      try {
+        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/users');
+
+        commit('leaderboardUsersFetched', data);
+        console.log(data.data);
+      } catch (err) {
+        console.log(err);
       }
     },
   },
