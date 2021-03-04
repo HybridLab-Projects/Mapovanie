@@ -51,9 +51,6 @@ export default defineComponent({
   computed: {
     ...mapState(['leaderboardUsers']),
   },
-  created() {
-    this.fetchLeaderboardUsers();
-  },
   methods: {
     ...mapActions(['fetchLeaderboardUsers']),
     async doRefresh(e: CustomEvent) {

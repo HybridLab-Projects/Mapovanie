@@ -39,7 +39,7 @@ export default createStore<State>({
     async fetchEntities({ commit }) {
       try {
         const { data } = await Axios.get(
-          'https://mapovanie.hybridlab.dev/cms/api/users',
+          'https://mapovanie.hybridlab.dev/cms/api/entities',
         );
         commit('entitiesFetched', data.data);
         await Storage.set({ key: 'entities', value: JSON.stringify(data.data) });
