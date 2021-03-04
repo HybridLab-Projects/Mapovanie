@@ -7,15 +7,15 @@
   </ion-refresher>
   <ion-list>
     <ion-item
-      v-for="(user, i) in users"
+      v-for="(user, i) in leaderboardUsers"
       :key="i"
     >
       <ion-avatar slot="start">
-        <img :src="user.avatar">
+        <img :src="`https://avatars.dicebear.com/4.5/api/male/${user.id}.svg`">
       </ion-avatar>
       <ion-label>
-        <h3>{{ user.username }}</h3>
-        <p>{{ user.description }}</p>
+        <h3>{{ user.name }}</h3>
+        <p>{{ user.points }} 🔥 </p>
       </ion-label>
     </ion-item>
   </ion-list>
@@ -23,6 +23,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { mapState, mapActions } from 'vuex';
 
 import {
   IonRefresher,
@@ -45,32 +46,21 @@ export default defineComponent({
   },
   data() {
     return {
-      users: [
-        {
-          avatar: 'https://avatars.dicebear.com/4.5/api/male/jakub.svg',
-          id: 1,
-          username: 'Jakub',
-          description: 'Lorem',
-        },
-        {
-          avatar: 'https://avatars.dicebear.com/4.5/api/male/jaro.svg',
-          id: 1,
-          username: 'Jaro',
-          description: 'Lorem',
-        },
-      ],
-      itemCount: 2,
     };
   },
+  computed: {
+    ...mapState(['leaderboardUsers']),
+  },
+  created() {
+    this.fetchLeaderboardUsers();
+  },
   methods: {
-    // doRefresh(e: CustomEvent) {
-    //   setTimeout(() => {
-    //     console.log('Async operation has ended');
-    //     this.itemCount += 2;
-    //     // @ts-expect-error
-    //     e.target.complete();
-    //   }, 1000);
-    // },
+    ...mapActions(['fetchLeaderboardUsers']),
+    async doRefresh(e: CustomEvent) {
+      await this.fetchLeaderboardUsers();
+      // @ts-expect-error
+      e.target.complete();
+    },
   },
 });
 </script>

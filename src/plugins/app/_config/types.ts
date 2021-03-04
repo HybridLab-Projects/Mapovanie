@@ -1,7 +1,10 @@
+import leaderboard from '@/plugins/app/latest/leaderboard.vue';
+
 export interface State {
     entities: Array<Entity>;
     token: string;
     user: User;
+    leaderboardUsers: Array<LeaderboardUser>;
 }
 
 export interface Entity {
@@ -39,4 +42,11 @@ export interface User {
     surname: null;
     updated_at: string;
     username: string;
+}
+
+export interface LeaderboardUser {
+    id: number;
+    name: string;
+    email: string;
+    points: number;
 }
