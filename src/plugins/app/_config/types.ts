@@ -1,5 +1,3 @@
-import leaderboard from '@/plugins/app/latest/leaderboard.vue';
-
 export interface State {
     entities: Array<Entity>;
     token: string;
