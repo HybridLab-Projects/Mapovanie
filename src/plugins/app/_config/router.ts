@@ -89,6 +89,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/plugins/app/login/login.vue'),
   },
   {
+    name: 'Tutorial',
+    path: '/tutorial',
+    component: () => import('@/plugins/app/tutorial/tutorial.vue'),
+  },
+  {
     name: 'EntityDetail',
     path: '/entity-detail/:id',
     component: () => import('@/plugins/app/entity-detail/entity-detail.vue'),
