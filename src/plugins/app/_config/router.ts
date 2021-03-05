@@ -42,6 +42,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/plugins/app/latest/latest.vue'),
       },
       {
+        name: 'Map',
+        path: 'map',
+        component: () => import('@/plugins/app/map/map.vue'),
+      },
+      {
         name: 'Settings',
         path: 'settings',
         component: () => import('@/plugins/app/settings/settings.vue'),
