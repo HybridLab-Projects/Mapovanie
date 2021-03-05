@@ -14,8 +14,24 @@
           tab="segments"
           href="/tabs/latest"
         >
-          <ion-icon :icon="ellipse" />
+          <ion-icon :icon="listOutline" />
           <ion-label>Najnovšie</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button
+          tab="camera"
+          href="/tabs/category"
+        >
+          <ion-icon :icon="camera" />
+          <ion-label />
+        </ion-tab-button>
+
+        <ion-tab-button
+          tab="profile"
+          href="/tabs/profile"
+        >
+          <ion-icon :icon="personCircleOutline" />
+          <ion-label>Profil</ion-label>
         </ion-tab-button>
 
         <ion-tab-button
@@ -36,7 +52,9 @@ import { defineComponent } from 'vue';
 import {
   IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage,
 } from '@ionic/vue';
-import { ellipse, triangle, settings } from 'ionicons/icons';
+import {
+  ellipse, triangle, settings, camera, personCircleOutline, listOutline,
+} from 'ionicons/icons';
 
 export default defineComponent({
   name: 'Tabs',
@@ -48,6 +66,9 @@ export default defineComponent({
       ellipse,
       triangle,
       settings,
+      camera,
+      personCircleOutline,
+      listOutline,
     };
   },
 });
