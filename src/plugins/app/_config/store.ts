@@ -4,6 +4,7 @@ import Axios from 'axios';
 
 import { Plugins } from '@capacitor/core';
 import { FacebookLoginResponse } from '@capacitor-community/facebook-login';
+import Geojson, { Feature, Point } from 'geojson';
 // eslint-disable-next-line import/no-cycle
 import router from './router';
 
@@ -119,6 +120,8 @@ export default createStore<State>({
       (entity) => entity.id === +id,
     ),
     isUserLoggedIn: (state) => !!state.token,
+    // @ts-expect-error
+    getEntityGeoJson: (state) => Geojson.parse(state.entities, { Point: ['lat', 'lon'] }),
   },
   plugins: [createLogger()],
 });
