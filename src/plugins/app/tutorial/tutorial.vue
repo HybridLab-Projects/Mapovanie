@@ -38,6 +38,8 @@ import {
   IonButton,
   IonFooter,
   IonImg,
+  IonItem,
+  IonLabel,
   IonCheckbox,
 } from '@ionic/vue';
 
@@ -49,6 +51,8 @@ export default defineComponent({
     IonButton,
     IonFooter,
     IonImg,
+    IonItem,
+    IonLabel,
     IonCheckbox,
   },
 });
