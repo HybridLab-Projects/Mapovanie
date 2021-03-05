@@ -44,6 +44,7 @@ ion-avatar {
   height: 10rem;
   width: 10rem;
 }
+
 .posts-title {
   margin-top: 2rem;
 }
