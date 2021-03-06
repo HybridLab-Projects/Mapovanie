@@ -67,7 +67,6 @@ export default defineComponent({
   },
   data() {
     return {
-      cardCount: 2,
       locationOutline,
       mapOutline,
     };

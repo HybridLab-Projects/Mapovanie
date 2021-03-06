@@ -35,6 +35,9 @@ export default createStore<State>({
     leaderboardUsersFetched(state, usersData) {
       state.leaderboardUsers = usersData.data;
     },
+    userinfoFetched(state, userinfo) {
+      state.user = userinfo.response.user;
+    },
   },
   actions: {
     async fetchEntities({ commit }) {
@@ -110,6 +113,14 @@ export default createStore<State>({
 
         commit('leaderboardUsersFetched', data);
         console.log(data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async fetchUserinfo({ commit }) {
+      try {
+        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/auth/info');
+        commit('userinfoFetched', data);
       } catch (err) {
         console.log(err);
       }
