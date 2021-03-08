@@ -7,10 +7,6 @@ import IHeader from '@/plugins/app/_layout/header.vue';
 
 import './custom';
 
-// @ts-expect-error
-// eslint-disable-next-line import/extensions
-import login from '@/plugins/capacitor/facebook-login/login.js';
-
 import App from './App.vue';
 import router from './plugins/app/_config/router';
 import store from './plugins/app/_config/store';
@@ -21,7 +17,7 @@ const app = createApp(App)
   .use(store);
 
 router.isReady().then(() => {
-  login.initFacebookSdk().then(() => app.mount('#app'));
+  app.mount('#app');
 });
 
 /* PWA components */
