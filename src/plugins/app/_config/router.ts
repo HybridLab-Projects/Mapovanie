@@ -34,17 +34,12 @@ const routes: Array<RouteRecordRaw> = [
       {
         name: 'Home',
         path: 'home',
-        component: () => import('@/plugins/app/home/home.vue'),
+        component: () => import('@/plugins/app/latest/latest.vue'),
       },
       {
         name: 'ChooseCategory',
         path: 'category',
         component: () => import('@/plugins/app/categories/choose-category.vue'),
-      },
-      {
-        name: 'Latest',
-        path: 'latest',
-        component: () => import('@/plugins/app/latest/latest.vue'),
       },
       {
         name: 'Settings',

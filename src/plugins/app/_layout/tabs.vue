@@ -4,15 +4,15 @@
       <ion-tab-bar slot="bottom">
         <ion-tab-button
           tab="home"
-          href="/tabs/home"
+          href="/tabs/mapa"
         >
-          <ion-icon :icon="triangle" />
-          <ion-label>Pridať</ion-label>
+          <ion-icon :icon="mapOutline" />
+          <ion-label>Mapa</ion-label>
         </ion-tab-button>
 
         <ion-tab-button
           tab="segments"
-          href="/tabs/latest"
+          href="/tabs/home"
         >
           <ion-icon :icon="listOutline" />
           <ion-label>Najnovšie</ion-label>
@@ -53,7 +53,7 @@ import {
   IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage,
 } from '@ionic/vue';
 import {
-  ellipse, triangle, settings, camera, personCircleOutline, listOutline,
+  ellipse, triangle, settings, camera, personCircleOutline, listOutline, mapOutline,
 } from 'ionicons/icons';
 
 export default defineComponent({
@@ -69,6 +69,7 @@ export default defineComponent({
       camera,
       personCircleOutline,
       listOutline,
+      mapOutline,
     };
   },
 });

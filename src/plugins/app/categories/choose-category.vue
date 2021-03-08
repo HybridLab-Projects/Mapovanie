@@ -2,44 +2,44 @@
   <ion-page>
     <i-header title="Mapovanie" />
     <ion-content>
-      <ion-list-header>
+      <ion-list-header class="ion-margin-bottom">
         Obľúbené
       </ion-list-header>
       <ion-list
         v-for="(entity, i) in favEntities"
         :key="i"
       >
-        <ion-item>
+        <ion-item @click="takePicture()">
           <ion-avatar slot="start">
             <img :src="`https://avatars.dicebear.com/4.5/api/male/${entity.id}.svg`">
           </ion-avatar>
           <ion-icon
             slot="end"
-            :icon="starOutline"
+            :icon="star"
           />
           <ion-label>
-            <h1>{{ entity.name }}</h1>
+            <h2>{{ entity.name }}</h2>
           </ion-label>
         </ion-item>
       </ion-list>
-      <ion-list-header>
+      <ion-list-header class="ion-margin-bottom">
         Ostatné
       </ion-list-header>
       <ion-list
         v-for="(entity, i) in otherEntities"
         :key="i"
       >
-        <ion-item>
+        <ion-item @click="takePicture()">
           <ion-avatar slot="start">
             <img :src="`https://avatars.dicebear.com/4.5/api/male/${entity.id}.svg`">
           </ion-avatar>
+          <ion-label>
+            <h2>{{ entity.name }}</h2>
+          </ion-label>
           <ion-icon
             slot="end"
             :icon="starOutline"
           />
-          <ion-label>
-            <h1>{{ entity.name }}</h1>
-          </ion-label>
         </ion-item>
       </ion-list>
     </ion-content>
@@ -48,6 +48,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+
+import Camera from '@/plugins/capacitor/camera';
+import Geolocation from '@/plugins/capacitor/geolocation';
 
 import {
   IonPage,
@@ -58,6 +61,7 @@ import {
   IonLabel,
   IonAvatar,
   IonIcon,
+  alertController,
 } from '@ionic/vue';
 
 import {
@@ -112,8 +116,42 @@ export default defineComponent({
           id: 6,
           name: 'detské ihrisko',
         },
+        {
+          id: 7,
+          name: 'futbalove ihrisko',
+        },
+        {
+          id: 8,
+          name: 'basketbalove ihrisko',
+        },
       ],
     };
+  },
+  methods: {
+    async takePicture() {
+      try {
+        const photo = await Camera.getFullPhoto();
+        const deviceLocation = await Geolocation.getDeviceLocation();
+
+        this.$router.push({
+          name: 'Form',
+          params: {
+            image: JSON.stringify(photo),
+            deviceLocation: JSON.stringify(deviceLocation),
+          },
+        });
+      } catch (err) {
+        console.log(err);
+        const alert = await alertController
+          .create({
+            cssClass: 'my-custom-class',
+            header: 'Error',
+            message: err.message,
+            buttons: ['OK'],
+          });
+        await alert.present();
+      }
+    },
   },
 });
 </script>
