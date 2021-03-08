@@ -66,8 +66,6 @@ export default defineComponent({
     ...mapGetters(['getEntityGeoJson']),
   },
   async mounted() {
-    await this.fetchEntities();
-    console.log(this.getEntityGeoJson);
     Mapbox.accessToken = 'pk.eyJ1IjoiamFrdWJrb2plIiwiYSI6ImNraW00cDJmdzBvYjczMXA5dzJwZHRyY20ifQ.yk8SaFKG2QFChkFWgZaCEA';
     const map = new Mapbox.Map({
       container: 'map-container',
@@ -228,9 +226,6 @@ export default defineComponent({
         map.getCanvas().style.cursor = '';
       });
     });
-  },
-  methods: {
-    ...mapActions(['fetchEntities']),
   },
 });
 

@@ -94,6 +94,9 @@ export default defineComponent({
           device_uuid: deviceInfo.uuid,
           image: this.image.dataUrl,
         });
+        await this.$store.dispatch('fetchEntities');
+        await this.$store.dispatch('fetchLeaderboardUsers');
+        await this.$store.dispatch('fetchUserinfo');
 
         await loading.dismiss();
         this.$router.push({

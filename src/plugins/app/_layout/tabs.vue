@@ -3,14 +3,6 @@
     <ion-tabs>
       <ion-tab-bar slot="bottom">
         <ion-tab-button
-          tab="home"
-          href="/tabs/home"
-        >
-          <ion-icon :icon="camera" />
-          <ion-label>Pridať</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button
           tab="segments"
           href="/tabs/latest"
         >
@@ -24,6 +16,22 @@
         >
           <ion-icon :icon="map" />
           <ion-label>Mapa</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button
+          tab="home"
+          href="/tabs/home"
+        >
+          <ion-icon :icon="camera" />
+          <ion-label>Pridať</ion-label>
+        </ion-tab-button>
+
+        <ion-tab-button
+          tab="profile"
+          href="/tabs/profile"
+        >
+          <ion-icon :icon="personCircle" />
+          <ion-label>Profil</ion-label>
         </ion-tab-button>
 
         <ion-tab-button
@@ -45,7 +53,7 @@ import {
   IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage,
 } from '@ionic/vue';
 import {
-  settings, map, camera, list,
+  settings, map, camera, list, personCircle,
 } from 'ionicons/icons';
 
 export default defineComponent({
@@ -59,6 +67,7 @@ export default defineComponent({
       map,
       camera,
       list,
+      personCircle,
     };
   },
 });

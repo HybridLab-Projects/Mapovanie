@@ -66,7 +66,6 @@ import {
 } from '@ionic/vue';
 
 import { filterOutline } from 'ionicons/icons';
-import { mapActions } from 'vuex';
 
 export default defineComponent({
   name: 'Latest',
@@ -87,17 +86,9 @@ export default defineComponent({
   },
   data() {
     return {
-      cardCount: 2,
       value: 'entities',
       filterOutline,
     };
-  },
-  async created() {
-    await this.fetchEntities();
-    await this.fetchLeaderboardUsers();
-  },
-  methods: {
-    ...mapActions(['fetchLeaderboardUsers', 'fetchEntities']),
   },
 });
 </script>

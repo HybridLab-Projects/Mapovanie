@@ -35,6 +35,9 @@ export default createStore<State>({
     leaderboardUsersFetched(state, usersData) {
       state.leaderboardUsers = usersData.data;
     },
+    userinfoFetched(state, userinfo) {
+      state.user = userinfo.response.user;
+    },
   },
   actions: {
     async fetchEntities({ commit }) {
@@ -48,28 +51,15 @@ export default createStore<State>({
         console.log(err);
       }
     },
-    async login({ commit }) {
+    async login({ commit, dispatch }, isSilent = false) {
       try {
-        const result = await FacebookLogin.login({ permissions: ['email', 'public_profile'] }) as FacebookLoginResponse;
-        if (result.accessToken) {
-          console.log('FB data: ', result.accessToken);
-          // eslint-disable-next-line @typescript-eslint/camelcase
-          const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token });
-          console.log('FB: ', data);
-          commit('userLoggedIn', data);
-          await Storage.set({ key: 'userToken', value: JSON.stringify(data.data.token) });
-          await Storage.set({ key: 'userData', value: JSON.stringify(data.data.user) });
-          await router.push({ name: 'Home' });
+        let result;
+        if (isSilent) {
+          result = await FacebookLogin.getCurrentAccessToken();
         } else {
-          console.error('FB: Failed getting token');
+          result = await FacebookLogin.login({ permissions: ['email', 'public_profile'] });
         }
-      } catch (err) {
-        console.error('Login: ', err);
-      }
-    },
-    async checkLogin({ commit }) {
-      try {
-        const result = await FacebookLogin.getCurrentAccessToken() as FacebookLoginResponse;
+
         if (result.accessToken) {
           console.log('test FB data: ', result.accessToken);
           // eslint-disable-next-line @typescript-eslint/camelcase
@@ -79,6 +69,8 @@ export default createStore<State>({
           console.log('AKAKAK');
           await Storage.set({ key: 'userToken', value: JSON.stringify(data.data.token) });
           await Storage.set({ key: 'userData', value: JSON.stringify(data.data.user) });
+          await dispatch('fetchLeaderboardUsers');
+          await dispatch('fetchEntities');
           await router.push({ name: 'Home' });
           await SplashScreen.hide();
         } else {
@@ -110,6 +102,14 @@ export default createStore<State>({
 
         commit('leaderboardUsersFetched', data);
         console.log(data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async fetchUserinfo({ commit }) {
+      try {
+        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/auth/info');
+        commit('userinfoFetched', data);
       } catch (err) {
         console.log(err);
       }

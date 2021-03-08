@@ -40,6 +40,8 @@ export interface User {
     surname: null;
     updated_at: string;
     username: string;
+    avatar: string;
+    entities: Array<Entity>;
 }
 
 export interface LeaderboardUser {
