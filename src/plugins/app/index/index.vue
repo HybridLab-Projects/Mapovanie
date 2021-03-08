@@ -12,7 +12,7 @@ export default defineComponent({
     IonPage,
   },
   async mounted() {
-    await this.$store.dispatch('checkLogin');
+    await this.$store.dispatch('login');
   },
 });
 </script>

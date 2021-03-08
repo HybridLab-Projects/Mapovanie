@@ -10,7 +10,7 @@
       </ion-refresher>
       <div class="d-flex ion-justify-content-center ion-margin-top">
         <ion-avatar>
-          <img src="https://avatars.dicebear.com/api/male/1.svg">
+          <img :src="user.avatar">
         </ion-avatar>
       </div>
       <h1 class="ion-text-center">
@@ -105,9 +105,6 @@ export default defineComponent({
   },
   computed: {
     ...mapState(['user']),
-  },
-  async created() {
-    await this.fetchUserinfo();
   },
   methods: {
     ...mapActions(['fetchUserinfo']),

@@ -11,7 +11,7 @@
       :key="i"
     >
       <ion-avatar slot="start">
-        <img :src="`https://avatars.dicebear.com/4.5/api/male/${user.id}.svg`">
+        <img :src="user.avatar">
       </ion-avatar>
       <ion-label>
         <h3>{{ user.name }}</h3>
