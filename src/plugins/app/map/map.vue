@@ -41,7 +41,7 @@ import {
 } from '@ionic/vue';
 
 import Mapbox, { GeoJSONSource, NavigationControl } from 'mapbox-gl';
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import { filterOutline } from 'ionicons/icons';
 
 export default defineComponent({

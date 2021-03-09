@@ -3,8 +3,7 @@ import { Entity, State, User } from '@/plugins/app/_config/types';
 import Axios from 'axios';
 
 import { Plugins } from '@capacitor/core';
-import { FacebookLoginResponse } from '@capacitor-community/facebook-login';
-import Geojson, { Feature, Point } from 'geojson';
+import Geojson from 'geojson';
 // eslint-disable-next-line import/no-cycle
 import router from './router';
 
@@ -71,7 +70,7 @@ export default createStore<State>({
           await Storage.set({ key: 'userData', value: JSON.stringify(data.data.user) });
           await dispatch('fetchLeaderboardUsers');
           await dispatch('fetchEntities');
-          await router.push({ name: 'Home' });
+          await router.push({ name: 'Latest' });
           await SplashScreen.hide();
         } else {
           console.error('FB: Failed getting token');
