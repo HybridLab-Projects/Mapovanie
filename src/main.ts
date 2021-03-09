@@ -3,7 +3,7 @@ import { IonicVue } from '@ionic/vue';
 
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
-import IHeader from '@/plugins/app/_layout/header.vue';
+import IHeader from '@/plugins/app/_components/header.vue';
 
 import './custom';
 
