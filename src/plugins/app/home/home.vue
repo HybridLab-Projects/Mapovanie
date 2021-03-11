@@ -19,8 +19,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import Camera from '@/plugins/capacitor/camera';
-import Geolocation from '@/plugins/capacitor/geolocation';
+import Camera from '@/plugins/jakub/capacitor/camera';
+import Geolocation from '@/plugins/jakub/capacitor/geolocation';
 
 import { cameraOutline } from 'ionicons/icons';
 import {

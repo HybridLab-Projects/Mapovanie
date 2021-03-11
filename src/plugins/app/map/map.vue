@@ -144,15 +144,15 @@ export default defineComponent({
           // 'rgba(102, 228, 128, 0.5)',
         },
       });
-      map.loadImage('/icons/leaf-tree.png', (err, image) => {
+      map.loadImage('/assets/map/icons/leaf-tree.png', (err, image) => {
         if (err || !image) throw err;
         map.addImage('leaf', image);
       });
-      map.loadImage('/icons/fir-tree.png', (err, image) => {
+      map.loadImage('/assets/map/icons/fir-tree.png', (err, image) => {
         if (err || !image) throw err;
         map.addImage('fir', image);
       });
-      map.loadImage('/icons/bench.png', (err, image) => {
+      map.loadImage('/assets/map/icons/bench.png', (err, image) => {
         if (err || !image) throw err;
         map.addImage('bench', image);
       });

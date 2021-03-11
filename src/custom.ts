@@ -1,3 +1,3 @@
-import '@/plugins/ionic';
-import '@/plugins/capacitor/facebook-login';
+import '@/plugins/app/_theme/ionic';
 import '@/plugins/app/_theme/custom.scss';
+import '@/plugins/jakub/capacitor/facebook-login';

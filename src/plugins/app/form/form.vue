@@ -40,8 +40,8 @@ import Axios from 'axios';
 import {
   Plugins, GeolocationPosition, CameraPhoto,
 } from '@capacitor/core';
-import Camera from '@/plugins/capacitor/camera';
-import Geolocation from '@/plugins/capacitor/geolocation';
+import Camera from '@/plugins/jakub/capacitor/camera';
+import Geolocation from '@/plugins/jakub/capacitor/geolocation';
 
 const { Device } = Plugins;
 export default defineComponent({

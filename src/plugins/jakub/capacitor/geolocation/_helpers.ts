@@ -1,8 +1,8 @@
 import { GeolocationPosition } from '@capacitor/core';
 
 export default {
-  getFixedDeviceLocation(deviceLocation: GeolocationPosition) {
-    const parsed = {
+  getFixedDeviceLocation(deviceLocation: GeolocationPosition): GeolocationPosition {
+    return {
       coords: {
         latitude: deviceLocation.coords.latitude,
         longitude: deviceLocation.coords.longitude,
@@ -14,8 +14,5 @@ export default {
       },
       timestamp: deviceLocation.timestamp,
     };
-    console.log(JSON.stringify(deviceLocation));
-    console.log(JSON.stringify(parsed));
-    return parsed;
   },
 };

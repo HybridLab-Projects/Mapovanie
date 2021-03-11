@@ -15,4 +15,4 @@ import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
 
 /* Theme variables */
-import '@/plugins/ionic/theme/variables.css';
+import '@/plugins/app/_theme/ionic/theme/variables.css';
