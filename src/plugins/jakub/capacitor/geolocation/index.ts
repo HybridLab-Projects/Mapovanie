@@ -1,7 +1,7 @@
-import { GeolocationPosition, Plugins } from '@capacitor/core';
-import GeoHelpers from './_helpers';
+import { GeolocationPosition, Plugins } from '@capacitor/core'
+import GeoHelpers from './_helpers'
 
-const { Geolocation } = Plugins;
+const { Geolocation } = Plugins
 
 export default {
   async getDeviceLocation(): Promise<GeolocationPosition> {
@@ -9,7 +9,7 @@ export default {
       enableHighAccuracy: false,
       maximumAge: 0,
       timeout: 2000,
-    });
-    return GeoHelpers.getFixedDeviceLocation(deviceLocation);
+    })
+    return GeoHelpers.getFixedDeviceLocation(deviceLocation)
   },
-};
+}

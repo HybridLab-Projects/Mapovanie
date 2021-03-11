@@ -5,11 +5,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
-import { IonNav } from '@ionic/vue';
+import { IonNav } from '@ionic/vue'
 
-import EntityReport from './entity-report.vue';
+import EntityReport from './entity-report.vue'
 
 export default defineComponent({
   name: 'EntityReportNav',
@@ -18,8 +18,8 @@ export default defineComponent({
   },
   mounted() {
     // eslint-disable-next-line no-undef
-    const ionNav = document.querySelector('ion-nav') as HTMLIonNavElement;
-    ionNav.setRoot(EntityReport);
+    const ionNav = document.querySelector('ion-nav') as HTMLIonNavElement
+    ionNav.setRoot(EntityReport)
   },
-});
+})
 </script>

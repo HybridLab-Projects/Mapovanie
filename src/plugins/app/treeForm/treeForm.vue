@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   loadingController,
@@ -59,14 +59,14 @@ import {
   IonImg,
   IonButton,
   IonIcon,
-} from '@ionic/vue';
-import Axios from 'axios';
+} from '@ionic/vue'
+import Axios from 'axios'
 
 import {
   Plugins, CameraResultType, GeolocationPosition, CameraPhoto,
-} from '@capacitor/core';
+} from '@capacitor/core'
 
-const { Camera, Device, Geolocation } = Plugins;
+const { Camera, Device, Geolocation } = Plugins
 export default defineComponent({
   name: 'Form',
   components: {
@@ -81,15 +81,15 @@ export default defineComponent({
       image: {} as CameraPhoto,
       deviceLocation: {} as GeolocationPosition,
       treeType: '',
-    };
+    }
   },
   ionViewWillEnter() {
-    this.treeType = '';
-    const imageStringified = this.$route.params.image as string;
-    const deviceLocationStringified = this.$route.params.deviceLocation as string;
+    this.treeType = ''
+    const imageStringified = this.$route.params.image as string
+    const deviceLocationStringified = this.$route.params.deviceLocation as string
 
-    this.image = JSON.parse(imageStringified);
-    this.deviceLocation = JSON.parse(deviceLocationStringified);
+    this.image = JSON.parse(imageStringified)
+    this.deviceLocation = JSON.parse(deviceLocationStringified)
   },
   methods: {
     async retakePicture() {
@@ -98,25 +98,25 @@ export default defineComponent({
           quality: 90,
           allowEditing: true,
           resultType: CameraResultType.DataUrl,
-        });
+        })
         const deviceLocation = await Geolocation.getCurrentPosition({
           enableHighAccuracy: true,
           maximumAge: 0,
           timeout: 2000,
-        });
-        this.image = image;
-        this.deviceLocation = deviceLocation;
+        })
+        this.image = image
+        this.deviceLocation = deviceLocation
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
     },
     async submit() {
       const loading = await loadingController.create({
         message: 'Odosielam...',
-      });
+      })
       try {
-        await loading.present();
-        const deviceInfo = await Device.getInfo();
+        await loading.present()
+        const deviceInfo = await Device.getInfo()
         if (
           !this.treeType
 || !this.deviceLocation.coords.longitude
@@ -124,7 +124,7 @@ export default defineComponent({
 || !deviceInfo.uuid
 || !this.image.dataUrl
         ) {
-          throw new Error('Error');
+          throw new Error('Error')
         }
         await Axios.post('https://mapovanie.hybridlab.dev/cms/api/entities', {
           type: 'tree',
@@ -133,24 +133,24 @@ export default defineComponent({
           latitude: this.deviceLocation.coords.latitude,
           device_uuid: deviceInfo.uuid,
           image: this.image.dataUrl,
-        });
-        await loading.dismiss();
+        })
+        await loading.dismiss()
 
         this.$router.push({
           name: 'Success',
-        });
+        })
       } catch (err) {
-        console.log(err);
+        console.log(err)
 
-        await loading.dismiss();
+        await loading.dismiss()
 
         this.$router.push({
           name: 'Fail',
-        });
+        })
       }
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

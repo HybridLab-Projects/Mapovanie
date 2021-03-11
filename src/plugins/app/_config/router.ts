@@ -1,11 +1,11 @@
-import { createRouter, createWebHashHistory } from '@ionic/vue-router';
-import { RouteRecordRaw } from 'vue-router';
-import { Plugins } from '@capacitor/core';
-import Tabs from '../_layout/tabs.vue';
+import { createRouter, createWebHashHistory } from '@ionic/vue-router'
+import { RouteRecordRaw } from 'vue-router'
+import { Plugins } from '@capacitor/core'
+import Tabs from '../_layout/tabs.vue'
 // eslint-disable-next-line import/no-cycle
-import store from './store';
+import store from './store'
 
-const { Storage, SplashScreen } = Plugins;
+const { Storage, SplashScreen } = Plugins
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -13,13 +13,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     component: () => import('@/plugins/app/index/index.vue'),
     async beforeEnter(to, from, next) {
-      const slides = await Storage.get({ key: 'slidesFinished' });
-      console.log('slides', slides);
+      const slides = await Storage.get({ key: 'slidesFinished' })
+      console.log('slides', slides)
       if (!slides.value) {
-        await SplashScreen.hide();
-        next({ name: 'Slides' });
+        await SplashScreen.hide()
+        next({ name: 'Slides' })
       } else {
-        next();
+        next()
       }
     },
   },
@@ -67,9 +67,9 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter(to, from, next) {
       if (!to.params.image
           || !to.params.deviceLocation) {
-        next({ name: 'Home' });
+        next({ name: 'Home' })
       } else {
-        next();
+        next()
       }
     },
   },
@@ -103,21 +103,21 @@ const routes: Array<RouteRecordRaw> = [
     path: '/settings/qna',
     component: () => import('@/plugins/app/settings/qna.vue'),
   },
-];
+]
 
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes,
-});
+})
 
 router.beforeEach((to, from, next) => {
   if (!store.getters.isUserLoggedIn && !(to.name === 'Index' || to.name === 'Login' || to.name === 'Slides')) {
-    next({ name: 'Login' });
+    next({ name: 'Login' })
   } else if (store.getters.isUserLoggedIn && to.name === 'Login') {
-    next({ name: 'Home' });
+    next({ name: 'Home' })
   } else {
-    next();
+    next()
   }
-});
+})
 
-export default router;
+export default router

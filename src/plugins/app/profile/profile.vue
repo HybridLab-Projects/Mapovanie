@@ -76,10 +76,10 @@ import {
   IonLabel,
   IonRefresher,
   IonRefresherContent,
-} from '@ionic/vue';
-import { defineComponent } from 'vue';
-import { mapActions, mapState } from 'vuex';
-import { locationOutline, mapOutline } from 'ionicons/icons';
+} from '@ionic/vue'
+import { defineComponent } from 'vue'
+import { mapActions, mapState } from 'vuex'
+import { locationOutline, mapOutline } from 'ionicons/icons'
 
 export default defineComponent({
   name: 'Profile',
@@ -101,7 +101,7 @@ export default defineComponent({
     return {
       locationOutline,
       mapOutline,
-    };
+    }
   },
   computed: {
     ...mapState(['user']),
@@ -109,13 +109,13 @@ export default defineComponent({
   methods: {
     ...mapActions(['fetchUserinfo']),
     async doRefresh(e: CustomEvent) {
-      await this.$store.dispatch('fetchUserinfo');
+      await this.$store.dispatch('fetchUserinfo')
       // @ts-expect-error ionic stuff
-      e.target.complete();
+      e.target.complete()
     },
   },
 
-});
+})
 
 </script>
 

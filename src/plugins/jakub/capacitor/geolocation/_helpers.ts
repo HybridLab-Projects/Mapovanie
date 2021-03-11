@@ -1,4 +1,4 @@
-import { GeolocationPosition } from '@capacitor/core';
+import { GeolocationPosition } from '@capacitor/core'
 
 export default {
   getFixedDeviceLocation(deviceLocation: GeolocationPosition): GeolocationPosition {
@@ -13,6 +13,6 @@ export default {
         speed: deviceLocation.coords.speed,
       },
       timestamp: deviceLocation.timestamp,
-    };
+    }
   },
-};
+}

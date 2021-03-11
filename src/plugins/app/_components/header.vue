@@ -13,11 +13,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
 export default defineComponent({
   name: 'Tabs',
@@ -34,5 +34,5 @@ export default defineComponent({
       default: false,
     },
   },
-});
+})
 </script>

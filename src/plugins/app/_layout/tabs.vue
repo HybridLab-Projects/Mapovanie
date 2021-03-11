@@ -47,14 +47,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage,
-} from '@ionic/vue';
+} from '@ionic/vue'
 import {
   settings, map, camera, list, personCircle,
-} from 'ionicons/icons';
+} from 'ionicons/icons'
 
 export default defineComponent({
   name: 'Tabs',
@@ -68,7 +68,7 @@ export default defineComponent({
       camera,
       list,
       personCircle,
-    };
+    }
   },
-});
+})
 </script>

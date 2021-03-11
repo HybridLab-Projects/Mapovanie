@@ -22,8 +22,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { mapState, mapActions } from 'vuex';
+import { defineComponent } from 'vue'
+import { mapState, mapActions } from 'vuex'
 
 import {
   IonRefresher,
@@ -32,7 +32,7 @@ import {
   IonList,
   IonLabel,
   IonAvatar,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
 export default defineComponent({
   name: 'Leaderboard',
@@ -46,7 +46,7 @@ export default defineComponent({
   },
   data() {
     return {
-    };
+    }
   },
   computed: {
     ...mapState(['leaderboardUsers']),
@@ -54,12 +54,12 @@ export default defineComponent({
   methods: {
     ...mapActions(['fetchLeaderboardUsers']),
     async doRefresh(e: CustomEvent) {
-      await this.fetchLeaderboardUsers();
+      await this.fetchLeaderboardUsers()
       // @ts-expect-error ionic stuff
-      e.target.complete();
+      e.target.complete()
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

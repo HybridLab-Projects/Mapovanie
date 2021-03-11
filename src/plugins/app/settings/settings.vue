@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   IonPage,
@@ -52,7 +52,7 @@ import {
   IonLabel,
   IonSelect,
   IonSelectOption,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
 export default defineComponent({
   name: 'Settings',
@@ -68,17 +68,17 @@ export default defineComponent({
   data() {
     return {
       lang: 'sk',
-    };
+    }
   },
   methods: {
     log() {
-      console.log(this.lang);
+      console.log(this.lang)
     },
     logout() {
-      this.$store.dispatch('logout');
+      this.$store.dispatch('logout')
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

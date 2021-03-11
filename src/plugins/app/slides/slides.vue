@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   IonPage,
@@ -63,13 +63,13 @@ import {
   IonButton,
   IonImg,
   IonIcon,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
-import { arrowForwardOutline } from 'ionicons/icons';
+import { arrowForwardOutline } from 'ionicons/icons'
 
-import { Plugins } from '@capacitor/core';
+import { Plugins } from '@capacitor/core'
 
-const { Storage } = Plugins;
+const { Storage } = Plugins
 
 export default defineComponent({
   name: 'Slides',
@@ -85,15 +85,15 @@ export default defineComponent({
   data() {
     return {
       arrowForwardOutline,
-    };
+    }
   },
   methods: {
     async finishSlides() {
-      await Storage.set({ key: 'slidesFinished', value: 'true' });
-      await this.$router.push({ name: 'Login' });
+      await Storage.set({ key: 'slidesFinished', value: 'true' })
+      await this.$router.push({ name: 'Login' })
     },
   },
-});
+})
 </script>
 
 <style scoped>

@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   IonContent,
@@ -38,11 +38,11 @@ import {
   IonButton,
   IonIcon,
   IonTitle,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
-import Mapbox, { GeoJSONSource, NavigationControl } from 'mapbox-gl';
-import { mapGetters } from 'vuex';
-import { filterOutline } from 'ionicons/icons';
+import Mapbox, { GeoJSONSource, NavigationControl } from 'mapbox-gl'
+import { mapGetters } from 'vuex'
+import { filterOutline } from 'ionicons/icons'
 
 export default defineComponent({
   name: 'Map',
@@ -60,21 +60,21 @@ export default defineComponent({
   data() {
     return {
       filterOutline,
-    };
+    }
   },
   computed: {
     ...mapGetters(['getEntityGeoJson']),
   },
   async mounted() {
-    Mapbox.accessToken = 'pk.eyJ1IjoiamFrdWJrb2plIiwiYSI6ImNraW00cDJmdzBvYjczMXA5dzJwZHRyY20ifQ.yk8SaFKG2QFChkFWgZaCEA';
+    Mapbox.accessToken = 'pk.eyJ1IjoiamFrdWJrb2plIiwiYSI6ImNraW00cDJmdzBvYjczMXA5dzJwZHRyY20ifQ.yk8SaFKG2QFChkFWgZaCEA'
     const map = new Mapbox.Map({
       container: 'map-container',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [17.107748, 48.148598],
       zoom: 9,
-    });
-    const navigation = new NavigationControl();
-    map.addControl(navigation, 'top-right');
+    })
+    const navigation = new NavigationControl()
+    map.addControl(navigation, 'top-right')
 
     map.on('load', () => {
       map.addSource('entities', {
@@ -83,7 +83,7 @@ export default defineComponent({
         cluster: true,
         clusterMaxZoom: 100, // Max zoom to cluster points on
         clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
-      });
+      })
       map.addLayer({
         id: 'clusters',
         type: 'circle',
@@ -93,7 +93,7 @@ export default defineComponent({
           'circle-color': '#CCCCCC',
           'circle-radius': 25,
         },
-      });
+      })
       map.addLayer({
         id: 'cluster-count',
         type: 'symbol',
@@ -104,7 +104,7 @@ export default defineComponent({
           'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
           'text-size': 12,
         },
-      });
+      })
       map.addLayer({
         id: 'unclustered-point',
         type: 'circle',
@@ -143,19 +143,19 @@ export default defineComponent({
           ],
           // 'rgba(102, 228, 128, 0.5)',
         },
-      });
+      })
       map.loadImage('/assets/map/icons/leaf-tree.png', (err, image) => {
-        if (err || !image) throw err;
-        map.addImage('leaf', image);
-      });
+        if (err || !image) throw err
+        map.addImage('leaf', image)
+      })
       map.loadImage('/assets/map/icons/fir-tree.png', (err, image) => {
-        if (err || !image) throw err;
-        map.addImage('fir', image);
-      });
+        if (err || !image) throw err
+        map.addImage('fir', image)
+      })
       map.loadImage('/assets/map/icons/bench.png', (err, image) => {
-        if (err || !image) throw err;
-        map.addImage('bench', image);
-      });
+        if (err || !image) throw err
+        map.addImage('bench', image)
+      })
       map.addLayer({
         id: 'point-icon',
         type: 'symbol',
@@ -178,56 +178,56 @@ export default defineComponent({
           ],
           'icon-size': 0.35,
         },
-      });
+      })
       map.on('click', 'clusters', (e) => {
-        console.log('clustered');
+        console.log('clustered')
         const features = map.queryRenderedFeatures(e.point, {
           layers: ['clusters'],
-        });
+        })
         if (features[0].properties) {
-          const clusterId = features[0].properties.cluster_id;
-          const test = map.getSource('entities') as GeoJSONSource;
+          const clusterId = features[0].properties.cluster_id
+          const test = map.getSource('entities') as GeoJSONSource
           test.getClusterExpansionZoom(clusterId, (err, zoom) => {
-            if (err) return;
+            if (err) return
             map.easeTo({
               // @ts-expect-error wrong types
               center: features[0].geometry.coordinates,
               zoom,
-            });
-          });
+            })
+          })
         }
-      });
+      })
       map.on('click', 'unclustered-point', (e) => {
-        console.log('unclustered', e);
+        console.log('unclustered', e)
         if (e.features) {
-          const entityData = e.features[0].properties;
-          if (entityData) this.$router.push({ name: 'EntityDetail', params: { id: entityData.id } });
+          const entityData = e.features[0].properties
+          if (entityData) this.$router.push({ name: 'EntityDetail', params: { id: entityData.id } })
         }
-      });
+      })
       map.on('click', (e) => {
         if (
           map
             .queryRenderedFeatures(e.point)
             .filter((feature) => feature.source === 'entities').length === 0
         ) {
-          console.log('Basemap click');
+          console.log('Basemap click')
         }
-      });
+      })
       map.on('mouseenter', 'clusters', () => {
-        map.getCanvas().style.cursor = 'pointer';
-      });
+        map.getCanvas().style.cursor = 'pointer'
+      })
       map.on('mouseleave', 'clusters', () => {
-        map.getCanvas().style.cursor = '';
-      });
+        map.getCanvas().style.cursor = ''
+      })
       map.on('mouseenter', 'unclustered-point', () => {
-        map.getCanvas().style.cursor = 'pointer';
-      });
+        map.getCanvas().style.cursor = 'pointer'
+      })
       map.on('mouseleave', 'unclustered-point', () => {
-        map.getCanvas().style.cursor = '';
-      });
-    });
+        map.getCanvas().style.cursor = ''
+      })
+    })
   },
-});
+})
 
 </script>
 

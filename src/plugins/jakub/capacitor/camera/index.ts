@@ -1,9 +1,9 @@
 import {
   CameraPhoto, CameraResultType, CameraSource, Plugins,
-} from '@capacitor/core';
-import CamHelpers from './_helpers';
+} from '@capacitor/core'
+import CamHelpers from './_helpers'
 
-const { Camera } = Plugins;
+const { Camera } = Plugins
 
 export default {
   async getFullPhoto(): Promise<CameraPhoto> {
@@ -12,13 +12,13 @@ export default {
       allowEditing: false,
       resultType: CameraResultType.Uri,
       source: CameraSource.Camera,
-    });
+    })
 
     if (!photo?.webPath) {
-      throw Error('Error when taking photo.');
+      throw Error('Error when taking photo.')
     }
-    photo.dataUrl = await CamHelpers.getBase64FromBlobUrl(photo.webPath, photo.format);
+    photo.dataUrl = await CamHelpers.getBase64FromBlobUrl(photo.webPath, photo.format)
 
-    return photo;
+    return photo
   },
-};
+}
