@@ -2,42 +2,27 @@
   <ion-page>
     <ion-tabs>
       <ion-tab-bar slot="bottom">
-        <ion-tab-button
-          tab="segments"
-          href="/tabs/latest"
-        >
+        <ion-tab-button tab="segments" href="/tabs/latest">
           <ion-icon :icon="list" />
           <ion-label>Najnovšie</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button
-          tab="map"
-          href="/tabs/map"
-        >
+        <ion-tab-button tab="map" href="/tabs/map">
           <ion-icon :icon="map" />
           <ion-label>Mapa</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button
-          tab="home"
-          href="/tabs/home"
-        >
+        <ion-tab-button tab="home" href="/tabs/home">
           <ion-icon :icon="camera" />
           <ion-label>Pridať</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button
-          tab="profile"
-          href="/tabs/profile"
-        >
+        <ion-tab-button tab="profile" href="/tabs/profile">
           <ion-icon :icon="personCircle" />
           <ion-label>Profil</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button
-          tab="settings"
-          href="/tabs/settings"
-        >
+        <ion-tab-button tab="settings" href="/tabs/settings">
           <ion-icon :icon="settings" />
           <ion-label>Nastavenia</ion-label>
         </ion-tab-button>

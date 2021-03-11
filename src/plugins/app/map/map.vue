@@ -66,7 +66,7 @@ export default defineComponent({
     ...mapGetters(['getEntityGeoJson']),
   },
   async mounted() {
-    Mapbox.accessToken = 'pk.eyJ1IjoiamFrdWJrb2plIiwiYSI6ImNraW00cDJmdzBvYjczMXA5dzJwZHRyY20ifQ.yk8SaFKG2QFChkFWgZaCEA'
+    Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
     const map = new Mapbox.Map({
       container: 'map-container',
       style: 'mapbox://styles/mapbox/streets-v11',
