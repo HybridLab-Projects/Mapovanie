@@ -117,6 +117,7 @@ export default defineComponent({
           entity: this.entity,
         },
         swipeToClose: true,
+        // eslint-disable-next-line no-undef
         presentingElement: document.querySelector('ion-router-outlet') as HTMLIonRouterOutletElement,
       });
       return modal.present();

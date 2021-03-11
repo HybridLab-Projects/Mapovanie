@@ -24,7 +24,6 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable @typescript-eslint/camelcase */
 import { defineComponent } from 'vue';
 
 import {

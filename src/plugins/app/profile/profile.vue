@@ -110,7 +110,7 @@ export default defineComponent({
     ...mapActions(['fetchUserinfo']),
     async doRefresh(e: CustomEvent) {
       await this.$store.dispatch('fetchUserinfo');
-      // @ts-expect-error
+      // @ts-expect-error ionic stuff
       e.target.complete();
     },
   },

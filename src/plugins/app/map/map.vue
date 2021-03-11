@@ -190,7 +190,7 @@ export default defineComponent({
           test.getClusterExpansionZoom(clusterId, (err, zoom) => {
             if (err) return;
             map.easeTo({
-              // @ts-expect-error
+              // @ts-expect-error wrong types
               center: features[0].geometry.coordinates,
               zoom,
             });

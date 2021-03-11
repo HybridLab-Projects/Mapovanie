@@ -79,7 +79,7 @@ export default defineComponent({
   methods: {
     async doRefresh(e: CustomEvent) {
       await this.$store.dispatch('fetchEntities');
-      // @ts-expect-error
+      // @ts-expect-error ionic stuff
       e.target.complete();
     },
   },

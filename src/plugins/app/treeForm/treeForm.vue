@@ -128,11 +128,9 @@ export default defineComponent({
         }
         await Axios.post('https://mapovanie.hybridlab.dev/cms/api/entities', {
           type: 'tree',
-          // eslint-disable-next-line @typescript-eslint/camelcase
           sub_type: this.treeType,
           longitude: this.deviceLocation.coords.longitude,
           latitude: this.deviceLocation.coords.latitude,
-          // eslint-disable-next-line @typescript-eslint/camelcase
           device_uuid: deviceInfo.uuid,
           image: this.image.dataUrl,
         });

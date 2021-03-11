@@ -55,7 +55,7 @@ export default defineComponent({
     ...mapActions(['fetchLeaderboardUsers']),
     async doRefresh(e: CustomEvent) {
       await this.fetchLeaderboardUsers();
-      // @ts-expect-error
+      // @ts-expect-error ionic stuff
       e.target.complete();
     },
   },

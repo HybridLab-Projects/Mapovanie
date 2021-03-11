@@ -1,10 +1,4 @@
-export interface State {
-    entities: Array<Entity>;
-    token: string;
-    user: User;
-    leaderboardUsers: Array<LeaderboardUser>;
-}
-
+/* eslint-disable camelcase */
 export interface Entity {
     id: number;
     type: string;
@@ -49,4 +43,11 @@ export interface LeaderboardUser {
     name: string;
     email: string;
     points: number;
+}
+
+export interface State {
+    entities: Array<Entity>;
+    token: string;
+    user: User;
+    leaderboardUsers: Array<LeaderboardUser>;
 }

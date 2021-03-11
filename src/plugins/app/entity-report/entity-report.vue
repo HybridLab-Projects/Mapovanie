@@ -59,6 +59,7 @@ export default defineComponent({
   },
   methods: {
     sendReport() {
+      // eslint-disable-next-line no-undef
       const ionNav = document.querySelector('ion-nav') as HTMLIonNavElement;
       ionNav.push(EntityReportSuccess);
     },
