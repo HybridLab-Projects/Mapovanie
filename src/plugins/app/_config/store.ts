@@ -61,7 +61,6 @@ export default createStore<State>({
 
         if (result.accessToken) {
           console.log('test FB data: ', result.accessToken);
-          // eslint-disable-next-line @typescript-eslint/camelcase
           const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token });
           console.log('FB: ', data);
           commit('userLoggedIn', data);
@@ -119,7 +118,7 @@ export default createStore<State>({
       (entity) => entity.id === +id,
     ),
     isUserLoggedIn: (state) => !!state.token,
-    // @ts-expect-error
+    // @ts-expect-error missing type
     getEntityGeoJson: (state) => Geojson.parse(state.entities, { Point: ['lat', 'lon'] }),
   },
   plugins: [createLogger()],
