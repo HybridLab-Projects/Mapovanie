@@ -1,4 +1,4 @@
 # 11.3.
-- [ ] prefix headru
-- [ ] bodkociarky do prec :)
+- [x] prefix headru
+- [x] bodkociarky do prec :)
 - [x] pluginy capacitor su skor jakub namespace

@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <i-header
+    <a-header
       title="Pridať strom"
       back
     />

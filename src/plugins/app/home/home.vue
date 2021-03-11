@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <i-header title="Mapovanie" />
+    <a-header title="Mapovanie" />
     <ion-content class="ion-padding">
       <ion-fab
         slot="fixed"

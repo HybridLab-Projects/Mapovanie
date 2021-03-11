@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <i-header title="Nastavenia" />
+    <a-header title="Nastavenia" />
     <ion-content>
       <ion-list>
         <ion-item>

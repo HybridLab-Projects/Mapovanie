@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <i-header title="Mapovanie" />
+    <a-header title="Mapovanie" />
     <ion-content class="ion-padding">
       <h1>Chyba</h1>
       <p>Niekde nastala chyba, skúste to znova neskôr</p>

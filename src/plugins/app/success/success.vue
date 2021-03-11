@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <i-header title="Mapovanie" />
+    <a-header title="Mapovanie" />
     <ion-content class="ion-padding">
       <h1>Gratulujem</h1>
       <p>Úspešne si pridal záznam do našej databázy.</p>

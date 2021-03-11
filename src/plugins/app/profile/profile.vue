@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <i-header title="Profil" />
+    <a-header title="Profil" />
     <ion-content class="ion-padding">
       <ion-refresher
         slot="fixed"

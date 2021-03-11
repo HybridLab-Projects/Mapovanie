@@ -3,7 +3,7 @@ import { IonicVue } from '@ionic/vue'
 
 import { defineCustomElements } from '@ionic/pwa-elements/loader'
 
-import IHeader from '@/plugins/app/_components/header.vue'
+import AHeader from '@/plugins/app/_components/a-header.vue'
 
 import './custom'
 
@@ -24,4 +24,4 @@ router.isReady().then(() => {
 defineCustomElements(window)
 
 /* Custom global compopnents */
-app.component('IHeader', IHeader)
+app.component('AHeader', AHeader)
