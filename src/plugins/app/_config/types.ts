@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+
 export interface Entity {
     id: number;
     type: string;
@@ -45,9 +46,18 @@ export interface LeaderboardUser {
     points: number;
 }
 
+export interface Category {
+    id: number;
+    key: string;
+    full_name: string;
+    created_at: string;
+    updated_at: string;
+}
+
 export interface State {
     entities: Array<Entity>;
     token: string;
     user: User;
     leaderboardUsers: Array<LeaderboardUser>;
+    categories: Array<Category>;
 }

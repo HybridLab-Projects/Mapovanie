@@ -29,17 +29,17 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        redirect: '/tabs/home',
-      },
-      {
-        name: 'Home',
-        path: 'home',
-        component: () => import('@/plugins/app/home/home.vue'),
+        redirect: '/tabs/latest',
       },
       {
         name: 'Latest',
         path: 'latest',
         component: () => import('@/plugins/app/latest/latest.vue'),
+      },
+      {
+        name: 'Categories',
+        path: 'categories',
+        component: () => import('@/plugins/app/categories/categories.vue'),
       },
       {
         name: 'Map',
@@ -67,7 +67,7 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter(to, from, next) {
       if (!to.params.image
           || !to.params.deviceLocation) {
-        next({ name: 'Home' })
+        next({ name: 'Latest' })
       } else {
         next()
       }
@@ -94,6 +94,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/plugins/app/login/login.vue'),
   },
   {
+    name: 'Tutorial',
+    path: '/tutorial',
+    component: () => import('@/plugins/app/tutorial/tutorial.vue'),
+  },
+  {
     name: 'EntityDetail',
     path: '/entity-detail/:id',
     component: () => import('@/plugins/app/entity-detail/entity-detail.vue'),
@@ -114,7 +119,7 @@ router.beforeEach((to, from, next) => {
   if (!store.getters.isUserLoggedIn && !(to.name === 'Index' || to.name === 'Login' || to.name === 'Slides')) {
     next({ name: 'Login' })
   } else if (store.getters.isUserLoggedIn && to.name === 'Login') {
-    next({ name: 'Home' })
+    next({ name: 'Latest' })
   } else {
     next()
   }

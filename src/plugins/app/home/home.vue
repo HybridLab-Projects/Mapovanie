@@ -1,3 +1,5 @@
+<!--function is in use in the categories component-->
+
 <template>
   <ion-page>
     <a-header title="Mapovanie" />

@@ -12,7 +12,7 @@
           <ion-label>Mapa</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="home" href="/tabs/home">
+        <ion-tab-button tab="categories" href="/tabs/categories">
           <ion-icon :icon="camera" />
           <ion-label>Pridať</ion-label>
         </ion-tab-button>

@@ -98,7 +98,7 @@ export default defineComponent({
         await this.$store.dispatch('fetchUserinfo')
 
         await loading.dismiss()
-        this.$router.push({
+        await this.$router.push({
           name: 'Success',
         })
       } catch (err) {
@@ -110,7 +110,7 @@ export default defineComponent({
           .create({
             cssClass: 'my-custom-class',
             header: 'Error',
-            message: err,
+            message: err.message || err,
             buttons: ['OK'],
           })
         await alert.present()
