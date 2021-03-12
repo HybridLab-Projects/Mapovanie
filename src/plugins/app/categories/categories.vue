@@ -8,12 +8,12 @@
         Obľúbené
       </ion-list-header>
       <ion-list
-        v-for="(entity, i) in categories"
+        v-for="(category, i) in categories"
         :key="i"
       >
-        <ion-item button @click="takePicture()">
+        <ion-item button @click="takePicture(category)">
           <ion-avatar slot="start">
-            <img :src="`https://avatars.dicebear.com/4.5/api/male/${entity.id}.svg`">
+            <img :src="`https://avatars.dicebear.com/4.5/api/male/${category.id}.svg`">
           </ion-avatar>
           <ion-icon
             slot="end"
@@ -21,7 +21,7 @@
             @click.stop="test()"
           />
           <ion-label>
-            <h2>{{ entity.full_name }}</h2>
+            <h2>{{ category.full_name }}</h2>
           </ion-label>
         </ion-item>
       </ion-list>
@@ -52,6 +52,7 @@ import {
   starOutline,
   star,
 } from 'ionicons/icons'
+import { Category, Entity } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'Categories',
@@ -80,7 +81,7 @@ export default defineComponent({
   },
   methods: {
     ...mapActions(['fetchCategories']),
-    async takePicture() {
+    async takePicture(category: Category) {
       try {
         const photo = await Camera.getFullPhoto()
         const deviceLocation = await Geolocation.getDeviceLocation()
@@ -90,6 +91,7 @@ export default defineComponent({
           params: {
             image: JSON.stringify(photo),
             deviceLocation: JSON.stringify(deviceLocation),
+            categoryId: category.id,
           },
         })
       } catch (err) {

@@ -23,7 +23,6 @@
         <span class="ion-align-self-center">{{ entity?.address?.split(',')[0] }}</span>
       </ion-card-subtitle>
       <ion-card-title
-        v-if="entity?.type === 'bench'"
         class="d-flex ion-margin-top"
       >
         <ion-icon
@@ -31,7 +30,7 @@
           size="large"
           class="ion-margin-end"
         />
-        <span class="ion-align-self-center">Lavička</span>
+        <span class="ion-align-self-center">{{ entity?.category.full_name }}</span>
       </ion-card-title>
     </ion-card-header>
   </ion-card>

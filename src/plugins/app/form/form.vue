@@ -57,14 +57,17 @@ export default defineComponent({
     return {
       image: {} as CameraPhoto,
       deviceLocation: {} as GeolocationPosition,
+      categoryId: 0,
     }
   },
   ionViewWillEnter() {
     const imageStringified = this.$route.params.image as string
     const deviceLocationStringified = this.$route.params.deviceLocation as string
+    const categoryIdStringified = this.$route.params.categoryId as string
 
     this.image = JSON.parse(imageStringified)
     this.deviceLocation = JSON.parse(deviceLocationStringified)
+    this.categoryId = JSON.parse(categoryIdStringified)
   },
   methods: {
     async retakePicture() {
@@ -86,12 +89,11 @@ export default defineComponent({
         const { longitude, latitude } = this.deviceLocation.coords
 
         await Axios.post('https://mapovanie.hybridlab.dev/cms/api/entities', {
-          type: 'bench',
-          sub_type: 'bench',
           longitude,
           latitude,
           device_uuid: deviceInfo.uuid,
           image: this.image.dataUrl,
+          category_id: this.categoryId,
         })
         await this.$store.dispatch('fetchEntities')
         await this.$store.dispatch('fetchLeaderboardUsers')

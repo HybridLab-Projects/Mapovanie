@@ -44,10 +44,9 @@
             class="ion-margin-end"
           />
           <h1
-            v-if="entity?.type === 'bench'"
             class="ion-no-margin ion ion-align-self-center"
           >
-            Lavička
+            {{ entity?.category.full_name }}
           </h1>
         </ion-text>
       </div>

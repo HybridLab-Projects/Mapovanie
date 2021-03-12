@@ -8,7 +8,6 @@ export default {
     const deviceLocation = await Geolocation.getCurrentPosition({
       enableHighAccuracy: false,
       maximumAge: 0,
-      timeout: 2000,
     })
     return GeoHelpers.getFixedDeviceLocation(deviceLocation)
   },

@@ -114,14 +114,11 @@ export default defineComponent({
           'circle-color': [
             'case',
             // 1
-            ['==', ['get', 'sub_type'], 'leaf'],
+            ['==', ['get', 'key', ['get', 'category']], 'bin'],
             '#66E480',
             // 2
-            ['==', ['get', 'sub_type'], 'fir'],
+            ['==', ['get', 'key', ['get', 'category']], 'bench'],
             '#4CB962',
-            // 3
-            ['==', ['get', 'type'], 'bench'],
-            '#3FA190',
             // default
             '#66E480',
           ],
@@ -130,18 +127,14 @@ export default defineComponent({
           'circle-stroke-color': [
             'case',
             // 1
-            ['==', ['get', 'sub_type'], 'leaf'],
+            ['==', ['get', 'key', ['get', 'category']], 'bin'],
             'rgba(102, 228, 128, 0.5)',
             // 2
-            ['==', ['get', 'sub_type'], 'fir'],
+            ['==', ['get', 'key', ['get', 'category']], 'bench'],
             'rgba(76, 185, 98, 0.5)',
-            // 3
-            ['==', ['get', 'type'], 'bench'],
-            'rgba(63, 161, 144, 0.5)',
             // default
             'rgba(102, 228, 128, 0.5)',
           ],
-          // 'rgba(102, 228, 128, 0.5)',
         },
       })
       map.loadImage('/assets/map/icons/leaf-tree.png', (err, image) => {
@@ -165,13 +158,10 @@ export default defineComponent({
           'icon-image': [
             'case',
             // 1
-            ['==', ['get', 'sub_type'], 'leaf'],
+            ['==', ['get', 'key', ['get', 'category']], 'bin'],
             'leaf',
             // 2
-            ['==', ['get', 'sub_type'], 'fir'],
-            'fir',
-            // 3
-            ['==', ['get', 'type'], 'bench'],
+            ['==', ['get', 'key', ['get', 'category']], 'bench'],
             'bench',
             // default
             'leaf',
