@@ -3,6 +3,7 @@ export interface State {
     token: string;
     user: User;
     leaderboardUsers: Array<LeaderboardUser>;
+    categories: Array<Category>;
 }
 
 export interface Entity {
@@ -47,4 +48,12 @@ export interface LeaderboardUser {
     name: string;
     email: string;
     points: number;
+}
+
+export interface Category {
+    id: number;
+    key: string;
+    full_name: string;
+    created_at: string;
+    updated_at: string;
 }
