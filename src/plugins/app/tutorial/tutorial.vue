@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <i-header title="Mapovanie" />
+    <a-header title="Mapovanie" />
     <ion-content class="ion-padding">
       <ion-img :src="require('./img/tutorial.svg')" />
       <h1>Ako fotiť?</h1>
@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   IonPage,
@@ -41,7 +41,7 @@ import {
   IonItem,
   IonLabel,
   IonCheckbox,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
 export default defineComponent({
   name: 'Success',
@@ -55,7 +55,7 @@ export default defineComponent({
     IonLabel,
     IonCheckbox,
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

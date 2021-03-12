@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   IonRefresher,
@@ -49,9 +49,9 @@ import {
   IonCardTitle,
   IonImg,
   IonIcon,
-} from '@ionic/vue';
-import { locationOutline, mapOutline } from 'ionicons/icons';
-import { Entity } from '@/plugins/app/_config/types';
+} from '@ionic/vue'
+import { locationOutline, mapOutline } from 'ionicons/icons'
+import { Entity } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'Entities',
@@ -67,24 +67,23 @@ export default defineComponent({
   },
   data() {
     return {
-      cardCount: 2,
       locationOutline,
       mapOutline,
-    };
+    }
   },
   computed: {
     entities(): Array<Entity> {
-      return this.$store.state.entities;
+      return this.$store.state.entities
     },
   },
   methods: {
     async doRefresh(e: CustomEvent) {
-      await this.$store.dispatch('fetchEntities');
-      // @ts-expect-error
-      e.target.complete();
+      await this.$store.dispatch('fetchEntities')
+      // @ts-expect-error ionic stuff
+      e.target.complete()
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

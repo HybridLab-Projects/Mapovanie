@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 import {
   modalController,
   IonHeader,
@@ -32,7 +32,7 @@ import {
   IonText,
   IonButton,
   IonFooter,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
 export default defineComponent({
   name: 'EntityReportSuccess',
@@ -47,8 +47,8 @@ export default defineComponent({
   },
   methods: {
     async closeModal() {
-      await modalController.dismiss();
+      await modalController.dismiss()
     },
   },
-});
+})
 </script>

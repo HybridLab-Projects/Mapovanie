@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { IonPage } from '@ionic/vue';
+import { defineComponent } from 'vue'
+import { IonPage } from '@ionic/vue'
 
 export default defineComponent({
   name: 'Index',
@@ -12,9 +12,9 @@ export default defineComponent({
     IonPage,
   },
   async mounted() {
-    await this.$store.dispatch('checkLogin');
+    await this.$store.dispatch('login', true)
   },
-});
+})
 </script>
 
 <style lang="scss">

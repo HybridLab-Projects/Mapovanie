@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   IonPage,
@@ -71,11 +71,11 @@ import {
   IonTitle,
   IonBackButton,
   modalController,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
-import { flagOutline, locationOutline, mapOutline } from 'ionicons/icons';
-import { Entity } from '@/plugins/app/_config/types';
-import EntityReportModalNav from '../entity-report/entity-report-nav.vue';
+import { flagOutline, locationOutline, mapOutline } from 'ionicons/icons'
+import { Entity } from '@/plugins/app/_config/types'
+import EntityReportModalNav from '../entity-report/entity-report-nav.vue'
 
 export default defineComponent({
   name: 'EntityDetail',
@@ -98,31 +98,32 @@ export default defineComponent({
       locationOutline,
       mapOutline,
       id: '0',
-    };
+    }
   },
   computed: {
     entity(): Entity|undefined {
-      return this.$store.getters.getEntity(this.id);
+      return this.$store.getters.getEntity(this.id)
     },
   },
   ionViewWillEnter() {
-    this.id = this.$route.params.id as string;
+    this.id = this.$route.params.id as string
   },
   methods: {
     async openReportModal() {
-      console.log(this);
+      console.log(this)
       const modal = await modalController.create({
         component: EntityReportModalNav,
         componentProps: {
           entity: this.entity,
         },
         swipeToClose: true,
+        // eslint-disable-next-line no-undef
         presentingElement: document.querySelector('ion-router-outlet') as HTMLIonRouterOutletElement,
-      });
-      return modal.present();
+      })
+      return modal.present()
     },
   },
-});
+})
 </script>
 
 <style lang="scss">

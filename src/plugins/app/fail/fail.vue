@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <i-header title="Mapovanie" />
+    <a-header title="Mapovanie" />
     <ion-content class="ion-padding">
       <h1>Chyba</h1>
       <p>Niekde nastala chyba, skúste to znova neskôr</p>
@@ -18,14 +18,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   IonPage,
   IonContent,
   IonButton,
   IonFooter,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
 export default defineComponent({
   name: 'Success',
@@ -35,7 +35,7 @@ export default defineComponent({
     IonButton,
     IonFooter,
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

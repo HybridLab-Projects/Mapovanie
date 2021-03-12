@@ -2,7 +2,7 @@
 
 <template>
   <ion-page>
-    <i-header title="Mapovanie" />
+    <a-header title="Mapovanie" />
     <ion-content class="ion-padding">
       <ion-fab
         slot="fixed"
@@ -19,19 +19,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
-import Camera from '@/plugins/capacitor/camera';
-import Geolocation from '@/plugins/capacitor/geolocation';
+import Camera from '@/plugins/jakub/capacitor/camera'
+import Geolocation from '@/plugins/jakub/capacitor/geolocation'
 
-import { cameraOutline } from 'ionicons/icons';
+import { cameraOutline } from 'ionicons/icons'
 import {
   IonPage,
   IonContent,
   IonFab,
   IonFabButton,
   IonIcon, alertController,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
 export default defineComponent({
   name: 'Home',
@@ -45,13 +45,13 @@ export default defineComponent({
   data() {
     return {
       cameraOutline,
-    };
+    }
   },
   methods: {
     async takePicture() {
       try {
-        const photo = await Camera.getFullPhoto();
-        const deviceLocation = await Geolocation.getDeviceLocation();
+        const photo = await Camera.getFullPhoto()
+        const deviceLocation = await Geolocation.getDeviceLocation()
 
         this.$router.push({
           name: 'Form',
@@ -59,21 +59,21 @@ export default defineComponent({
             image: JSON.stringify(photo),
             deviceLocation: JSON.stringify(deviceLocation),
           },
-        });
+        })
       } catch (err) {
-        console.log(err);
+        console.log(err)
         const alert = await alertController
           .create({
             cssClass: 'my-custom-class',
             header: 'Error',
             message: err.message,
             buttons: ['OK'],
-          });
-        await alert.present();
+          })
+        await alert.present()
       }
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

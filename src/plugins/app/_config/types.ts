@@ -1,10 +1,4 @@
-export interface State {
-    entities: Array<Entity>;
-    token: string;
-    user: User;
-    leaderboardUsers: Array<LeaderboardUser>;
-    categories: Array<Category>;
-}
+/* eslint-disable camelcase */
 
 export interface Entity {
     id: number;
@@ -41,6 +35,8 @@ export interface User {
     surname: null;
     updated_at: string;
     username: string;
+    avatar: string;
+    entities: Array<Entity>;
 }
 
 export interface LeaderboardUser {
@@ -56,4 +52,12 @@ export interface Category {
     full_name: string;
     created_at: string;
     updated_at: string;
+}
+
+export interface State {
+    entities: Array<Entity>;
+    token: string;
+    user: User;
+    leaderboardUsers: Array<LeaderboardUser>;
+    categories: Array<Category>;
 }

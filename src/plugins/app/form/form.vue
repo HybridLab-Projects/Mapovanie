@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <i-header
+    <a-header
       title="Pridať lavičku"
       back
     />
@@ -24,8 +24,7 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable @typescript-eslint/camelcase */
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   loadingController,
@@ -35,16 +34,16 @@ import {
   IonImg,
   IonButton,
   IonFooter,
-} from '@ionic/vue';
-import Axios from 'axios';
+} from '@ionic/vue'
+import Axios from 'axios'
 
 import {
   Plugins, GeolocationPosition, CameraPhoto,
-} from '@capacitor/core';
-import Camera from '@/plugins/capacitor/camera';
-import Geolocation from '@/plugins/capacitor/geolocation';
+} from '@capacitor/core'
+import Camera from '@/plugins/jakub/capacitor/camera'
+import Geolocation from '@/plugins/jakub/capacitor/geolocation'
 
-const { Device } = Plugins;
+const { Device } = Plugins
 export default defineComponent({
   name: 'Form',
   components: {
@@ -58,33 +57,33 @@ export default defineComponent({
     return {
       image: {} as CameraPhoto,
       deviceLocation: {} as GeolocationPosition,
-    };
+    }
   },
   ionViewWillEnter() {
-    const imageStringified = this.$route.params.image as string;
-    const deviceLocationStringified = this.$route.params.deviceLocation as string;
+    const imageStringified = this.$route.params.image as string
+    const deviceLocationStringified = this.$route.params.deviceLocation as string
 
-    this.image = JSON.parse(imageStringified);
-    this.deviceLocation = JSON.parse(deviceLocationStringified);
+    this.image = JSON.parse(imageStringified)
+    this.deviceLocation = JSON.parse(deviceLocationStringified)
   },
   methods: {
     async retakePicture() {
       try {
-        this.image = await Camera.getFullPhoto();
-        this.deviceLocation = await Geolocation.getDeviceLocation();
+        this.image = await Camera.getFullPhoto()
+        this.deviceLocation = await Geolocation.getDeviceLocation()
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
     },
     async submit() {
       const loading = await loadingController.create({
         message: 'Odosielam...',
-      });
+      })
       try {
-        await loading.present();
-        const deviceInfo = await Device.getInfo();
+        await loading.present()
+        const deviceInfo = await Device.getInfo()
 
-        const { longitude, latitude } = this.deviceLocation.coords;
+        const { longitude, latitude } = this.deviceLocation.coords
 
         await Axios.post('https://mapovanie.hybridlab.dev/cms/api/entities', {
           type: 'bench',
@@ -93,29 +92,32 @@ export default defineComponent({
           latitude,
           device_uuid: deviceInfo.uuid,
           image: this.image.dataUrl,
-        });
+        })
+        await this.$store.dispatch('fetchEntities')
+        await this.$store.dispatch('fetchLeaderboardUsers')
+        await this.$store.dispatch('fetchUserinfo')
 
-        await loading.dismiss();
-        this.$router.push({
+        await loading.dismiss()
+        await this.$router.push({
           name: 'Success',
-        });
+        })
       } catch (err) {
-        console.log(err);
+        console.log(err)
 
-        await loading.dismiss();
+        await loading.dismiss()
 
         const alert = await alertController
           .create({
             cssClass: 'my-custom-class',
             header: 'Error',
-            message: err,
+            message: err.message || err,
             buttons: ['OK'],
-          });
-        await alert.present();
+          })
+        await alert.present()
       }
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

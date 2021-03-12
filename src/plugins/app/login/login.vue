@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <i-header title="Mapovanie" />
+    <a-header title="Mapovanie" />
     <ion-content class="ion-padding ion-text-center">
       <ion-img :src="require('./img/login.svg')" />
       <ion-text>
@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   IonPage,
@@ -65,9 +65,9 @@ import {
   IonText,
   loadingController,
   IonIcon,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
-import { logoFacebook, logoApple } from 'ionicons/icons';
+import { logoFacebook, logoApple } from 'ionicons/icons'
 
 export default defineComponent({
   name: 'Login',
@@ -83,18 +83,18 @@ export default defineComponent({
     return {
       logoFacebook,
       logoApple,
-    };
+    }
   },
   methods: {
     async login() {
-      const test = await loadingController.create({ message: 'Prihlasujem...' });
-      await test.present();
-      await this.$store.dispatch('login');
-      await test.dismiss();
-      console.log('JE TO TAM');
+      const test = await loadingController.create({ message: 'Prihlasujem...' })
+      await test.present()
+      await this.$store.dispatch('login')
+      await test.dismiss()
+      console.log('JE TO TAM')
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

@@ -11,7 +11,7 @@
       :key="i"
     >
       <ion-avatar slot="start">
-        <img :src="`https://avatars.dicebear.com/4.5/api/male/${user.id}.svg`">
+        <img :src="user.avatar">
       </ion-avatar>
       <ion-label>
         <h3>{{ user.name }}</h3>
@@ -22,8 +22,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { mapState, mapActions } from 'vuex';
+import { defineComponent } from 'vue'
+import { mapState, mapActions } from 'vuex'
 
 import {
   IonRefresher,
@@ -32,7 +32,7 @@ import {
   IonList,
   IonLabel,
   IonAvatar,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
 export default defineComponent({
   name: 'Leaderboard',
@@ -46,7 +46,7 @@ export default defineComponent({
   },
   data() {
     return {
-    };
+    }
   },
   computed: {
     ...mapState(['leaderboardUsers']),
@@ -54,12 +54,12 @@ export default defineComponent({
   methods: {
     ...mapActions(['fetchLeaderboardUsers']),
     async doRefresh(e: CustomEvent) {
-      await this.fetchLeaderboardUsers();
-      // @ts-expect-error
-      e.target.complete();
+      await this.fetchLeaderboardUsers()
+      // @ts-expect-error ionic stuff
+      e.target.complete()
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

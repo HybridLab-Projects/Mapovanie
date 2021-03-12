@@ -1,13 +1,13 @@
-import { createStore, createLogger } from 'vuex';
-import { Entity, State, User } from '@/plugins/app/_config/types';
-import Axios from 'axios';
+import { createStore, createLogger } from 'vuex'
+import { Entity, State, User } from '@/plugins/app/_config/types'
+import Axios from 'axios'
 
-import { Plugins } from '@capacitor/core';
-import { FacebookLoginResponse } from '@capacitor-community/facebook-login';
+import { Plugins } from '@capacitor/core'
+import Geojson from 'geojson'
 // eslint-disable-next-line import/no-cycle
-import router from './router';
+import router from './router'
 
-const { FacebookLogin, SplashScreen, Storage } = Plugins;
+const { FacebookLogin, SplashScreen, Storage } = Plugins
 
 export default createStore<State>({
   state: {
@@ -19,24 +19,27 @@ export default createStore<State>({
   },
   mutations: {
     entitiesFetched(state, entities) {
-      state.entities = entities;
+      state.entities = entities
     },
     userLoggedIn(state, userData) {
-      state.token = userData.data.token;
-      state.user = userData.data.user;
-      Axios.defaults.headers.common = { Authorization: `Bearer ${userData.data.token}` };
+      state.token = userData.data.token
+      state.user = userData.data.user
+      Axios.defaults.headers.common = { Authorization: `Bearer ${userData.data.token}` }
     },
     userLoggedOut(state) {
-      state.token = '';
-      state.user = {} as User;
-      state.entities = [];
-      delete Axios.defaults.headers.common.Authorization;
+      state.token = ''
+      state.user = {} as User
+      state.entities = []
+      delete Axios.defaults.headers.common.Authorization
     },
     leaderboardUsersFetched(state, usersData) {
-      state.leaderboardUsers = usersData.data;
+      state.leaderboardUsers = usersData.data
+    },
+    userinfoFetched(state, userinfo) {
+      state.user = userinfo.response.user
     },
     categoriesFetched(state, categoryData) {
-      state.categories = categoryData.data;
+      state.categories = categoryData.data
     },
   },
   actions: {
@@ -44,84 +47,80 @@ export default createStore<State>({
       try {
         const { data } = await Axios.get(
           'https://mapovanie.hybridlab.dev/cms/api/entities',
-        );
-        commit('entitiesFetched', data.data);
-        await Storage.set({ key: 'entities', value: JSON.stringify(data.data) });
+        )
+        commit('entitiesFetched', data.data)
+        await Storage.set({ key: 'entities', value: JSON.stringify(data.data) })
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
     },
-    async login({ commit, dispatch }) {
+    async login({ commit, dispatch }, isSilent = false) {
       try {
-        const result = await FacebookLogin.login({ permissions: ['email', 'public_profile'] }) as FacebookLoginResponse;
-        if (result.accessToken) {
-          console.log('FB data: ', result.accessToken);
-          // eslint-disable-next-line @typescript-eslint/camelcase
-          const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token });
-          console.log('FB: ', data);
-          commit('userLoggedIn', data);
-          await Storage.set({ key: 'userToken', value: JSON.stringify(data.data.token) });
-          await Storage.set({ key: 'userData', value: JSON.stringify(data.data.user) });
-          await dispatch('fetchCategories');
-          await router.push({ name: 'Home' });
+        let result
+        if (isSilent) {
+          result = await FacebookLogin.getCurrentAccessToken()
         } else {
-          console.error('FB: Failed getting token');
+          result = await FacebookLogin.login({ permissions: ['email', 'public_profile'] })
+        }
+
+        if (result.accessToken) {
+          console.log('test FB data: ', result.accessToken)
+          const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token })
+          console.log('FB: ', data)
+          commit('userLoggedIn', data)
+          console.log('AKAKAK')
+          await Storage.set({ key: 'userToken', value: JSON.stringify(data.data.token) })
+          await Storage.set({ key: 'userData', value: JSON.stringify(data.data.user) })
+          await dispatch('fetchLeaderboardUsers')
+          await dispatch('fetchEntities')
+          await dispatch('fetchCategories')
+          await router.push({ name: 'Latest' })
+          await SplashScreen.hide()
+        } else {
+          console.error('FB: Failed getting token')
+          await router.push({ name: 'Login' })
+          await SplashScreen.hide()
         }
       } catch (err) {
-        console.error('Login: ', err);
-      }
-    },
-    async checkLogin({ commit }) {
-      try {
-        const result = await FacebookLogin.getCurrentAccessToken() as FacebookLoginResponse;
-        if (result.accessToken) {
-          console.log('test FB data: ', result.accessToken);
-          // eslint-disable-next-line @typescript-eslint/camelcase
-          const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token });
-          console.log('FB: ', data);
-          commit('userLoggedIn', data);
-          console.log('AKAKAK');
-          await Storage.set({ key: 'userToken', value: JSON.stringify(data.data.token) });
-          await Storage.set({ key: 'userData', value: JSON.stringify(data.data.user) });
-          await router.push({ name: 'Home' });
-          await SplashScreen.hide();
-        } else {
-          console.error('FB: Failed getting token');
-          await router.push({ name: 'Login' });
-          await SplashScreen.hide();
-        }
-      } catch (err) {
-        console.error('Login: ', err);
-        await router.push({ name: 'Login' });
-        await SplashScreen.hide();
+        console.error('Login: ', err)
+        await router.push({ name: 'Login' })
+        await SplashScreen.hide()
       }
     },
     async logout({ commit }) {
       try {
-        await FacebookLogin.logout();
-        commit('userLoggedOut');
-        await Storage.remove({ key: 'entities' });
-        await Storage.remove({ key: 'userToken' });
-        await Storage.remove({ key: 'userData' });
-        await router.push({ name: 'Login' });
+        await FacebookLogin.logout()
+        commit('userLoggedOut')
+        await Storage.remove({ key: 'entities' })
+        await Storage.remove({ key: 'userToken' })
+        await Storage.remove({ key: 'userData' })
+        await router.push({ name: 'Login' })
       } catch (err) {
-        console.error('logout: ', err);
+        console.error('logout: ', err)
       }
     },
     async fetchLeaderboardUsers({ commit }) {
       try {
-        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/users');
-        commit('leaderboardUsersFetched', data);
+        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/users')
+        commit('leaderboardUsersFetched', data)
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
     },
     async fetchCategories({ commit }) {
       try {
-        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/categories');
-        commit('categoriesFetched', data);
+        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/categories')
+        commit('categoriesFetched', data)
       } catch (err) {
-        console.log(err);
+        console.log(err)
+      }
+    },
+    async fetchUserinfo({ commit }) {
+      try {
+        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/auth/info')
+        commit('userinfoFetched', data)
+      } catch (err) {
+        console.log(err)
       }
     },
   },
@@ -130,6 +129,8 @@ export default createStore<State>({
       (entity) => entity.id === +id,
     ),
     isUserLoggedIn: (state) => !!state.token,
+    // @ts-expect-error missing type
+    getEntityGeoJson: (state) => Geojson.parse(state.entities, { Point: ['lat', 'lon'] }),
   },
   plugins: [createLogger()],
-});
+})
