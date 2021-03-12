@@ -37,7 +37,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/plugins/app/latest/latest.vue'),
       },
       {
-        name: 'ChooseCategory',
+        name: 'Categories',
         path: 'categories',
         component: () => import('@/plugins/app/categories/categories.vue'),
       },
