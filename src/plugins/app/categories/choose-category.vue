@@ -108,9 +108,6 @@ export default defineComponent({
       console.log('cool');
     },
   },
-  mounted() {
-    this.fetchCategories();
-  },
 });
 </script>
 

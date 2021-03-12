@@ -51,7 +51,7 @@ export default createStore<State>({
         console.log(err);
       }
     },
-    async login({ commit }) {
+    async login({ commit, dispatch }) {
       try {
         const result = await FacebookLogin.login({ permissions: ['email', 'public_profile'] }) as FacebookLoginResponse;
         if (result.accessToken) {
@@ -62,6 +62,7 @@ export default createStore<State>({
           commit('userLoggedIn', data);
           await Storage.set({ key: 'userToken', value: JSON.stringify(data.data.token) });
           await Storage.set({ key: 'userData', value: JSON.stringify(data.data.user) });
+          await dispatch('fetchCategories');
           await router.push({ name: 'Home' });
         } else {
           console.error('FB: Failed getting token');
