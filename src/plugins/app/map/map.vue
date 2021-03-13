@@ -137,13 +137,9 @@ export default defineComponent({
           ],
         },
       })
-      map.loadImage('/assets/map/icons/leaf-tree.png', (err, image) => {
+      map.loadImage('/assets/map/icons/bin.png', (err, image) => {
         if (err || !image) throw err
-        map.addImage('leaf', image)
-      })
-      map.loadImage('/assets/map/icons/fir-tree.png', (err, image) => {
-        if (err || !image) throw err
-        map.addImage('fir', image)
+        map.addImage('bin', image)
       })
       map.loadImage('/assets/map/icons/bench.png', (err, image) => {
         if (err || !image) throw err
@@ -159,7 +155,7 @@ export default defineComponent({
             'case',
             // 1
             ['==', ['get', 'key', ['get', 'category']], 'bin'],
-            'leaf',
+            'bin',
             // 2
             ['==', ['get', 'key', ['get', 'category']], 'bench'],
             'bench',
