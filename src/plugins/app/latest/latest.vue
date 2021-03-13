@@ -27,7 +27,6 @@
         <ion-toolbar>
           <ion-segment
             v-model="value"
-            value="entities"
           >
             <ion-segment-button value="entities">
               <ion-label>Najnovšie</ion-label>

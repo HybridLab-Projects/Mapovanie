@@ -1,10 +1,22 @@
 <template>
   <ion-page>
-    <a-header title="Mapovanie" />
-    <ion-content>
-      <ion-list-header
-        class="ion-margin-bottom"
-      >
+    <ion-header :translucent="true">
+      <ion-toolbar>
+        <ion-title>Kategórie</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content :fullscreen="true">
+      <ion-header collapse="condense" style="--border-width: 0;">
+        <ion-toolbar>
+          <ion-title size="large">
+            Kategórie
+          </ion-title>
+        </ion-toolbar>
+        <ion-toolbar>
+          <ion-searchbar v-model="search" />
+        </ion-toolbar>
+      </ion-header>
+      <ion-list-header class="ion-margin-bottom">
         Obľúbené
       </ion-list-header>
       <ion-list
@@ -46,13 +58,17 @@ import {
   IonAvatar,
   IonIcon,
   alertController,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonSearchbar,
 } from '@ionic/vue'
 
 import {
   starOutline,
   star,
 } from 'ionicons/icons'
-import { Category, Entity } from '@/plugins/app/_config/types'
+import { Category } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'Categories',
@@ -65,15 +81,16 @@ export default defineComponent({
     IonLabel,
     IonAvatar,
     IonIcon,
-  },
-  setup() {
-    return {
-      starOutline,
-      star,
-    }
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonSearchbar,
   },
   data() {
     return {
+      starOutline,
+      star,
+      search: '',
     }
   },
   computed: {
