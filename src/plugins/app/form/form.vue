@@ -88,7 +88,7 @@ export default defineComponent({
 
         const { longitude, latitude } = this.deviceLocation.coords
 
-        await Axios.post('https://mapovanie.hybridlab.dev/cms/api/entities', {
+        await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/categories/${this.categoryId}/entities`, {
           longitude,
           latitude,
           device_uuid: deviceInfo.uuid,
