@@ -2,7 +2,7 @@
   <ion-page>
     <ion-tabs>
       <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="segments" href="/tabs/latest">
+        <ion-tab-button tab="latest" href="/tabs/latest">
           <ion-icon :icon="list" />
           <ion-label>Najnovšie</ion-label>
         </ion-tab-button>
