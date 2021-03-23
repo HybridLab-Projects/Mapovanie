@@ -22,6 +22,7 @@
         expand="block"
         class="ion-margin"
         router-link="/tabs"
+        @click="takePicture(category)"
       >
         Ďalej
       </ion-button>
@@ -31,6 +32,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { Category } from '@/plugins/app/_config/types'
+import Camera from '@/plugins/jakub/capacitor/camera'
+import Geolocation from '@/plugins/jakub/capacitor/geolocation'
 
 import {
   IonPage,
@@ -41,6 +45,7 @@ import {
   IonItem,
   IonLabel,
   IonCheckbox,
+  alertController,
 } from '@ionic/vue'
 
 export default defineComponent({
@@ -54,6 +59,33 @@ export default defineComponent({
     IonItem,
     IonLabel,
     IonCheckbox,
+  },
+  methods: {
+    async takePicture(category: Category) {
+      try {
+        const photo = await Camera.getFullPhoto()
+        const deviceLocation = await Geolocation.getDeviceLocation()
+
+        await this.$router.push({
+          name: 'Form',
+          params: {
+            image: JSON.stringify(photo),
+            deviceLocation: JSON.stringify(deviceLocation),
+            categoryId: category.id,
+          },
+        })
+      } catch (err) {
+        console.log(err)
+        const alert = await alertController
+          .create({
+            cssClass: 'my-custom-class',
+            header: 'Error',
+            message: err.message || err,
+            buttons: ['OK'],
+          })
+        await alert.present()
+      }
+    },
   },
 })
 </script>
