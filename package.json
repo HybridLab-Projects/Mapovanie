@@ -18,7 +18,7 @@
     "@capacitor/ios": "^2.4.7",
     "@ionic/pwa-elements": "^3.0.2",
     "@ionic/vue": "^5.6.1",
-    "@ionic/vue-router": "^5.6.1",
+    "@ionic/vue-router": "^5.6.2",
     "axios": "^0.21.0",
     "core-js": "^3.9.1",
     "geojson": "^0.5.0",
