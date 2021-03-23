@@ -1,6 +1,5 @@
-import { ComponentCustomProperties } from 'vue';
-import { Store } from 'vuex';
-import { State } from '@/plugins/app/_config/types';
+import { Store } from 'vuex'
+import { State } from '@/plugins/app/_config/types'
 
 declare module '@vue/runtime-core' {
 

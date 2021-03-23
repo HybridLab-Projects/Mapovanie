@@ -1,31 +1,27 @@
-import { createApp } from 'vue';
-import { IonicVue } from '@ionic/vue';
+import { createApp } from 'vue'
+import { IonicVue } from '@ionic/vue'
 
-import { defineCustomElements } from '@ionic/pwa-elements/loader';
+import { defineCustomElements } from '@ionic/pwa-elements/loader'
 
-import IHeader from '@/plugins/app/_layout/header.vue';
+import AHeader from '@/plugins/app/_layout/a-header.vue'
 
-import './custom';
+import './custom'
 
-// @ts-expect-error
-// eslint-disable-next-line import/extensions
-import login from '@/plugins/capacitor/facebook-login/login.js';
-
-import App from './App.vue';
-import router from './plugins/app/_config/router';
-import store from './plugins/app/_config/store';
+import App from './App.vue'
+import router from './plugins/app/_config/router'
+import store from './plugins/app/_config/store'
 
 const app = createApp(App)
   .use(IonicVue, { mode: 'ios', swipeBackEnabled: false })
   .use(router)
-  .use(store);
+  .use(store)
 
 router.isReady().then(() => {
-  login.initFacebookSdk().then(() => app.mount('#app'));
-});
+  app.mount('#app')
+})
 
 /* PWA components */
-defineCustomElements(window);
+defineCustomElements(window)
 
 /* Custom global compopnents */
-app.component('IHeader', IHeader);
+app.component('AHeader', AHeader)

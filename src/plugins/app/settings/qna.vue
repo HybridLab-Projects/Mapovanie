@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   IonPage,
@@ -50,9 +50,9 @@ import {
   IonText,
   IonItem,
   IonList,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
-import { chevronDown } from 'ionicons/icons';
+import { chevronDown } from 'ionicons/icons'
 
 export default defineComponent({
   name: 'QnA',
@@ -87,14 +87,14 @@ export default defineComponent({
       ],
       selectedQuestion: -1,
       chevronDown,
-    };
+    }
   },
   methods: {
     toggleSelectedQuestion(questionId: number) {
-      this.selectedQuestion = this.selectedQuestion === questionId ? -1 : questionId;
+      this.selectedQuestion = this.selectedQuestion === questionId ? -1 : questionId
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

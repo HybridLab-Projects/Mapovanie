@@ -18,6 +18,7 @@
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
+<<<<<<< HEAD
       <ion-toolbar>
         <ion-segment
           v-model="value"
@@ -26,6 +27,20 @@
           <ion-segment-button
             class="toolbar"
             value="entities"
+=======
+    </ion-header>
+
+    <ion-content :fullcreen="true">
+      <ion-header collapse="condense">
+        <ion-toolbar>
+          <ion-title size="large">
+            Príspevky
+          </ion-title>
+        </ion-toolbar>
+        <ion-toolbar>
+          <ion-segment
+            v-model="value"
+>>>>>>> main
           >
             <ion-label>Najnovšie</ion-label>
           </ion-segment-button>
@@ -47,10 +62,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
-import Entities from '@/plugins/app/latest/entities.vue';
-import Leaderboard from '@/plugins/app/latest/leaderboard.vue';
+import Entities from '@/plugins/app/latest/entities.vue'
+import Leaderboard from '@/plugins/app/latest/leaderboard.vue'
 
 import {
   IonPage,
@@ -64,9 +79,9 @@ import {
   IonButtons,
   IonButton,
   IonIcon,
-} from '@ionic/vue';
+} from '@ionic/vue'
 
-import { filterOutline } from 'ionicons/icons';
+import { filterOutline } from 'ionicons/icons'
 
 export default defineComponent({
   name: 'Latest',
@@ -87,14 +102,11 @@ export default defineComponent({
   },
   data() {
     return {
-      cardCount: 2,
       value: 'entities',
       filterOutline,
-    };
+    }
   },
-  methods: {
-  },
-});
+})
 </script>
 
 <style lang="scss" scoped>

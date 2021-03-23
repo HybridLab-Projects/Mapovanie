@@ -1,13 +1,15 @@
-export interface State {
-    entities: Array<Entity>;
-    token: string;
-    user: User;
+/* eslint-disable camelcase */
+
+export interface Category {
+    id: number;
+    key: string;
+    full_name: string;
+    created_at: string;
+    updated_at: string;
 }
 
 export interface Entity {
     id: number;
-    type: string;
-    sub_type: string;
     condition: string;
     lon: string;
     lat: string;
@@ -20,6 +22,12 @@ export interface Entity {
     ];
     date: string;
     address: string;
+    category: Category;
+    author: {
+        email: string;
+        id: number;
+        name: string
+    }
 }
 
 export interface User {
@@ -39,4 +47,21 @@ export interface User {
     surname: null;
     updated_at: string;
     username: string;
+    avatar: string;
+    entities: Array<Entity>;
+}
+
+export interface LeaderboardUser {
+    id: number;
+    name: string;
+    email: string;
+    points: number;
+}
+
+export interface State {
+    entities: Array<Entity>;
+    token: string;
+    user: User;
+    leaderboardUsers: Array<LeaderboardUser>;
+    categories: Array<Category>;
 }

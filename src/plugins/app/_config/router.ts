@@ -1,11 +1,11 @@
-import { createRouter, createWebHashHistory } from '@ionic/vue-router';
-import { RouteRecordRaw } from 'vue-router';
-import { Plugins } from '@capacitor/core';
-import Tabs from '../_layout/tabs.vue';
+import { createRouter, createWebHashHistory } from '@ionic/vue-router'
+import { RouteRecordRaw } from 'vue-router'
+import { Plugins } from '@capacitor/core'
+import Tabs from '../_layout/tabs.vue'
 // eslint-disable-next-line import/no-cycle
-import store from './store';
+import store from './store'
 
-const { Storage } = Plugins;
+const { Storage, SplashScreen } = Plugins
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -13,12 +13,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     component: () => import('@/plugins/app/index/index.vue'),
     async beforeEnter(to, from, next) {
-      const slides = await Storage.get({ key: 'slidesFinished' });
-      console.log('slides', slides);
+      const slides = await Storage.get({ key: 'slidesFinished' })
+      console.log('slides', slides)
       if (!slides.value) {
-        next({ name: 'Slides' });
+        await SplashScreen.hide()
+        next({ name: 'Slides' })
       } else {
-        next();
+        next()
       }
     },
   },
@@ -28,12 +29,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        redirect: '/tabs/home',
-      },
-      {
-        name: 'Home',
-        path: 'home',
-        component: () => import('@/plugins/app/home/home.vue'),
+        redirect: '/tabs/latest',
       },
       {
         name: 'Latest',
@@ -41,9 +37,24 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/plugins/app/latest/latest.vue'),
       },
       {
+        name: 'Categories',
+        path: 'categories',
+        component: () => import('@/plugins/app/categories/categories.vue'),
+      },
+      {
+        name: 'Map',
+        path: 'map',
+        component: () => import('@/plugins/app/map/map.vue'),
+      },
+      {
         name: 'Settings',
         path: 'settings',
         component: () => import('@/plugins/app/settings/settings.vue'),
+      },
+      {
+        name: 'Profile',
+        path: 'profile',
+        component: () => import('@/plugins/app/profile/profile.vue'),
       },
     ],
   },
@@ -56,9 +67,9 @@ const routes: Array<RouteRecordRaw> = [
     beforeEnter(to, from, next) {
       if (!to.params.image
           || !to.params.deviceLocation) {
-        next({ name: 'Home' });
+        next({ name: 'Latest' })
       } else {
-        next();
+        next()
       }
     },
   },
@@ -83,6 +94,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/plugins/app/login/login.vue'),
   },
   {
+    name: 'Tutorial',
+    path: '/tutorial',
+    component: () => import('@/plugins/app/tutorial/tutorial.vue'),
+  },
+  {
     name: 'EntityDetail',
     path: '/entity-detail/:id',
     component: () => import('@/plugins/app/entity-detail/entity-detail.vue'),
@@ -92,21 +108,21 @@ const routes: Array<RouteRecordRaw> = [
     path: '/settings/qna',
     component: () => import('@/plugins/app/settings/qna.vue'),
   },
-];
+]
 
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes,
-});
+})
 
 router.beforeEach((to, from, next) => {
   if (!store.getters.isUserLoggedIn && !(to.name === 'Index' || to.name === 'Login' || to.name === 'Slides')) {
-    next({ name: 'Login' });
+    next({ name: 'Login' })
   } else if (store.getters.isUserLoggedIn && to.name === 'Login') {
-    next({ name: 'Home' });
+    next({ name: 'Latest' })
   } else {
-    next();
+    next()
   }
-});
+})
 
-export default router;
+export default router

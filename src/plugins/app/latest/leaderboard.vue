@@ -5,50 +5,61 @@
   >
     <ion-refresher-content pulling-icon="lines" />
   </ion-refresher>
-  <ion-item
-    v-for="num in itemCount"
-    :key="num"
-  >
-    <ion-label>
-      Item {{ num }}
-    </ion-label>
-  </ion-item>
+  <ion-list>
+    <ion-item
+      v-for="(user, i) in leaderboardUsers"
+      :key="i"
+    >
+      <ion-avatar slot="start">
+        <img :src="user.avatar">
+      </ion-avatar>
+      <ion-label>
+        <h3>{{ user.name }}</h3>
+        <p>{{ user.points }} 🔥 </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
+import { mapState, mapActions } from 'vuex'
 
 import {
   IonRefresher,
   IonRefresherContent,
   IonItem,
+  IonList,
   IonLabel,
-} from '@ionic/vue';
+  IonAvatar,
+} from '@ionic/vue'
 
 export default defineComponent({
   name: 'Leaderboard',
   components: {
     IonRefresher,
     IonRefresherContent,
+    IonList,
     IonItem,
     IonLabel,
+    IonAvatar,
   },
   data() {
     return {
-      itemCount: 2,
-    };
+    }
+  },
+  computed: {
+    ...mapState(['leaderboardUsers']),
   },
   methods: {
-    doRefresh(e: CustomEvent) {
-      setTimeout(() => {
-        console.log('Async operation has ended');
-        this.itemCount += 2;
-        // @ts-expect-error
-        e.target.complete();
-      }, 1000);
+    ...mapActions(['fetchLeaderboardUsers']),
+    async doRefresh(e: CustomEvent) {
+      await this.fetchLeaderboardUsers()
+      // @ts-expect-error ionic stuff
+      e.target.complete()
     },
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

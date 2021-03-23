@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 import {
   IonContent,
@@ -43,8 +43,8 @@ import {
   IonList,
   IonItem,
   IonLabel,
-} from '@ionic/vue';
-import EntityReportSuccess from './entity-report-success.vue';
+} from '@ionic/vue'
+import EntityReportSuccess from './entity-report-success.vue'
 
 export default defineComponent({
   name: 'EntityReport',
@@ -59,11 +59,12 @@ export default defineComponent({
   },
   methods: {
     sendReport() {
-      const ionNav = document.querySelector('ion-nav') as HTMLIonNavElement;
-      ionNav.push(EntityReportSuccess);
+      // eslint-disable-next-line no-undef
+      const ionNav = document.querySelector('ion-nav') as HTMLIonNavElement
+      ionNav.push(EntityReportSuccess)
     },
   },
-});
+})
 </script>
 
 <style lang="scss">

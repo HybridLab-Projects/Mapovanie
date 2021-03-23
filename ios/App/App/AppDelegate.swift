@@ -1,7 +1,6 @@
 import UIKit
 import Capacitor
 
-import FacebookCore
 import FBSDKCoreKit
 
 @UIApplicationMain
@@ -42,7 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Called when the app was launched with a url. Feel free to add additional processing here,
     // but if you want the App API to support tracking app url opens, make sure to keep this call
     if CAPBridge.handleOpenUrl(url, options) {
-      return FBSDKCoreKit.ApplicationDelegate.shared.application(app, open: url, options: options)
+      return FBSDKCoreKit.ApplicationDelegate.shared.application(
+        app,
+        open: url,
+        sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+        annotation: options[UIApplication.OpenURLOptionsKey.annotation]
+      )
     } else {
       return false
     }
