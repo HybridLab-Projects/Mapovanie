@@ -3,7 +3,7 @@
     <a-header title="Mapovanie" />
     <ion-content class="ion-padding">
       <ion-img :src="require('./img/tutorial.svg')" />
-      <h1>Ako fotiť?</h1>
+      <h1>Ako fotiť? {{ categoryId }}</h1>
       <p>
         A great food photograph can do a lot of things! It can make a viewer hungry, it can
         convince a diner to order a dish and it can sell a hell of a lot of food and recipe books.
@@ -16,13 +16,12 @@
           slot="start"
           color="dark"
         />
-        <ion-label>Uz nezobrazovat</ion-label>
+        <ion-label>Už nezobrazovať</ion-label>
       </ion-item>
       <ion-button
         expand="block"
         class="ion-margin"
-        router-link="/tabs"
-        @click="takePicture(category)"
+        @click="takePicture(categoryId)"
       >
         Ďalej
       </ion-button>
@@ -32,7 +31,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { Category } from '@/plugins/app/_config/types'
 import Camera from '@/plugins/jakub/capacitor/camera'
 import Geolocation from '@/plugins/jakub/capacitor/geolocation'
 
@@ -47,6 +45,7 @@ import {
   IonCheckbox,
   alertController,
 } from '@ionic/vue'
+import { Category } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'Success',
@@ -60,8 +59,25 @@ export default defineComponent({
     IonLabel,
     IonCheckbox,
   },
+  data() {
+    return {
+      categoryId: '0',
+    }
+  },
+  ionViewWillEnter() {
+    if (!this.$route.params.id.length || typeof this.$route.params.id !== 'string') {
+      this.$router.push({ name: 'Categories' })
+    } else {
+      this.categoryId = this.$route.params.id as string
+    }
+  },
+  computed: {
+    category(): Category|undefined {
+      return this.$store.getters.getCategoryById(this.categoryId)
+    },
+  },
   methods: {
-    async takePicture(category: Category) {
+    async takePicture(categoryId: string) {
       try {
         const photo = await Camera.getFullPhoto()
         const deviceLocation = await Geolocation.getDeviceLocation()
@@ -71,7 +87,7 @@ export default defineComponent({
           params: {
             image: JSON.stringify(photo),
             deviceLocation: JSON.stringify(deviceLocation),
-            categoryId: category.id,
+            categoryId,
           },
         })
       } catch (err) {

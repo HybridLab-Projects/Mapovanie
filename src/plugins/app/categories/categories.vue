@@ -23,7 +23,7 @@
         v-for="(category, i) in categories"
         :key="i"
       >
-        <ion-item button router-link="/tutorial">
+        <ion-item button :router-link="`/tutorial/${category.id}`">
           <ion-avatar slot="start">
             <img :src="`https://avatars.dicebear.com/4.5/api/male/${category.id}.svg`">
           </ion-avatar>

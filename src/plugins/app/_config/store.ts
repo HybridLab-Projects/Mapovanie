@@ -1,5 +1,7 @@
 import { createStore, createLogger } from 'vuex'
-import { Entity, State, User } from '@/plugins/app/_config/types'
+import {
+  Category, Entity, State, User,
+} from '@/plugins/app/_config/types'
 import Axios from 'axios'
 
 import { Plugins } from '@capacitor/core'
@@ -125,12 +127,15 @@ export default createStore<State>({
     },
   },
   getters: {
-    getEntity: (state) => (id: number|string): Entity|undefined => state.entities.find(
-      (entity) => entity.id === +id,
+    getEntityById: (state) => (id: number|string): Entity|undefined => state.entities.find(
+      (entity) => +entity.id === +id,
     ),
     isUserLoggedIn: (state) => !!state.token,
     // @ts-expect-error missing type
     getEntityGeoJson: (state) => Geojson.parse(state.entities, { Point: ['lat', 'lon'] }),
+    getCategoryById: (state) => (id: number|string): Category|undefined => state.categories.find(
+      (category) => +category.id === +id,
+    ),
   },
   plugins: [createLogger()],
 })

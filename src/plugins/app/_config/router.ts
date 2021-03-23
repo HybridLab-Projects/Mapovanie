@@ -95,7 +95,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     name: 'Tutorial',
-    path: '/tutorial',
+    path: '/tutorial/:id',
     component: () => import('@/plugins/app/tutorial/tutorial.vue'),
   },
   {
