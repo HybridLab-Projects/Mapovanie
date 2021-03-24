@@ -24,15 +24,13 @@
         :key="i"
       >
         <ion-item button :router-link="`/tutorial/${category.id}`">
-          <ion-avatar slot="start">
-            <img :src="`https://avatars.dicebear.com/4.5/api/male/${category.id}.svg`">
-          </ion-avatar>
+          <ion-img :src="category?.icon.url" />
           <ion-icon
             slot="end"
             :icon="star"
             @click.stop="test()"
           />
-          <ion-label>
+          <ion-label class="ion-margin-start">
             <h2>{{ category.full_name }}</h2>
           </ion-label>
         </ion-item>
@@ -52,7 +50,7 @@ import {
   IonListHeader,
   IonItem,
   IonLabel,
-  IonAvatar,
+  IonImg,
   IonIcon,
   IonHeader,
   IonToolbar,
@@ -74,7 +72,7 @@ export default defineComponent({
     IonListHeader,
     IonItem,
     IonLabel,
-    IonAvatar,
+    IonImg,
     IonIcon,
     IonHeader,
     IonToolbar,
@@ -101,4 +99,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+ion-img::part(image) {
+  width: 32px;
+}
+@media (prefers-color-scheme: dark) {
+  ion-img::part(image) {
+    filter: brightness(0) invert(1);
+  }
+}
 </style>

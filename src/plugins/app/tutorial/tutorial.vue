@@ -1,9 +1,9 @@
 <template>
   <ion-page>
-    <a-header title="Mapovanie" />
+    <a-header :title="category?.full_name" />
     <ion-content class="ion-padding">
-      <ion-img :src="require('./img/tutorial.svg')" />
-      <h1>Ako fotiť? {{ categoryId }}</h1>
+      <ion-img :src="category?.icon.url" />
+      <h1>Ako fotiť?</h1>
       <p>
         A great food photograph can do a lot of things! It can make a viewer hungry, it can
         convince a diner to order a dish and it can sell a hell of a lot of food and recipe books.
@@ -33,6 +33,7 @@
 import { defineComponent } from 'vue'
 import Camera from '@/plugins/jakub/capacitor/camera'
 import Geolocation from '@/plugins/jakub/capacitor/geolocation'
+import { mapActions, mapState } from 'vuex'
 
 import {
   IonPage,
@@ -107,4 +108,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@media (prefers-color-scheme: dark) {
+  ion-img::part(image) {
+    filter: brightness(0) invert(1);
+  }
+}
 </style>
