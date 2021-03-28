@@ -10,6 +10,7 @@
         class="ion-padding form-img"
         @click="retakePicture()"
       />
+      <div id="map-container-form" class="map-container-form" />
     </ion-content>
     <ion-footer>
       <ion-button
@@ -42,6 +43,7 @@ import {
 } from '@capacitor/core'
 import Camera from '@/plugins/jakub/capacitor/camera'
 import Geolocation from '@/plugins/jakub/capacitor/geolocation'
+import Mapbox from 'mapbox-gl'
 
 const { Device } = Plugins
 export default defineComponent({
@@ -68,6 +70,26 @@ export default defineComponent({
     this.image = JSON.parse(imageStringified)
     this.deviceLocation = JSON.parse(deviceLocationStringified)
     this.categoryId = JSON.parse(categoryIdStringified)
+  },
+  ionViewDidEnter() {
+    Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
+    const map = new Mapbox.Map({
+      container: 'map-container-form',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [this.deviceLocation.coords.longitude, this.deviceLocation.coords.latitude],
+      zoom: 18,
+    })
+
+    const marker = new Mapbox.Marker()
+      .setLngLat([this.deviceLocation.coords.longitude, this.deviceLocation.coords.latitude])
+      .addTo(map)
+
+    map.on('click', (e) => {
+      console.log(e)
+      marker.setLngLat(e.lngLat)
+      this.deviceLocation.coords.longitude = e.lngLat.lng
+      this.deviceLocation.coords.latitude = e.lngLat.lat
+    })
   },
   methods: {
     async retakePicture() {
@@ -124,6 +146,13 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .form-img::part(image) {
-  border-radius: 15%;
+  border-radius: 5%;
+}
+
+.map-container-form {
+  border-radius: 5%;
+  height: 70vw;
+  margin: 2rem auto auto;
+  width: calc(100% - 2rem);
 }
 </style>
