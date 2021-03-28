@@ -11,13 +11,13 @@
       </p>
     </ion-content>
     <ion-footer>
-      <ion-item lines="none">
+      <!-- <ion-item lines="none">
         <ion-checkbox
           slot="start"
           color="dark"
         />
         <ion-label>Už nezobrazovať</ion-label>
-      </ion-item>
+      </ion-item> -->
       <ion-button
         expand="block"
         class="ion-margin"
@@ -33,7 +33,6 @@
 import { defineComponent } from 'vue'
 import Camera from '@/plugins/jakub/capacitor/camera'
 import Geolocation from '@/plugins/jakub/capacitor/geolocation'
-import { mapActions, mapState } from 'vuex'
 
 import {
   IonPage,
@@ -41,9 +40,9 @@ import {
   IonButton,
   IonFooter,
   IonImg,
-  IonItem,
-  IonLabel,
-  IonCheckbox,
+  // IonItem,
+  // IonLabel,
+  // IonCheckbox,
   alertController,
 } from '@ionic/vue'
 import { Category } from '@/plugins/app/_config/types'
@@ -56,9 +55,9 @@ export default defineComponent({
     IonButton,
     IonFooter,
     IonImg,
-    IonItem,
-    IonLabel,
-    IonCheckbox,
+    // IonItem,
+    // IonLabel,
+    // IonCheckbox,
   },
   data() {
     return {
