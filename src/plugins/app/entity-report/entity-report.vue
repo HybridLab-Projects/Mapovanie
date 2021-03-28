@@ -17,7 +17,7 @@
       </ion-item>
       <ion-item
         button
-        @click="sendReport()"
+        @click="createLocationReport()"
       >
         <ion-label>Zlá poloha</ion-label>
       </ion-item>
@@ -44,6 +44,7 @@ import {
   IonItem,
   IonLabel,
 } from '@ionic/vue'
+import EntityReportLocationView from '@/plugins/app/entity-report/report-types/entity-report-location.vue'
 import EntityReportSuccess from './entity-report-success.vue'
 
 export default defineComponent({
@@ -57,11 +58,22 @@ export default defineComponent({
     IonItem,
     IonLabel,
   },
+  props: {
+    entity: {
+      type: Object,
+      required: true,
+    },
+  },
   methods: {
     sendReport() {
-      // eslint-disable-next-line no-undef
-      const ionNav = document.querySelector('ion-nav') as HTMLIonNavElement
-      ionNav.push(EntityReportSuccess)
+      const ionNav = document.querySelector('ion-nav')
+      if (!ionNav) return
+      ionNav.push(EntityReportSuccess, { entity: this.entity })
+    },
+    createLocationReport() {
+      const ionNav = document.querySelector('ion-nav')
+      if (!ionNav) return
+      ionNav.push(EntityReportLocationView, { entity: this.entity })
     },
   },
 })

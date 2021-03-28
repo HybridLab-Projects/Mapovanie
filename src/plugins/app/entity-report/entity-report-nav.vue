@@ -16,10 +16,16 @@ export default defineComponent({
   components: {
     IonNav,
   },
+  props: {
+    entity: {
+      type: Object,
+      required: true,
+    },
+  },
   mounted() {
-    // eslint-disable-next-line no-undef
-    const ionNav = document.querySelector('ion-nav') as HTMLIonNavElement
-    ionNav.setRoot(EntityReport)
+    const ionNav = document.querySelector('ion-nav')
+    if (!ionNav) return
+    ionNav.setRoot(EntityReport, { entity: this.entity })
   },
 })
 </script>
