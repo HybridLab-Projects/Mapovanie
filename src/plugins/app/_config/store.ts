@@ -123,6 +123,14 @@ export default createStore<State>({
         console.log(err)
       }
     },
+    async reportEntity({ commit }, { entityId, type, content }) {
+      try {
+        await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/entities/${entityId}/reports`, { type, content })
+      } catch (err) {
+        console.log(err)
+        throw err
+      }
+    },
   },
   getters: {
     getEntity: (state) => (id: number|string): Entity|undefined => state.entities.find(
