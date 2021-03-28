@@ -51,6 +51,7 @@ export default defineComponent({
     }
   },
   mounted() {
+    if (!document.querySelector('#map-container-report')) return
     console.log('mounted')
     Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
     const map = new Mapbox.Map({
