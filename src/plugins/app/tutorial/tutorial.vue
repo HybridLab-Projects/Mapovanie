@@ -48,7 +48,7 @@ import {
 import { Category } from '@/plugins/app/_config/types'
 
 export default defineComponent({
-  name: 'Success',
+  name: 'Tutorial',
   components: {
     IonContent,
     IonPage,
