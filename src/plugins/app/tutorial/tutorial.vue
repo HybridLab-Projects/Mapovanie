@@ -1,8 +1,8 @@
 <template>
   <ion-page>
-    <a-header title="Mapovanie" />
+    <a-header :title="category?.full_name" />
     <ion-content class="ion-padding">
-      <ion-img :src="require('./img/tutorial.svg')" />
+      <ion-img :src="category?.icon.url" />
       <h1>Ako fotiť?</h1>
       <p>
         A great food photograph can do a lot of things! It can make a viewer hungry, it can
@@ -11,17 +11,17 @@
       </p>
     </ion-content>
     <ion-footer>
-      <ion-item lines="none">
+      <!-- <ion-item lines="none">
         <ion-checkbox
           slot="start"
           color="dark"
         />
-        <ion-label>Uz nezobrazovat</ion-label>
-      </ion-item>
+        <ion-label>Už nezobrazovať</ion-label>
+      </ion-item> -->
       <ion-button
         expand="block"
         class="ion-margin"
-        router-link="/tabs"
+        @click="takePicture(categoryId)"
       >
         Ďalej
       </ion-button>
@@ -31,6 +31,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import Camera from '@/plugins/jakub/capacitor/camera'
+import Geolocation from '@/plugins/jakub/capacitor/geolocation'
 
 import {
   IonPage,
@@ -38,25 +40,76 @@ import {
   IonButton,
   IonFooter,
   IonImg,
-  IonItem,
-  IonLabel,
-  IonCheckbox,
+  // IonItem,
+  // IonLabel,
+  // IonCheckbox,
+  alertController,
 } from '@ionic/vue'
+import { Category } from '@/plugins/app/_config/types'
 
 export default defineComponent({
-  name: 'Success',
+  name: 'Tutorial',
   components: {
     IonContent,
     IonPage,
     IonButton,
     IonFooter,
     IonImg,
-    IonItem,
-    IonLabel,
-    IonCheckbox,
+    // IonItem,
+    // IonLabel,
+    // IonCheckbox,
+  },
+  data() {
+    return {
+      categoryId: '0',
+    }
+  },
+  ionViewWillEnter() {
+    if (!this.$route.params.id.length || typeof this.$route.params.id !== 'string') {
+      this.$router.push({ name: 'Categories' })
+    } else {
+      this.categoryId = this.$route.params.id as string
+    }
+  },
+  computed: {
+    category(): Category|undefined {
+      return this.$store.getters.getCategoryById(this.categoryId)
+    },
+  },
+  methods: {
+    async takePicture(categoryId: string) {
+      try {
+        const photo = await Camera.getFullPhoto()
+        const deviceLocation = await Geolocation.getDeviceLocation()
+
+        await this.$router.push({
+          name: 'Form',
+          params: {
+            image: JSON.stringify(photo),
+            deviceLocation: JSON.stringify(deviceLocation),
+            categoryId,
+          },
+        })
+      } catch (err) {
+        console.log(err)
+        const alert = await alertController
+          .create({
+            cssClass: 'my-custom-class',
+            header: 'Error',
+            message: err.message || err,
+            buttons: ['OK'],
+          })
+        await alert.present()
+      }
+    },
   },
 })
 </script>
 
 <style lang="scss" scoped>
+@media (prefers-color-scheme: dark) {
+  ion-img::part(image) {
+    filter: brightness(0) invert(1);
+  }
+}
 </style>
