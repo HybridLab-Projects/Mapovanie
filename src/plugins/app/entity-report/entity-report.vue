@@ -11,7 +11,7 @@
     <ion-list>
       <ion-item
         button
-        @click="sendReport()"
+        @click="createConditionReport()"
       >
         <ion-label>Zmena stavu</ion-label>
       </ion-item>
@@ -24,7 +24,7 @@
 
       <ion-item
         button
-        @click="sendReport()"
+        @click="createContentReport()"
       >
         <ion-label>Nevhodný obsah</ion-label>
       </ion-item>
@@ -45,7 +45,8 @@ import {
   IonLabel,
 } from '@ionic/vue'
 import EntityReportLocationView from '@/plugins/app/entity-report/report-types/entity-report-location.vue'
-import EntityReportSuccess from './entity-report-success.vue'
+import EntityReportCondition from '@/plugins/app/entity-report/report-types/entity-report-condition.vue'
+import EntityReportContent from '@/plugins/app/entity-report/report-types/entity-report-content.vue'
 
 export default defineComponent({
   name: 'EntityReport',
@@ -65,15 +66,20 @@ export default defineComponent({
     },
   },
   methods: {
-    sendReport() {
+    createConditionReport() {
       const ionNav = document.querySelector('ion-nav')
       if (!ionNav) return
-      ionNav.push(EntityReportSuccess, { entity: this.entity })
+      ionNav.push(EntityReportCondition, { entity: this.entity })
     },
     createLocationReport() {
       const ionNav = document.querySelector('ion-nav')
       if (!ionNav) return
       ionNav.push(EntityReportLocationView, { entity: this.entity })
+    },
+    createContentReport() {
+      const ionNav = document.querySelector('ion-nav')
+      if (!ionNav) return
+      ionNav.push(EntityReportContent, { entity: this.entity })
     },
   },
 })

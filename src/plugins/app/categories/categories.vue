@@ -13,23 +13,23 @@
           </ion-title>
         </ion-toolbar>
         <ion-toolbar>
-          <ion-searchbar v-model="search" />
+          <ion-searchbar v-model="search" debounce="0" />
         </ion-toolbar>
       </ion-header>
       <ion-list-header class="ion-margin-bottom">
         Obľúbené
       </ion-list-header>
       <ion-list
-        v-for="(category, i) in categories"
+        v-for="(category, i) in filteredCategories"
         :key="i"
       >
         <ion-item button :router-link="`/tutorial/${category.id}`">
           <ion-img :src="category?.icon.url" />
-          <ion-icon
-            slot="end"
-            :icon="star"
-            @click.stop="test()"
-          />
+          <!--          <ion-icon-->
+          <!--            slot="end"-->
+          <!--            :icon="star"-->
+          <!--            @click.stop="test()"-->
+          <!--          />-->
           <ion-label class="ion-margin-start">
             <h2>{{ category.full_name }}</h2>
           </ion-label>
@@ -51,7 +51,6 @@ import {
   IonItem,
   IonLabel,
   IonImg,
-  IonIcon,
   IonHeader,
   IonToolbar,
   IonTitle,
@@ -62,6 +61,7 @@ import {
   starOutline,
   star,
 } from 'ionicons/icons'
+import { Category } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'Categories',
@@ -73,7 +73,6 @@ export default defineComponent({
     IonItem,
     IonLabel,
     IonImg,
-    IonIcon,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -88,12 +87,13 @@ export default defineComponent({
   },
   computed: {
     ...mapState(['categories']),
+    filteredCategories(): Array<Category> {
+      return this.categories.filter((category: Category) => category.full_name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .includes(this.search.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')))
+    },
   },
   methods: {
     ...mapActions(['fetchCategories']),
-    test() {
-      console.log('cool')
-    },
   },
 })
 </script>
