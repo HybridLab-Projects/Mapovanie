@@ -16,7 +16,7 @@
         expand="block"
         size="large"
         class="ion-margin-top fb-login"
-        @click="login()"
+        @click="facebookLogin()"
       >
         <ion-icon
           size="large"
@@ -31,7 +31,7 @@
         expand="block"
         size="large"
         class="ion-margin-top apple-login"
-        router-link="/tabs"
+        @click="appleLogin()"
       >
         <ion-icon
           size="large"
@@ -66,9 +66,11 @@ import {
   loadingController,
   IonIcon,
 } from '@ionic/vue'
-
+import { Plugins } from '@capacitor/core'
 import { logoFacebook, logoApple } from 'ionicons/icons'
+import { SignInWithAppleOptions, SignInWithAppleResponse } from '@capacitor-community/apple-sign-in'
 
+const { SignInWithApple } = Plugins
 export default defineComponent({
   name: 'Login',
   components: {
@@ -86,12 +88,21 @@ export default defineComponent({
     }
   },
   methods: {
-    async login() {
+    async facebookLogin() {
       const test = await loadingController.create({ message: 'Prihlasujem...' })
       await test.present()
       await this.$store.dispatch('login')
       await test.dismiss()
       console.log('JE TO TAM')
+    },
+    async appleLogin() {
+      console.log('apple')
+      const options: SignInWithAppleOptions = {
+        clientId: 'dev.hybridlab.mapovanie',
+        redirectURI: 'https://mapovanie.hybridlab.dev',
+        scopes: 'email name',
+      }
+      const loginResponse = await SignInWithApple.authorize(options) as SignInWithAppleResponse
     },
   },
 })

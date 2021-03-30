@@ -12,6 +12,7 @@
     "deploy": "npm install && npm run build && rm -rf ../htdocs/js/ && rm -rf ../htdocs/css/ && rm -rf ../htdocs/assets/ && rm ../htdocs/index.html && cp -r dist/. ../htdocs/"
   },
   "dependencies": {
+    "@capacitor-community/apple-sign-in": "^1.0.0",
     "@capacitor-community/facebook-login": "^2.0.0",
     "@capacitor/android": "^2.4.7",
     "@capacitor/core": "^2.4.7",
@@ -25,6 +26,7 @@
     "ionicons": "^5.5.1",
     "luxon": "^1.26.0",
     "mapbox-gl": "^2.2.0",
+    "scriptjs": "^2.5.9",
     "vue": "^3.0.9",
     "vue-router": "^4.0.5",
     "vuex": "^4.0.0"
