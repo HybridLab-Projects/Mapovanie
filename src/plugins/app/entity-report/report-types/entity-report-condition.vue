@@ -7,11 +7,13 @@
       <ion-title>Nahlásenie stavu</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding-horizontal">
-    <h1>Zmena stavu</h1>
+  <ion-content class="ion-padding">
+    <p class="ion-no-margin ion-margin-bottom">
+      Prosím popíšte momentálny stav objektu.
+    </p>
     <ion-item class="ion-no-padding">
       <ion-label position="floating">
-        Opíšte problém
+        Opis momentálneho stavu
       </ion-label>
       <ion-textarea
         v-model="reportMessage"
@@ -20,21 +22,22 @@
       />
     </ion-item>
   </ion-content>
-  <ion-footer>
-    <ion-button expand="block" class="ion-margin" @click="reportEntity">
-      Odoslať
+  <ion-footer class="ion-padding">
+    <ion-button expand="block" @click="reportEntity()">
+      Nahlásiť
     </ion-button>
   </ion-footer>
 </template>
 
 <script lang="ts">
 
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import {
   IonHeader, IonToolbar, IonFooter, IonButtons, IonContent,
   IonTitle, IonBackButton, IonButton, loadingController, alertController, IonTextarea, IonItem,
 } from '@ionic/vue'
 import EntityReportSuccessView from '@/plugins/app/entity-report/entity-report-success.vue'
+import { Entity } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'EntityReportCondition',
@@ -52,7 +55,7 @@ export default defineComponent({
   },
   props: {
     entity: {
-      type: Object,
+      type: Object as PropType<Entity>,
       required: true,
     },
   },

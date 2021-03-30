@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <a-header back :title="category?.full_name" />
+    <a-header back :title="category?.full_name || ''" />
     <ion-content class="ion-padding">
       <ion-img :src="category?.icon.url" />
       <h1>Ako fotiť?</h1>

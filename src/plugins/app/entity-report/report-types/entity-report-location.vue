@@ -12,15 +12,12 @@
       Prosím vyberte správnu polohu objektu.
     </p>
     <div id="map-container-report" class="map-container-report" />
-    <ion-button
-      expand="block"
-      color="primary"
-      class="ion-margin-top"
-      @click="reportEntity()"
-    >
+  </ion-content>
+  <ion-footer class="ion-padding">
+    <ion-button expand="block" @click="reportEntity()">
       Nahlásiť
     </ion-button>
-  </ion-content>
+  </ion-footer>
 </template>
 
 <script lang="ts">
@@ -28,7 +25,7 @@
 import { defineComponent, PropType } from 'vue'
 import {
   IonHeader, IonToolbar, IonButtons, IonContent, IonTitle, IonBackButton, IonButton,
-  loadingController, alertController,
+  loadingController, alertController, IonFooter,
 } from '@ionic/vue'
 import Mapbox from 'mapbox-gl'
 import { Entity } from '@/plugins/app/_config/types'
@@ -37,7 +34,7 @@ import EntityReportSuccessView from '@/plugins/app/entity-report/entity-report-s
 export default defineComponent({
   name: 'EntityReportLocation',
   components: {
-    IonHeader, IonToolbar, IonButtons, IonContent, IonTitle, IonBackButton, IonButton,
+    IonHeader, IonToolbar, IonButtons, IonContent, IonTitle, IonBackButton, IonButton, IonFooter,
   },
   props: {
     entity: {
