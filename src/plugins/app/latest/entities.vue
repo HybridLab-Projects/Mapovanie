@@ -14,14 +14,6 @@
   >
     <ion-img :src="entity?.images[0]?.url" />
     <ion-card-header>
-      <ion-card-subtitle class="d-flex">
-        <ion-icon
-          :icon="locationOutline"
-          size="small"
-          class="mr-1"
-        />
-        <span class="ion-align-self-center">{{ entity?.address?.split(',')[0] }}</span>
-      </ion-card-subtitle>
       <ion-card-title
         class="d-flex ion-margin-top"
       >
@@ -32,6 +24,14 @@
         />
         <span class="ion-align-self-center">{{ entity?.category.full_name }}</span>
       </ion-card-title>
+      <ion-card-subtitle class="d-flex">
+        <ion-icon
+          :icon="locationOutline"
+          size="small"
+          class="mr-1"
+        />
+        <span class="ion-align-self-center">{{ entity?.address?.split(',')[0] }}</span>
+      </ion-card-subtitle>
     </ion-card-header>
   </ion-card>
 </template>
@@ -86,5 +86,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-
+ion-card-header {
+  padding-top: 0;
+}
 </style>

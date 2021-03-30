@@ -2,59 +2,42 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title class="title">
-          Príspevky
-        </ion-title>
-        <ion-buttons
-          v-if="value === 'entities'"
-          slot="end"
-        >
-          <ion-button>
-            <ion-icon
-              slot="icon-only"
-              :icon="filterOutline"
-              size="large"
-            />
-          </ion-button>
-        </ion-buttons>
+        <ion-title>Príspevky</ion-title>
       </ion-toolbar>
-<<<<<<< HEAD
-      <ion-toolbar>
-        <ion-segment
-          v-model="value"
-          value="entities"
-        >
-          <ion-segment-button
-            class="toolbar"
-            value="entities"
-=======
     </ion-header>
 
     <ion-content :fullcreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large">
+          <ion-title size="medium">
             Príspevky
           </ion-title>
+          <ion-buttons
+            v-if="value === 'entities'"
+            slot="end"
+          >
+            <ion-button>
+              <ion-icon
+                slot="icon-only"
+                :icon="filterOutline"
+              />
+            </ion-button>
+          </ion-buttons>
         </ion-toolbar>
         <ion-toolbar>
           <ion-segment
             v-model="value"
->>>>>>> main
           >
-            <ion-label>Najnovšie</ion-label>
-          </ion-segment-button>
-          <ion-segment-button
-            class="toolbar"
-            value="leaderboard"
-          >
-            <ion-label>Rebríček</ion-label>
-          </ion-segment-button>
-        </ion-segment>
-      </ion-toolbar>
-    </ion-header>
+            <ion-segment-button value="entities" class="toolbar">
+              <ion-label>Najnovšie</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="leaderboard" class="toolbar">
+              <ion-label>Rebríček</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-toolbar>
+      </ion-header>
 
-    <ion-content :fullcreen="true">
       <entities v-if="value === 'entities'" />
       <leaderboard v-if="value === 'leaderboard'" />
     </ion-content>
