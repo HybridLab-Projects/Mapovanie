@@ -101,7 +101,7 @@ export default defineComponent({
   },
   computed: {
     entity(): Entity|undefined {
-      return this.$store.getters.getEntity(this.id)
+      return this.$store.getters.getEntityById(this.id)
     },
   },
   ionViewWillEnter() {

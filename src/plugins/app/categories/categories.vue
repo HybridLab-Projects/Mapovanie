@@ -23,16 +23,14 @@
         v-for="(category, i) in categories"
         :key="i"
       >
-        <ion-item button @click="takePicture(category)">
-          <ion-avatar slot="start">
-            <img :src="`https://avatars.dicebear.com/4.5/api/male/${category.id}.svg`">
-          </ion-avatar>
+        <ion-item button :router-link="`/tutorial/${category.id}`">
+          <ion-img :src="category?.icon.url" />
           <ion-icon
             slot="end"
             :icon="star"
             @click.stop="test()"
           />
-          <ion-label>
+          <ion-label class="ion-margin-start">
             <h2>{{ category.full_name }}</h2>
           </ion-label>
         </ion-item>
@@ -43,9 +41,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
-import Camera from '@/plugins/jakub/capacitor/camera'
-import Geolocation from '@/plugins/jakub/capacitor/geolocation'
 import { mapActions, mapState } from 'vuex'
 
 import {
@@ -55,9 +50,8 @@ import {
   IonListHeader,
   IonItem,
   IonLabel,
-  IonAvatar,
+  IonImg,
   IonIcon,
-  alertController,
   IonHeader,
   IonToolbar,
   IonTitle,
@@ -68,7 +62,6 @@ import {
   starOutline,
   star,
 } from 'ionicons/icons'
-import { Category } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'Categories',
@@ -79,7 +72,7 @@ export default defineComponent({
     IonListHeader,
     IonItem,
     IonLabel,
-    IonAvatar,
+    IonImg,
     IonIcon,
     IonHeader,
     IonToolbar,
@@ -98,31 +91,6 @@ export default defineComponent({
   },
   methods: {
     ...mapActions(['fetchCategories']),
-    async takePicture(category: Category) {
-      try {
-        const photo = await Camera.getFullPhoto()
-        const deviceLocation = await Geolocation.getDeviceLocation()
-
-        await this.$router.push({
-          name: 'Form',
-          params: {
-            image: JSON.stringify(photo),
-            deviceLocation: JSON.stringify(deviceLocation),
-            categoryId: category.id,
-          },
-        })
-      } catch (err) {
-        console.log(err)
-        const alert = await alertController
-          .create({
-            cssClass: 'my-custom-class',
-            header: 'Error',
-            message: err.message || err,
-            buttons: ['OK'],
-          })
-        await alert.present()
-      }
-    },
     test() {
       console.log('cool')
     },
@@ -131,4 +99,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+ion-img::part(image) {
+  width: 32px;
+}
+@media (prefers-color-scheme: dark) {
+  ion-img::part(image) {
+    filter: brightness(0) invert(1);
+  }
+}
 </style>
