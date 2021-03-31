@@ -98,11 +98,12 @@ export default defineComponent({
     async appleLogin() {
       console.log('apple')
       const options: SignInWithAppleOptions = {
-        clientId: 'dev.hybridlab.mapovanie',
-        redirectURI: 'https://mapovanie.hybridlab.dev',
+        clientId: 'dev.hybridlab.mapovanie-app',
+        redirectURI: 'https://mapovanie.hybridlab.dev/login',
         scopes: 'email name',
       }
       const loginResponse = await SignInWithApple.authorize(options) as SignInWithAppleResponse
+      console.log(loginResponse)
     },
   },
 })
