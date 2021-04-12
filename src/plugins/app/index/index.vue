@@ -11,9 +11,6 @@ export default defineComponent({
   components: {
     IonPage,
   },
-  async mounted() {
-    await this.$store.dispatch('login', true)
-  },
 })
 </script>
 

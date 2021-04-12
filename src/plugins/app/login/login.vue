@@ -69,8 +69,9 @@ import {
 import { Plugins } from '@capacitor/core'
 import { logoFacebook, logoApple } from 'ionicons/icons'
 import { SignInWithAppleOptions, SignInWithAppleResponse } from '@capacitor-community/apple-sign-in'
+import Axios from 'axios'
 
-const { SignInWithApple } = Plugins
+const { SignInWithApple, FacebookLogin } = Plugins
 export default defineComponent({
   name: 'Login',
   components: {
@@ -89,21 +90,32 @@ export default defineComponent({
   },
   methods: {
     async facebookLogin() {
-      const test = await loadingController.create({ message: 'Prihlasujem...' })
-      await test.present()
-      await this.$store.dispatch('login')
-      await test.dismiss()
+      const loader = await loadingController.create({ message: 'Prihlasujem...' })
+      await loader.present()
+      const loginResponse = await FacebookLogin.login({ permissions: ['email', 'public_profile'] })
+      const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/facebook', { oauth_token: loginResponse.accessToken?.token })
+      await this.$store.dispatch('login', { provider: 'fb', loginData: data })
+      await loader.dismiss()
       console.log('JE TO TAM')
     },
     async appleLogin() {
-      console.log('apple')
+      const loader = await loadingController.create({ message: 'Prihlasujem...' })
+      await loader.present()
       const options: SignInWithAppleOptions = {
         clientId: 'dev.hybridlab.mapovanie-app',
         redirectURI: 'https://mapovanie.hybridlab.dev/login',
         scopes: 'email name',
       }
-      const loginResponse = await SignInWithApple.authorize(options) as SignInWithAppleResponse
-      console.log(loginResponse)
+      const loginResponse: SignInWithAppleResponse = await SignInWithApple.authorize(options)
+      const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/apple', {
+        auth_code: loginResponse.response.authorizationCode,
+        name: loginResponse.response.givenName,
+        surname: loginResponse.response.familyName,
+        email: loginResponse.response.email,
+      })
+      await this.$store.dispatch('login', { provider: 'apple', loginData: data })
+      await loader.dismiss()
+      console.log('JE TO TAM')
     },
   },
 })

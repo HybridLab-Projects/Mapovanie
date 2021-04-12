@@ -9,7 +9,7 @@ import Geojson from 'geojson'
 // eslint-disable-next-line import/no-cycle
 import router from './router'
 
-const { FacebookLogin, SplashScreen, Storage } = Plugins
+const { Storage } = Plugins
 
 export default createStore<State>({
   state: {
@@ -56,42 +56,18 @@ export default createStore<State>({
         console.log(err)
       }
     },
-    async login({ commit, dispatch }, isSilent = false) {
-      try {
-        let result
-        if (isSilent) {
-          result = await FacebookLogin.getCurrentAccessToken()
-        } else {
-          result = await FacebookLogin.login({ permissions: ['email', 'public_profile'] })
-        }
-
-        if (result.accessToken) {
-          console.log('test FB data: ', result.accessToken)
-          const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token })
-          console.log('FB: ', data)
-          commit('userLoggedIn', data)
-          console.log('AKAKAK')
-          await Storage.set({ key: 'userToken', value: JSON.stringify(data.data.token) })
-          await Storage.set({ key: 'userData', value: JSON.stringify(data.data.user) })
-          await dispatch('fetchLeaderboardUsers')
-          await dispatch('fetchEntities')
-          await dispatch('fetchCategories')
-          await router.push({ name: 'Latest' })
-          await SplashScreen.hide()
-        } else {
-          console.error('FB: Failed getting token')
-          await router.push({ name: 'Login' })
-          await SplashScreen.hide()
-        }
-      } catch (err) {
-        console.error('Login: ', err)
-        await router.push({ name: 'Login' })
-        await SplashScreen.hide()
-      }
+    async login({ commit, dispatch }, loginData: Record<string, any>) {
+      commit('userLoggedIn', loginData)
+      console.log('AKAKAK')
+      await Storage.set({ key: 'userToken', value: JSON.stringify(loginData.data.token) })
+      await Storage.set({ key: 'userData', value: JSON.stringify(loginData.data.user) })
+      await dispatch('fetchLeaderboardUsers')
+      await dispatch('fetchEntities')
+      await dispatch('fetchCategories')
+      await router.push({ name: 'Latest' })
     },
     async logout({ commit }) {
       try {
-        await FacebookLogin.logout()
         commit('userLoggedOut')
         await Storage.remove({ key: 'entities' })
         await Storage.remove({ key: 'userToken' })
