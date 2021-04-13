@@ -9,7 +9,7 @@ import Geojson from 'geojson'
 // eslint-disable-next-line import/no-cycle
 import router from './router'
 
-const { Storage } = Plugins
+const { Storage, SplashScreen } = Plugins
 
 export default createStore<State>({
   state: {
@@ -26,7 +26,6 @@ export default createStore<State>({
     userLoggedIn(state, userData) {
       state.token = userData.token
       state.user = userData.user
-      console.log('kkt token', userData)
       Axios.defaults.headers.common = { Authorization: `Bearer ${userData.token}` }
     },
     userLoggedOut(state) {
@@ -50,14 +49,12 @@ export default createStore<State>({
       try {
         const token = await Storage.get({ key: 'userToken' })
         const user = await Storage.get({ key: 'userData' })
-        console.log(token, user)
         if (!token?.value || !user?.value) {
           throw new Error('Token or user is not in storage')
         }
         const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/refresh', null,
           { headers: { Authorization: `Bearer ${token.value}` } })
 
-        console.log('auth refresh dpc', data.response.user, data.response.token)
         commit('userLoggedIn', { user: data.response.user, token: data.response.token })
         await Storage.set({ key: 'userToken', value: data.response.token })
         await Storage.set({ key: 'userData', value: JSON.stringify(data.response.user) })
@@ -65,9 +62,11 @@ export default createStore<State>({
         await dispatch('fetchEntities')
         await dispatch('fetchCategories')
         await router.push({ name: 'Latest' })
+        await SplashScreen.hide()
       } catch (err) {
         console.log(err)
         await dispatch('logout')
+        await SplashScreen.hide()
       }
     },
     async fetchEntities({ commit }) {

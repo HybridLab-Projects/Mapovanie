@@ -109,7 +109,6 @@ export default defineComponent({
   },
   methods: {
     async openReportModal() {
-      console.log(this)
       const modal = await modalController.create({
         component: EntityReportModalNav,
         componentProps: {

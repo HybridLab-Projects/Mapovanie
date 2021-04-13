@@ -3,22 +3,22 @@
     <a-header title="Nastavenia" />
     <ion-content>
       <ion-list>
-        <ion-item>
-          <ion-label>Jazyk</ion-label>
-          <ion-select
-            v-model="lang"
-            value="sk"
-            placeholder="Jazyk"
-            @ionChange="log()"
-          >
-            <ion-select-option value="sk">
-              Slovenčina
-            </ion-select-option>
-            <ion-select-option value="en">
-              English
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
+        <!--        <ion-item>-->
+        <!--          <ion-label>Jazyk</ion-label>-->
+        <!--          <ion-select-->
+        <!--            v-model="lang"-->
+        <!--            value="sk"-->
+        <!--            placeholder="Jazyk"-->
+        <!--            @ionChange="log()"-->
+        <!--          >-->
+        <!--            <ion-select-option value="sk">-->
+        <!--              Slovenčina-->
+        <!--            </ion-select-option>-->
+        <!--            <ion-select-option value="en">-->
+        <!--              English-->
+        <!--            </ion-select-option>-->
+        <!--          </ion-select>-->
+        <!--        </ion-item>-->
 
         <ion-item
           button
@@ -50,8 +50,6 @@ import {
   IonList,
   IonItem,
   IonLabel,
-  IonSelect,
-  IonSelectOption,
 } from '@ionic/vue'
 
 export default defineComponent({
@@ -62,8 +60,6 @@ export default defineComponent({
     IonList,
     IonItem,
     IonLabel,
-    IonSelect,
-    IonSelectOption,
   },
   data() {
     return {

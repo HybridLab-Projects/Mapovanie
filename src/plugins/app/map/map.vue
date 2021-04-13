@@ -2,20 +2,9 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button />
-        </ion-buttons>
         <ion-title>
           Mapa
         </ion-title>
-        <ion-buttons slot="end">
-          <ion-button>
-            <ion-icon
-              slot="icon-only"
-              :icon="filterOutline"
-            />
-          </ion-button>
-        </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content
@@ -33,10 +22,6 @@ import {
   IonPage,
   IonHeader,
   IonToolbar,
-  IonButtons,
-  IonBackButton,
-  IonButton,
-  IonIcon,
   IonTitle,
 } from '@ionic/vue'
 
@@ -51,10 +36,6 @@ export default defineComponent({
     IonContent,
     IonHeader,
     IonToolbar,
-    IonButtons,
-    IonBackButton,
-    IonButton,
-    IonIcon,
     IonTitle,
   },
   data() {

@@ -3,17 +3,6 @@
     <ion-header :translucent="true">
       <ion-toolbar>
         <ion-title>Príspevky</ion-title>
-        <ion-buttons
-          v-if="value === 'entities'"
-          slot="end"
-        >
-          <ion-button>
-            <ion-icon
-              slot="icon-only"
-              :icon="filterOutline"
-            />
-          </ion-button>
-        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
@@ -59,12 +48,7 @@ import {
   IonHeader,
   IonToolbar,
   IonTitle,
-  IonButtons,
-  IonButton,
-  IonIcon,
 } from '@ionic/vue'
-
-import { filterOutline } from 'ionicons/icons'
 
 export default defineComponent({
   name: 'Latest',
@@ -79,14 +63,10 @@ export default defineComponent({
     IonTitle,
     Entities,
     Leaderboard,
-    IonButtons,
-    IonButton,
-    IonIcon,
   },
   data() {
     return {
       value: 'entities',
-      filterOutline,
     }
   },
 })

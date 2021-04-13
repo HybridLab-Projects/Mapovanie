@@ -97,7 +97,6 @@ export default defineComponent({
         const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/facebook', { oauth_token: loginResponse.accessToken?.token })
         await this.$store.dispatch('login', data.data)
         await loader.dismiss()
-        console.log('JE TO TAM')
       } catch (err) {
         console.log('FB login error', err)
         await loader.dismiss()
@@ -121,7 +120,6 @@ export default defineComponent({
         })
         await this.$store.dispatch('login', data.data)
         await loader.dismiss()
-        console.log('JE TO TAM')
       } catch (err) {
         console.log('Apple login error', err)
         await loader.dismiss()
