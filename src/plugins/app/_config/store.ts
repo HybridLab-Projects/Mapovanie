@@ -9,7 +9,7 @@ import Geojson from 'geojson'
 // eslint-disable-next-line import/no-cycle
 import router from './router'
 
-const { FacebookLogin, SplashScreen, Storage } = Plugins
+const { Storage } = Plugins
 
 export default createStore<State>({
   state: {
@@ -24,9 +24,10 @@ export default createStore<State>({
       state.entities = entities
     },
     userLoggedIn(state, userData) {
-      state.token = userData.data.token
-      state.user = userData.data.user
-      Axios.defaults.headers.common = { Authorization: `Bearer ${userData.data.token}` }
+      state.token = userData.token
+      state.user = userData.user
+      console.log('kkt token', userData)
+      Axios.defaults.headers.common = { Authorization: `Bearer ${userData.token}` }
     },
     userLoggedOut(state) {
       state.token = ''
@@ -45,6 +46,30 @@ export default createStore<State>({
     },
   },
   actions: {
+    async appLoad({ commit, dispatch }) {
+      try {
+        const token = await Storage.get({ key: 'userToken' })
+        const user = await Storage.get({ key: 'userData' })
+        console.log(token, user)
+        if (!token?.value || !user?.value) {
+          throw new Error('Token or user is not in storage')
+        }
+        const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/refresh', null,
+          { headers: { Authorization: `Bearer ${token.value}` } })
+
+        console.log('auth refresh dpc', data.response.user, data.response.token)
+        commit('userLoggedIn', { user: data.response.user, token: data.response.token })
+        await Storage.set({ key: 'userToken', value: data.response.token })
+        await Storage.set({ key: 'userData', value: JSON.stringify(data.response.user) })
+        await dispatch('fetchLeaderboardUsers')
+        await dispatch('fetchEntities')
+        await dispatch('fetchCategories')
+        await router.push({ name: 'Latest' })
+      } catch (err) {
+        console.log(err)
+        await dispatch('logout')
+      }
+    },
     async fetchEntities({ commit }) {
       try {
         const { data } = await Axios.get(
@@ -56,50 +81,21 @@ export default createStore<State>({
         console.log(err)
       }
     },
-    async login({ commit, dispatch }, isSilent = false) {
-      try {
-        let result
-        if (isSilent) {
-          result = await FacebookLogin.getCurrentAccessToken()
-        } else {
-          result = await FacebookLogin.login({ permissions: ['email', 'public_profile'] })
-        }
-
-        if (result.accessToken) {
-          console.log('test FB data: ', result.accessToken)
-          const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/login', { oauth_token: result.accessToken.token })
-          console.log('FB: ', data)
-          commit('userLoggedIn', data)
-          console.log('AKAKAK')
-          await Storage.set({ key: 'userToken', value: JSON.stringify(data.data.token) })
-          await Storage.set({ key: 'userData', value: JSON.stringify(data.data.user) })
-          await dispatch('fetchLeaderboardUsers')
-          await dispatch('fetchEntities')
-          await dispatch('fetchCategories')
-          await router.push({ name: 'Latest' })
-          await SplashScreen.hide()
-        } else {
-          console.error('FB: Failed getting token')
-          await router.push({ name: 'Login' })
-          await SplashScreen.hide()
-        }
-      } catch (err) {
-        console.error('Login: ', err)
-        await router.push({ name: 'Login' })
-        await SplashScreen.hide()
-      }
+    async login({ commit, dispatch }, loginData: Record<string, any>) {
+      commit('userLoggedIn', loginData)
+      await Storage.set({ key: 'userToken', value: loginData.token })
+      await Storage.set({ key: 'userData', value: JSON.stringify(loginData.user) })
+      await dispatch('fetchLeaderboardUsers')
+      await dispatch('fetchEntities')
+      await dispatch('fetchCategories')
+      await router.push({ name: 'Latest' })
     },
     async logout({ commit }) {
-      try {
-        await FacebookLogin.logout()
-        commit('userLoggedOut')
-        await Storage.remove({ key: 'entities' })
-        await Storage.remove({ key: 'userToken' })
-        await Storage.remove({ key: 'userData' })
-        await router.push({ name: 'Login' })
-      } catch (err) {
-        console.error('logout: ', err)
-      }
+      commit('userLoggedOut')
+      await Storage.remove({ key: 'entities' })
+      await Storage.remove({ key: 'userToken' })
+      await Storage.remove({ key: 'userData' })
+      await router.push({ name: 'Login' })
     },
     async fetchLeaderboardUsers({ commit }) {
       try {

@@ -16,7 +16,7 @@
         expand="block"
         size="large"
         class="ion-margin-top fb-login"
-        @click="login()"
+        @click="facebookLogin()"
       >
         <ion-icon
           size="large"
@@ -31,7 +31,7 @@
         expand="block"
         size="large"
         class="ion-margin-top apple-login"
-        router-link="/tabs"
+        @click="appleLogin()"
       >
         <ion-icon
           size="large"
@@ -66,9 +66,12 @@ import {
   loadingController,
   IonIcon,
 } from '@ionic/vue'
-
+import { Plugins } from '@capacitor/core'
 import { logoFacebook, logoApple } from 'ionicons/icons'
+import { SignInWithAppleOptions, SignInWithAppleResponse } from '@capacitor-community/apple-sign-in'
+import Axios from 'axios'
 
+const { SignInWithApple, FacebookLogin } = Plugins
 export default defineComponent({
   name: 'Login',
   components: {
@@ -86,12 +89,43 @@ export default defineComponent({
     }
   },
   methods: {
-    async login() {
-      const test = await loadingController.create({ message: 'Prihlasujem...' })
-      await test.present()
-      await this.$store.dispatch('login')
-      await test.dismiss()
-      console.log('JE TO TAM')
+    async facebookLogin() {
+      const loader = await loadingController.create({ message: 'Prihlasujem...' })
+      await loader.present()
+      try {
+        const loginResponse = await FacebookLogin.login({ permissions: ['email', 'public_profile'] })
+        const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/facebook', { oauth_token: loginResponse.accessToken?.token })
+        await this.$store.dispatch('login', data.data)
+        await loader.dismiss()
+        console.log('JE TO TAM')
+      } catch (err) {
+        console.log('FB login error', err)
+        await loader.dismiss()
+      }
+    },
+    async appleLogin() {
+      const loader = await loadingController.create({ message: 'Prihlasujem...' })
+      await loader.present()
+      try {
+        const options: SignInWithAppleOptions = {
+          clientId: 'dev.hybridlab.mapovanie-app',
+          redirectURI: 'https://mapovanie.hybridlab.dev/login',
+          scopes: 'email name',
+        }
+        const loginResponse: SignInWithAppleResponse = await SignInWithApple.authorize(options)
+        const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/apple', {
+          auth_code: loginResponse.response.authorizationCode,
+          name: loginResponse.response.givenName,
+          surname: loginResponse.response.familyName,
+          email: loginResponse.response.email,
+        })
+        await this.$store.dispatch('login', data.data)
+        await loader.dismiss()
+        console.log('JE TO TAM')
+      } catch (err) {
+        console.log('Apple login error', err)
+        await loader.dismiss()
+      }
     },
   },
 })

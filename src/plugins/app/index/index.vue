@@ -5,14 +5,17 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { IonPage } from '@ionic/vue'
+import Axios from 'axios'
+import { Plugins } from '@capacitor/core'
 
+const { Storage } = Plugins
 export default defineComponent({
   name: 'Index',
   components: {
     IonPage,
   },
   async mounted() {
-    await this.$store.dispatch('login', true)
+    await this.$store.dispatch('appLoad')
   },
 })
 </script>

@@ -9,7 +9,7 @@
       <ion-button
         expand="block"
         class="ion-margin"
-        router-link="/tabs/latest"
+        @click="hotfix()"
       >
         Späť na domovskú obrazovku
       </ion-button>
@@ -34,6 +34,13 @@ export default defineComponent({
     IonPage,
     IonButton,
     IonFooter,
+  },
+  methods: {
+    // TODO fix ionic thing
+    async hotfix() {
+      await this.$router.push({ name: 'Categories' })
+      await this.$router.push({ name: 'Latest' })
+    },
   },
 })
 </script>
