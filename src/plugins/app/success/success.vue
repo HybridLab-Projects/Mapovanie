@@ -1,9 +1,10 @@
 <template>
   <ion-page>
     <a-header title="Mapovanie" />
-    <ion-content class="ion-padding">
-      <h1>Gratulujem</h1>
-      <p>Úspešne si pridal záznam do našej databázy.</p>
+    <ion-content class="ion-padding ion-text-center">
+      <ion-img :src="require('./img/confirmed.svg')" class="ion-margin-bottom" />
+      <h1>Ďakujeme</h1>
+      <p>Lavička bola úspešne pridaná do databázy.</p>
     </ion-content>
     <ion-footer>
       <ion-button

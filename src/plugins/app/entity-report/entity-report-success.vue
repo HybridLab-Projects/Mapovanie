@@ -6,10 +6,10 @@
       </ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding">
-    <ion-text>
-      Ďakujeme za nahlásenie.
-    </ion-text>
+  <ion-content class="ion-padding ion-text-center">
+    <ion-img :src="require('./img/appreciation.svg')" class="ion-margin-bottom" />
+    <h1>Ďakujeme za nahlásenie</h1>
+    <p>Vďaka Vám dokážeme udržať Mapovanie bezpečné a aktuálne.</p>
   </ion-content>
   <ion-footer class="ion-padding">
     <ion-button
@@ -29,7 +29,6 @@ import {
   IonToolbar,
   IonTitle,
   IonContent,
-  IonText,
   IonButton,
   IonFooter,
 } from '@ionic/vue'
@@ -41,7 +40,6 @@ export default defineComponent({
     IonToolbar,
     IonTitle,
     IonContent,
-    IonText,
     IonButton,
     IonFooter,
   },

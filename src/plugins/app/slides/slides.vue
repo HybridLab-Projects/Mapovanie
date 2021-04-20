@@ -6,12 +6,7 @@
           <div class="ion-padding">
             <ion-img :src="require('./img/welcome.svg')" />
             <div>
-              <h2>Welcome</h2>
-              <p>
-                The ionic conference app is a practical
-                preview of the ionic framework in action,
-                and a demonstration of proper code use.
-              </p>
+              <h2>Vitajte v Mapovaní</h2>
             </div>
           </div>
         </ion-slide>
@@ -20,12 +15,9 @@
           <div class="ion-padding">
             <ion-img :src="require('./img/question.svg')" />
             <div>
-              <h2>What is Ionic?</h2>
+              <h2>Čo je to Mapovanie?</h2>
               <p>
-                Ionic Framework is an open source
-                SDK that enables developers to
-                build high quality mobile apps with web technologies
-                like HTML, CSS, and JavaScript.
+                Pomôžte zmapovať svoje mesto a uľahčiť život ostatným ľudom v meste.
               </p>
             </div>
           </div>
@@ -34,12 +26,12 @@
         <ion-slide>
           <div class="ion-padding">
             <ion-img :src="require('./img/start.svg')" />
-            <h2>Ready to Play?</h2>
+            <h2>Ste pripravený?</h2>
             <ion-button
               fill="clear"
               @click="finishSlides()"
             >
-              Continue
+              Pokračovať
               <ion-icon
                 slot="end"
                 :icon="arrowForwardOutline"

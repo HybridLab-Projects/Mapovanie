@@ -20,14 +20,14 @@
         <!--          </ion-select>-->
         <!--        </ion-item>-->
 
-        <ion-item
-          button
-          router-link="/settings/qna"
-        >
-          <ion-label>
-            Otázky a odpovede
-          </ion-label>
-        </ion-item>
+        <!--        <ion-item-->
+        <!--          button-->
+        <!--          router-link="/settings/qna"-->
+        <!--        >-->
+        <!--          <ion-label>-->
+        <!--            Otázky a odpovede-->
+        <!--          </ion-label>-->
+        <!--        </ion-item>-->
         <ion-item
           button
           @click="logout()"

@@ -6,10 +6,7 @@
       <ion-text>
         <h1>Welcome</h1>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Prihláste sa do Mapovania a začnite mapovať svoje okolie.
         </p>
       </ion-text>
       <ion-button
@@ -23,7 +20,7 @@
           :icon="logoFacebook"
         />
         <h5 class="ion-no-margin ion-padding font-weight-bold">
-          Continue with Facebook
+          Prihlásiť sa cez Facebook
         </h5>
       </ion-button>
       <ion-button
@@ -39,7 +36,7 @@
           :icon="logoApple"
         />
         <h5 class="ion-no-margin ion-padding font-weight-bold">
-          Continue with Apple
+          Prihlásiť sa cez Apple ID
         </h5>
       </ion-button>
       <div class="ion-text-center">
