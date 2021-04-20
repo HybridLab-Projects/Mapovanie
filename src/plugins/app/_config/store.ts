@@ -1,6 +1,6 @@
 import { createStore, createLogger } from 'vuex'
 import {
-  Category, Entity, State, User,
+  Category, Entity, LeaderboardUser, State, User,
 } from '@/plugins/app/_config/types'
 import Axios from 'axios'
 
@@ -139,6 +139,10 @@ export default createStore<State>({
     getCategoryById: (state) => (id: number|string): Category|undefined => state.categories.find(
       (category) => +category.id === +id,
     ),
+    getUserById: (state) => (id: number|string): LeaderboardUser|undefined => state.leaderboardUsers
+      .find(
+        (user) => +user.id === +id,
+      ),
   },
   plugins: [createLogger()],
 })

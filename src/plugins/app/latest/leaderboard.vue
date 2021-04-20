@@ -9,6 +9,7 @@
     <ion-item
       v-for="(user, i) in leaderboardUsers"
       :key="i"
+      :router-link="`/user/${user.id}`"
     >
       <ion-avatar slot="start">
         <img :src="user.avatar">

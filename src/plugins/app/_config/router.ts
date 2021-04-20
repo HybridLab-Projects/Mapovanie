@@ -108,6 +108,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/settings/qna',
     component: () => import('@/plugins/app/settings/qna.vue'),
   },
+  {
+    name: 'User',
+    path: '/user/:id',
+    component: () => import('@/plugins/app/user/user.vue'),
+  },
 ]
 
 const router = createRouter({
