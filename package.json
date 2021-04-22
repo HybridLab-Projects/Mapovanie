@@ -34,7 +34,7 @@
   "devDependencies": {
     "@capacitor/cli": "2.4.7",
     "@types/geojson": "^7946.0.7",
-    "@types/luxon": "^1.26.3",
+    "@types/luxon": "^1.26.4",
     "@types/mapbox-gl": "^2.1.1",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
