@@ -3,27 +3,24 @@
     button
     :router-link="`/entity-detail/${entity.id}`"
   >
+    <ion-card-content class="d-flex">
+      <ion-avatar class="ion-margin-end">
+        <img src="https://bratislava.blob.core.windows.net/media/Default/Dokumenty/Str%C3%A1nky/logoBA_1%20colour_centr_neg.jpg">
+      </ion-avatar>
+      <div class="d-flex flex-column top-container">
+        <p class="top-label">
+          Mesto Bratislava &#9679; Skate Park
+        </p>
+        <p>
+          Pridal <strong>{{ entity.author.name }}</strong>
+        </p>
+      </div>
+    </ion-card-content>
     <ion-img :src="entity?.images[0]?.url" />
-    <ion-card-header>
-      <ion-card-subtitle class="d-flex">
-        <ion-icon
-          :icon="locationOutline"
-          size="small"
-          class="mr-1"
-        />
-        <span class="ion-align-self-center">{{ entity?.address?.split(',')[0] }}</span>
-      </ion-card-subtitle>
-      <ion-card-title
-        class="d-flex ion-margin-top"
-      >
-        <ion-icon
-          :icon="mapOutline"
-          size="large"
-          class="ion-margin-end"
-        />
-        <span class="ion-align-self-center">{{ entity?.category.full_name }}</span>
-      </ion-card-title>
-    </ion-card-header>
+    <ion-card-content class="d-flex ion-justify-content-between">
+      <p>1.4 km od teba</p>
+      <p>Pred 2 dňami</p>
+    </ion-card-content>
   </ion-card>
 </template>
 
@@ -32,7 +29,7 @@
 import { defineComponent, PropType } from 'vue'
 import { Entity } from '@/plugins/app/_config/types'
 import {
-  IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonIcon, IonImg,
+  IonCard, IonCardContent, IonImg, IonAvatar,
 } from '@ionic/vue'
 import { locationOutline, mapOutline } from 'ionicons/icons'
 
@@ -40,11 +37,9 @@ export default defineComponent({
   name: 'ACard',
   components: {
     IonCard,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
+    IonCardContent,
     IonImg,
-    IonIcon,
+    IonAvatar,
   },
   props: {
     entity: {
@@ -61,6 +56,20 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.top-label {
+  margin-bottom: auto !important;
+}
 
+.top-container {
+  padding: 0.2rem 0;
+}
+
+ion-card-content {
+  padding: 1rem;
+}
+
+p {
+  margin: 0
+}
 </style>
