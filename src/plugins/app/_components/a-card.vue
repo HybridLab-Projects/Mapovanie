@@ -70,6 +70,6 @@ ion-card-content {
 }
 
 p {
-  margin: 0
+  margin: 0;
 }
 </style>
