@@ -56,6 +56,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'profile',
         component: () => import('@/plugins/app/profile/profile.vue'),
       },
+      {
+        name: 'Groups',
+        path: 'groups',
+        component: () => import('@/plugins/app/groups/groups.vue'),
+      },
     ],
   },
 
