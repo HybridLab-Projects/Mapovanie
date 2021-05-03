@@ -8,27 +8,26 @@
 
     <ion-content :fullcreen="true">
       <ion-header collapse="condense">
-        <ion-toolbar>
+        <ion-toolbar class="ion-padding-bottom">
           <ion-title size="large">
             Príspevky
           </ion-title>
         </ion-toolbar>
-        <ion-toolbar>
-          <ion-segment
-            v-model="value"
-          >
-            <ion-segment-button value="entities">
-              <ion-label>Najnovšie</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="leaderboard">
-              <ion-label>Rebríček</ion-label>
-            </ion-segment-button>
-          </ion-segment>
-        </ion-toolbar>
       </ion-header>
 
-      <entities v-if="value === 'entities'" />
-      <leaderboard v-if="value === 'leaderboard'" />
+      <ion-refresher
+        slot="fixed"
+        @ionRefresh="doRefresh($event)"
+      >
+        <ion-refresher-content pulling-icon="lines" />
+      </ion-refresher>
+
+      <a-card
+        v-for="entity in entities"
+        :key="entity.id"
+        :entity="entity"
+        :user-location="currentLocation"
+      />
     </ion-content>
   </ion-page>
 </template>
@@ -36,38 +35,52 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
-import Entities from '@/plugins/app/latest/entities.vue'
-import Leaderboard from '@/plugins/app/latest/leaderboard.vue'
-
 import {
   IonPage,
   IonContent,
-  IonSegment,
-  IonSegmentButton,
-  IonLabel,
   IonHeader,
   IonToolbar,
   IonTitle,
+  IonRefresher,
+  IonRefresherContent,
 } from '@ionic/vue'
+import ACard from '@/plugins/app/_components/a-card.vue'
+import { Entity } from '@/plugins/app/_config/types'
+import Geolocation from '@/plugins/jakub/capacitor/geolocation'
+import { GeolocationPosition } from '@capacitor/core'
 
 export default defineComponent({
   name: 'Latest',
   components: {
+    ACard,
     IonPage,
     IonContent,
-    IonSegment,
-    IonSegmentButton,
-    IonLabel,
     IonHeader,
     IonToolbar,
     IonTitle,
-    Entities,
-    Leaderboard,
+    IonRefresher,
+    IonRefresherContent,
   },
   data() {
     return {
       value: 'entities',
+      currentLocation: {} as GeolocationPosition,
     }
+  },
+  computed: {
+    entities(): Array<Entity> {
+      return this.$store.state.entities
+    },
+  },
+  methods: {
+    async doRefresh(e: CustomEvent) {
+      await this.$store.dispatch('fetchEntities')
+      // @ts-expect-error ionic stuff
+      e.target.complete()
+    },
+  },
+  async ionViewWillEnter() {
+    this.currentLocation = await Geolocation.getDeviceLocation()
   },
 })
 </script>

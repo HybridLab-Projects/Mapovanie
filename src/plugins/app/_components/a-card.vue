@@ -5,7 +5,7 @@
   >
     <ion-card-content class="d-flex">
       <ion-avatar class="ion-margin-end">
-        <img src="https://bratislava.blob.core.windows.net/media/Default/Dokumenty/Str%C3%A1nky/logoBA_1%20colour_centr_neg.jpg">
+        <img src="https://www.visitbratislava.com/wp-content/uploads/2018/07/bratislava-logo-official-square-stvorec-plnofarebne-full-color-cervene-pozadie-red-background.png">
       </ion-avatar>
       <div class="d-flex flex-column top-container">
         <p class="top-label">
@@ -18,13 +18,14 @@
     </ion-card-content>
     <ion-img :src="entity?.images[0]?.url" />
     <ion-card-content class="d-flex ion-justify-content-between">
-      <p>1.4 km od teba</p>
-      <p>Pred 2 dňami</p>
+      <p>{{ distanceFromObject }} km od teba</p>
+      <p>{{ when }}</p>
     </ion-card-content>
   </ion-card>
 </template>
 
 <script lang="ts">
+/* eslint-disable no-mixed-operators */
 
 import { defineComponent, PropType } from 'vue'
 import { Entity } from '@/plugins/app/_config/types'
@@ -32,6 +33,8 @@ import {
   IonCard, IonCardContent, IonImg, IonAvatar,
 } from '@ionic/vue'
 import { locationOutline, mapOutline } from 'ionicons/icons'
+import { GeolocationPosition } from '@capacitor/core'
+import { DateTime } from 'luxon'
 
 export default defineComponent({
   name: 'ACard',
@@ -46,12 +49,32 @@ export default defineComponent({
       type: Object as PropType<Entity>,
       required: true,
     },
+    userLocation: {
+      type: Object as PropType<GeolocationPosition>,
+      required: true,
+    },
   },
   data() {
     return {
       locationOutline,
       mapOutline,
     }
+  },
+  computed: {
+    distanceFromObject(): number {
+      if (!this.entity.lat || !this.entity.lon
+          || !this.userLocation?.coords?.latitude || !this.userLocation?.coords?.longitude) return 0
+      const p = 0.017453292519943295 // Math.PI / 180
+      const c = Math.cos
+      const a = 0.5 - c((+this.entity.lat - this.userLocation.coords.latitude) * p) / 2
+            + c(this.userLocation.coords.latitude * p) * c(+this.entity.lat * p)
+            * (1 - c((+this.entity.lon - this.userLocation.coords.longitude) * p)) / 2
+
+      return Math.round(12742 * Math.asin(Math.sqrt(a)) * 10) / 10 // 2 * R; R = 6371 km
+    },
+    when(): string|null {
+      return DateTime.fromFormat(this.entity.updated_at, 'yyyy-MM-dd hh:mm:ss').toRelative({ locale: 'sk' })
+    },
   },
 })
 </script>
