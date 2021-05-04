@@ -19,7 +19,7 @@
           size="large"
           :icon="logoFacebook"
         />
-        <h5 class="ion-no-margin ion-padding font-weight-bold">
+        <h5 class="ion-no-margin ion-padding font-bold">
           Prihlásiť sa cez Facebook
         </h5>
       </ion-button>
@@ -35,7 +35,7 @@
           class=""
           :icon="logoApple"
         />
-        <h5 class="ion-no-margin ion-padding font-weight-bold">
+        <h5 class="ion-no-margin ion-padding font-bold">
           Prihlásiť sa cez Apple ID
         </h5>
       </ion-button>
@@ -126,20 +126,21 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .fb-login {
   --background: #1877f2;
   --border-radius: 5px;
 }
+
 @media (prefers-color-scheme: dark) {
   .apple-login {
     --background: #fff;
     --border-radius: 5px;
     --color: #000;
     --background-hover: #ccc;
-
   }
 }
+
 @media (prefers-color-scheme: light) {
   .apple-login {
     --background: #000;

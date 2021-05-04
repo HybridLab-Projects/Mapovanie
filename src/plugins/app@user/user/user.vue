@@ -8,7 +8,7 @@
       >
         <ion-refresher-content pulling-icon="lines" />
       </ion-refresher>
-      <div class="d-flex ion-justify-content-center ion-margin-top">
+      <div class="flex ion-justify-content-center ion-margin-top">
         <ion-avatar>
           <img :src="user?.avatar">
         </ion-avatar>
@@ -99,7 +99,7 @@ export default defineComponent({
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 ion-avatar {
   height: 10rem;
   width: 10rem;

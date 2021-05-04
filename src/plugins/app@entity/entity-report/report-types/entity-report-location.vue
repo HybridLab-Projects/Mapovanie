@@ -110,7 +110,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .map-container-report {
   border-radius: 5%;
   height: 70vw;

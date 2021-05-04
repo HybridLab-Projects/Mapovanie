@@ -198,7 +198,7 @@ export default defineComponent({
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .map-container {
   height: 100%;
   width: 100%;

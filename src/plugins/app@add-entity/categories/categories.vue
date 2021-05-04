@@ -98,10 +98,11 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 ion-img::part(image) {
   width: 32px;
 }
+
 @media (prefers-color-scheme: dark) {
   ion-img::part(image) {
     filter: brightness(0) invert(1);

@@ -1,4 +1,3 @@
 module.exports = {
-  plugins: ['stylelint-scss'],
-  extends: ['stylelint-config-sass-guidelines'],
+  extends: ['stylelint-config-standard'],
 }

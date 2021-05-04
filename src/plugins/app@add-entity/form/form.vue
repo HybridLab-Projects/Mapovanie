@@ -144,7 +144,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .form-img::part(image) {
   border-radius: 5%;
 }
