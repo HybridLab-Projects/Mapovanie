@@ -23,38 +23,16 @@
         Moje príspevky
       </h5>
       <div v-if="user.entities?.length">
-        <ion-card
+        <a-card
           v-for="entity in user.entities"
           :key="entity.id"
-          button
-          :router-link="`/entity-detail/${entity.id}`"
-        >
-          <ion-img :src="entity?.images[0]?.url" />
-          <ion-card-header>
-            <ion-card-subtitle class="d-flex">
-              <ion-icon
-                :icon="locationOutline"
-                size="small"
-                class="mr-1"
-              />
-              <span class="ion-align-self-center">{{ entity?.address?.split(',')[0] }}</span>
-            </ion-card-subtitle>
-            <ion-card-title
-              class="d-flex ion-margin-top"
-            >
-              <ion-icon
-                :icon="mapOutline"
-                size="large"
-                class="ion-margin-end"
-              />
-              <span class="ion-align-self-center">{{ entity.category.full_name }}</span>
-            </ion-card-title>
-          </ion-card-header>
-        </ion-card>
+          :entity="entity"
+          :user-location="currentLocation"
+        />
       </div>
       <div v-else>
         <ion-label color="medium">
-          Ešte nemáte žiadne príspevky
+          Zatiaľ nemáte žiadne príspevky :(
         </ion-label>
       </div>
     </ion-content>
@@ -66,12 +44,6 @@ import {
   IonPage,
   IonContent,
   IonAvatar,
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonImg,
-  IonIcon,
   IonLabel,
   IonRefresher,
   IonRefresherContent,
@@ -79,19 +51,16 @@ import {
 import { defineComponent } from 'vue'
 import { mapActions, mapState } from 'vuex'
 import { locationOutline, mapOutline } from 'ionicons/icons'
+import ACard from '@/plugins/app/_components/a-card.vue'
+import Geolocation from '@/plugins/jakub/capacitor/geolocation'
 
 export default defineComponent({
   name: 'Profile',
   components: {
+    ACard,
     IonPage,
     IonContent,
     IonAvatar,
-    IonCard,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
-    IonImg,
-    IonIcon,
     IonLabel,
     IonRefresher,
     IonRefresherContent,
@@ -100,6 +69,7 @@ export default defineComponent({
     return {
       locationOutline,
       mapOutline,
+      currentLocation: {},
     }
   },
   computed: {
@@ -112,6 +82,9 @@ export default defineComponent({
       // @ts-expect-error ionic stuff
       e.target.complete()
     },
+  },
+  async ionViewWillEnter() {
+    this.currentLocation = await Geolocation.getDeviceLocation()
   },
 
 })

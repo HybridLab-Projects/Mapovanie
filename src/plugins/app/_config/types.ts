@@ -10,7 +10,7 @@ export interface Category {
 
 export interface Entity {
     id: number;
-    condition: string;
+    condition: string|null;
     lon: string;
     lat: string;
     custom_fields: string;
@@ -27,7 +27,9 @@ export interface Entity {
         email: string;
         id: number;
         name: string
-    }
+    };
+    created_at: string;
+    updated_at: string
 }
 
 export interface User {

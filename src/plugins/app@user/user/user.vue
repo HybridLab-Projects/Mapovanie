@@ -23,34 +23,12 @@
         Príspevky
       </h5>
       <div v-if="user?.entities?.length">
-        <ion-card
+        <a-card
           v-for="entity in user?.entities"
           :key="entity?.id"
-          button
-          :router-link="`/entity-detail/${entity?.id}`"
-        >
-          <ion-img :src="entity?.images[0]?.url" />
-          <ion-card-header>
-            <ion-card-subtitle class="d-flex">
-              <ion-icon
-                :icon="locationOutline"
-                size="small"
-                class="mr-1"
-              />
-              <span class="ion-align-self-center">{{ entity?.address?.split(',')[0] }}</span>
-            </ion-card-subtitle>
-            <ion-card-title
-              class="d-flex ion-margin-top"
-            >
-              <ion-icon
-                :icon="mapOutline"
-                size="large"
-                class="ion-margin-end"
-              />
-              <span class="ion-align-self-center">{{ entity?.category.full_name }}</span>
-            </ion-card-title>
-          </ion-card-header>
-        </ion-card>
+          :entity="entity"
+          :user-location="currentLocation"
+        />
       </div>
       <div v-else>
         <ion-label color="medium">
@@ -66,12 +44,6 @@ import {
   IonPage,
   IonContent,
   IonAvatar,
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonImg,
-  IonIcon,
   IonLabel,
   IonRefresher,
   IonRefresherContent,
@@ -80,19 +52,16 @@ import { defineComponent } from 'vue'
 import { mapActions } from 'vuex'
 import { locationOutline, mapOutline } from 'ionicons/icons'
 import { LeaderboardUser } from '@/plugins/app/_config/types'
+import ACard from '@/plugins/app/_components/a-card.vue'
+import Geolocation from '@/plugins/jakub/capacitor/geolocation'
 
 export default defineComponent({
   name: 'User',
   components: {
+    ACard,
     IonPage,
     IonContent,
     IonAvatar,
-    IonCard,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
-    IonImg,
-    IonIcon,
     IonLabel,
     IonRefresher,
     IonRefresherContent,
@@ -102,12 +71,14 @@ export default defineComponent({
       locationOutline,
       mapOutline,
       id: '0',
+      currentLocation: {},
     }
   },
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     console.log('test')
     this.id = this.$route.params.id as string
     console.log(this.id)
+    this.currentLocation = await Geolocation.getDeviceLocation()
   },
   computed: {
     user(): LeaderboardUser|undefined {

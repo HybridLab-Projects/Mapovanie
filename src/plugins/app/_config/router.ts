@@ -34,17 +34,17 @@ const routes: Array<RouteRecordRaw> = [
       {
         name: 'Latest',
         path: 'latest',
-        component: () => import('@/plugins/app/latest/latest.vue'),
+        component: () => import('@/plugins/app@entity/latest/latest.vue'),
       },
       {
         name: 'Categories',
         path: 'categories',
-        component: () => import('@/plugins/app/categories/categories.vue'),
+        component: () => import('@/plugins/app@add-entity/categories/categories.vue'),
       },
       {
         name: 'Map',
         path: 'map',
-        component: () => import('@/plugins/app/map/map.vue'),
+        component: () => import('@/plugins/app@map/map/map.vue'),
       },
       {
         name: 'Settings',
@@ -54,7 +54,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         name: 'Profile',
         path: 'profile',
-        component: () => import('@/plugins/app/profile/profile.vue'),
+        component: () => import('@/plugins/app@user/profile/profile.vue'),
       },
     ],
   },
@@ -63,7 +63,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     name: 'Form',
     path: '/form',
-    component: () => import('@/plugins/app/form/form.vue'),
+    component: () => import('@/plugins/app@add-entity/form/form.vue'),
     beforeEnter(to, from, next) {
       if (!to.params.image
           || !to.params.deviceLocation) {
@@ -76,12 +76,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     name: 'Success',
     path: '/success',
-    component: () => import('@/plugins/app/success/success.vue'),
-  },
-  {
-    name: 'Fail',
-    path: '/fail',
-    component: () => import('@/plugins/app/fail/fail.vue'),
+    component: () => import('@/plugins/app@add-entity/success/success.vue'),
   },
   {
     name: 'Slides',
@@ -91,17 +86,17 @@ const routes: Array<RouteRecordRaw> = [
   {
     name: 'Login',
     path: '/login',
-    component: () => import('@/plugins/app/login/login.vue'),
+    component: () => import('@/plugins/app@user/login/login.vue'),
   },
   {
     name: 'Tutorial',
     path: '/tutorial/:id',
-    component: () => import('@/plugins/app/tutorial/tutorial.vue'),
+    component: () => import('@/plugins/app@add-entity/tutorial/tutorial.vue'),
   },
   {
     name: 'EntityDetail',
     path: '/entity-detail/:id',
-    component: () => import('@/plugins/app/entity-detail/entity-detail.vue'),
+    component: () => import('@/plugins/app@entity/entity-detail/entity-detail.vue'),
   },
   {
     name: 'QnA',
@@ -111,7 +106,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     name: 'User',
     path: '/user/:id',
-    component: () => import('@/plugins/app/user/user.vue'),
+    component: () => import('@/plugins/app@user/user/user.vue'),
   },
 ]
 

@@ -4,16 +4,16 @@
       <ion-buttons slot="start">
         <ion-back-button @click="goBack()" />
       </ion-buttons>
-      <ion-title>Nahlásenie obsahu</ion-title>
+      <ion-title>Nahlásenie stavu</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
     <p class="ion-no-margin ion-margin-bottom">
-      Prosím popíšte, prečo je obsah nevhodný.
+      Prosím popíšte momentálny stav objektu.
     </p>
     <ion-item class="ion-no-padding">
       <ion-label position="floating">
-        Opis nevhodného obsahu
+        Opis momentálneho stavu
       </ion-label>
       <ion-textarea
         v-model="reportMessage"
@@ -33,26 +33,25 @@
 
 import { defineComponent, PropType } from 'vue'
 import {
-  IonHeader, IonToolbar, IonButtons, IonButton, IonContent, IonTitle, IonBackButton,
-  IonFooter, IonTextarea, loadingController, alertController, IonItem, IonLabel,
+  IonHeader, IonToolbar, IonFooter, IonButtons, IonContent,
+  IonTitle, IonBackButton, IonButton, loadingController, alertController, IonTextarea, IonItem,
 } from '@ionic/vue'
-import EntityReportSuccessView from '@/plugins/app/entity-report/entity-report-success.vue'
+import EntityReportSuccessView from '@/plugins/app@entity/entity-report/entity-report-success.vue'
 import { Entity } from '@/plugins/app/_config/types'
 
 export default defineComponent({
-  name: 'EntityReportContent',
+  name: 'EntityReportCondition',
   components: {
     IonHeader,
     IonToolbar,
+    IonFooter,
     IonButtons,
     IonContent,
     IonTitle,
     IonBackButton,
-    IonFooter,
-    IonTextarea,
     IonButton,
+    IonTextarea,
     IonItem,
-    IonLabel,
   },
   props: {
     entity: {
@@ -79,7 +78,7 @@ export default defineComponent({
         await loading.present()
         await this.$store.dispatch('reportEntity', {
           entityId: this.entity.id,
-          type: 'nsfw',
+          type: 'broken',
           content: this.reportMessage,
         })
         await loading.dismiss()

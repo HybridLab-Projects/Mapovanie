@@ -44,9 +44,9 @@ import {
   IonItem,
   IonLabel,
 } from '@ionic/vue'
-import EntityReportLocationView from '@/plugins/app/entity-report/report-types/entity-report-location.vue'
-import EntityReportCondition from '@/plugins/app/entity-report/report-types/entity-report-condition.vue'
-import EntityReportContent from '@/plugins/app/entity-report/report-types/entity-report-content.vue'
+import EntityReportLocationView from '@/plugins/app@entity/entity-report/report-types/entity-report-location.vue'
+import EntityReportCondition from '@/plugins/app@entity/entity-report/report-types/entity-report-condition.vue'
+import EntityReportContent from '@/plugins/app@entity/entity-report/report-types/entity-report-content.vue'
 
 export default defineComponent({
   name: 'EntityReport',
