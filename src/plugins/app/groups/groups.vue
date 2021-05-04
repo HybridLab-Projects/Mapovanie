@@ -10,18 +10,22 @@
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">
-            Príspevky
+            Skupiny
           </ion-title>
         </ion-toolbar>
-        <ion-searchbar show-cancel-button="never" />
-        <ion-segment v-model="value">
-          <ion-segment-button value="mine">
-            <ion-label>Moje</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="other">
-            <ion-label>Nájsť</ion-label>
-          </ion-segment-button>
-        </ion-segment>
+        <ion-toolbar>
+          <ion-searchbar show-cancel-button="never" />
+        </ion-toolbar>
+        <ion-toolbar>
+          <ion-segment v-model="value">
+            <ion-segment-button value="mine">
+              <ion-label>Moje</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="other">
+              <ion-label>Nájsť</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-toolbar>
       </ion-header>
 
       <my-groups v-if="value === 'mine'" />

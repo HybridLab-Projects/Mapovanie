@@ -8,7 +8,7 @@
         </ion-tab-button>
 
         <ion-tab-button tab="groups" href="/tabs/groups">
-          <ion-icon :icon="peopleOutline" />
+          <ion-icon :icon="people" />
           <ion-label>Skupiny</ion-label>
         </ion-tab-button>
 
@@ -38,7 +38,7 @@ import {
   IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage,
 } from '@ionic/vue'
 import {
-  peopleOutline, map, camera, list, personCircle,
+  people, map, camera, list, personCircle,
 } from 'ionicons/icons'
 
 export default defineComponent({
@@ -48,7 +48,7 @@ export default defineComponent({
   },
   data() {
     return {
-      peopleOutline,
+      people,
       map,
       camera,
       list,

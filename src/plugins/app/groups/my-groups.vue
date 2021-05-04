@@ -1,40 +1,35 @@
 <template>
-  <ion-page>
-    <ion-content class="ion-padding">
-      <h2>Moje</h2>
-      <ion-item v-for="(group, i) in groups" :key="i">
-        <ion-avatar slot="start">
-          <img src="">
-        </ion-avatar>
-        <ion-label>
-          <h2>{{ group.name }}</h2>
-          <h3>{{ group.badge }}</h3>
-          <p>{{ group.members }}</p>
-        </ion-label>
-      </ion-item>
-    </ion-content>
-  </ion-page>
+  <ion-item v-for="(group, i) in groups" :key="i">
+    <ion-avatar slot="start">
+      <img :src="`https://avatars.dicebear.com/api/identicon/${group.id}.svg`">
+    </ion-avatar>
+    <ion-label>
+      <h2>{{ group.name }}</h2>
+      <ion-badge color="warning">
+        {{ group.badge }}
+      </ion-badge>
+      <p>{{ group.members }}</p>
+    </ion-label>
+  </ion-item>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 import {
-  IonPage,
-  IonContent,
   IonAvatar,
   IonItem,
   IonLabel,
+  IonBadge,
 } from '@ionic/vue'
 
 export default defineComponent({
   name: 'MyGroups',
   components: {
-    IonContent,
-    IonPage,
     IonAvatar,
     IonItem,
     IonLabel,
+    IonBadge,
   },
   data() {
     return {
