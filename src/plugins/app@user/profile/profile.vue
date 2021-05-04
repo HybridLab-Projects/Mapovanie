@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <a-header title="Užívateľ" back />
+    <a-header title="Profil" />
     <ion-content class="ion-padding">
       <ion-refresher
         slot="fixed"
@@ -10,28 +10,29 @@
       </ion-refresher>
       <div class="d-flex ion-justify-content-center ion-margin-top">
         <ion-avatar>
-          <img :src="user?.avatar">
+          <img :src="user.avatar">
         </ion-avatar>
       </div>
       <h1 class="ion-text-center">
-        {{ user?.name }}
+        {{ user.name }}
       </h1>
       <h6 class="ion-no-margin ion-text-center">
-        {{ user?.points }} 🔥
+        {{ user.points }} 🔥
       </h6>
       <h5 class="posts-title">
-        Príspevky
+        Moje príspevky
       </h5>
-      <div v-if="user?.entities?.length">
+      <div v-if="user.entities?.length">
         <a-card
-          v-for="entity in user?.entities"
-          :key="entity?.id"
+          v-for="entity in user.entities"
+          :key="entity.id"
           :entity="entity"
+          :user-location="currentLocation"
         />
       </div>
       <div v-else>
         <ion-label color="medium">
-          Užívateľ zatiaľ nemá žiadne príspevky.
+          Zatiaľ nemáte žiadne príspevky :(
         </ion-label>
       </div>
     </ion-content>
@@ -48,13 +49,13 @@ import {
   IonRefresherContent,
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { locationOutline, mapOutline } from 'ionicons/icons'
-import { LeaderboardUser } from '@/plugins/app/_config/types'
 import ACard from '@/plugins/app/_components/a-card.vue'
+import Geolocation from '@/plugins/jakub/capacitor/geolocation'
 
 export default defineComponent({
-  name: 'User',
+  name: 'Profile',
   components: {
     ACard,
     IonPage,
@@ -68,19 +69,11 @@ export default defineComponent({
     return {
       locationOutline,
       mapOutline,
-      id: '0',
+      currentLocation: {},
     }
   },
-  ionViewWillEnter() {
-    console.log('test')
-    this.id = this.$route.params.id as string
-    console.log(this.id)
-  },
   computed: {
-    user(): LeaderboardUser|undefined {
-      console.log(this.id)
-      return this.$store.getters.getUserById(this.id)
-    },
+    ...mapState(['user']),
   },
   methods: {
     ...mapActions(['fetchUserinfo']),
@@ -89,6 +82,9 @@ export default defineComponent({
       // @ts-expect-error ionic stuff
       e.target.complete()
     },
+  },
+  async ionViewWillEnter() {
+    this.currentLocation = await Geolocation.getDeviceLocation()
   },
 
 })

@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <a-header title="Profil" />
+    <a-header title="Užívateľ" back />
     <ion-content class="ion-padding">
       <ion-refresher
         slot="fixed"
@@ -10,28 +10,29 @@
       </ion-refresher>
       <div class="d-flex ion-justify-content-center ion-margin-top">
         <ion-avatar>
-          <img :src="user.avatar">
+          <img :src="user?.avatar">
         </ion-avatar>
       </div>
       <h1 class="ion-text-center">
-        {{ user.name }}
+        {{ user?.name }}
       </h1>
       <h6 class="ion-no-margin ion-text-center">
-        {{ user.points }} 🔥
+        {{ user?.points }} 🔥
       </h6>
       <h5 class="posts-title">
-        Moje príspevky
+        Príspevky
       </h5>
-      <div v-if="user.entities?.length">
+      <div v-if="user?.entities?.length">
         <a-card
-          v-for="entity in user.entities"
-          :key="entity.id"
+          v-for="entity in user?.entities"
+          :key="entity?.id"
           :entity="entity"
+          :user-location="currentLocation"
         />
       </div>
       <div v-else>
         <ion-label color="medium">
-          Zatiaľ nemáte žiadne príspevky :(
+          Užívateľ zatiaľ nemá žiadne príspevky.
         </ion-label>
       </div>
     </ion-content>
@@ -48,12 +49,14 @@ import {
   IonRefresherContent,
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 import { locationOutline, mapOutline } from 'ionicons/icons'
+import { LeaderboardUser } from '@/plugins/app/_config/types'
 import ACard from '@/plugins/app/_components/a-card.vue'
+import Geolocation from '@/plugins/jakub/capacitor/geolocation'
 
 export default defineComponent({
-  name: 'Profile',
+  name: 'User',
   components: {
     ACard,
     IonPage,
@@ -67,10 +70,21 @@ export default defineComponent({
     return {
       locationOutline,
       mapOutline,
+      id: '0',
+      currentLocation: {},
     }
   },
+  async ionViewWillEnter() {
+    console.log('test')
+    this.id = this.$route.params.id as string
+    console.log(this.id)
+    this.currentLocation = await Geolocation.getDeviceLocation()
+  },
   computed: {
-    ...mapState(['user']),
+    user(): LeaderboardUser|undefined {
+      console.log(this.id)
+      return this.$store.getters.getUserById(this.id)
+    },
   },
   methods: {
     ...mapActions(['fetchUserinfo']),

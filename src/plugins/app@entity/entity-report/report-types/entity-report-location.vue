@@ -4,23 +4,14 @@
       <ion-buttons slot="start">
         <ion-back-button @click="goBack()" />
       </ion-buttons>
-      <ion-title>Nahlásenie stavu</ion-title>
+      <ion-title>Nahlásenie zlej polohy</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
     <p class="ion-no-margin ion-margin-bottom">
-      Prosím popíšte momentálny stav objektu.
+      Prosím vyberte správnu polohu objektu.
     </p>
-    <ion-item class="ion-no-padding">
-      <ion-label position="floating">
-        Opis momentálneho stavu
-      </ion-label>
-      <ion-textarea
-        v-model="reportMessage"
-        auto-grow
-        maxlength="500"
-      />
-    </ion-item>
+    <div id="map-container-report" class="map-container-report" />
   </ion-content>
   <ion-footer class="ion-padding">
     <ion-button expand="block" @click="reportEntity()">
@@ -33,25 +24,17 @@
 
 import { defineComponent, PropType } from 'vue'
 import {
-  IonHeader, IonToolbar, IonFooter, IonButtons, IonContent,
-  IonTitle, IonBackButton, IonButton, loadingController, alertController, IonTextarea, IonItem,
+  IonHeader, IonToolbar, IonButtons, IonContent, IonTitle, IonBackButton, IonButton,
+  loadingController, alertController, IonFooter,
 } from '@ionic/vue'
-import EntityReportSuccessView from '@/plugins/app/entity-report/entity-report-success.vue'
+import Mapbox from 'mapbox-gl'
 import { Entity } from '@/plugins/app/_config/types'
+import EntityReportSuccessView from '@/plugins/app@entity/entity-report/entity-report-success.vue'
 
 export default defineComponent({
-  name: 'EntityReportCondition',
+  name: 'EntityReportLocation',
   components: {
-    IonHeader,
-    IonToolbar,
-    IonFooter,
-    IonButtons,
-    IonContent,
-    IonTitle,
-    IonBackButton,
-    IonButton,
-    IonTextarea,
-    IonItem,
+    IonHeader, IonToolbar, IonButtons, IonContent, IonTitle, IonBackButton, IonButton, IonFooter,
   },
   props: {
     entity: {
@@ -61,14 +44,38 @@ export default defineComponent({
   },
   data() {
     return {
-      reportMessage: '',
+      newLocation: { lon: 0, lat: 0 },
     }
+  },
+  mounted() {
+    if (!document.querySelector('#map-container-report')) return
+    Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
+    const map = new Mapbox.Map({
+      container: 'map-container-report',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [+this.entity.lon, +this.entity.lat],
+      zoom: 18,
+    })
+
+    const marker = new Mapbox.Marker()
+      .setLngLat([+this.entity.lon, +this.entity.lat])
+      .addTo(map)
+
+    map.on('click', (e) => {
+      console.log(e)
+      marker.setLngLat(e.lngLat)
+      this.newLocation.lon = e.lngLat.lng
+      this.newLocation.lat = e.lngLat.lat
+    })
+    map.on('load', () => {
+      map.resize()
+    })
   },
   methods: {
     goBack() {
-      const nav = document.querySelector('ion-nav')
-      if (!nav) return
-      nav.pop()
+      const ionNav = document.querySelector('ion-nav')
+      if (!ionNav) return
+      ionNav.pop()
     },
     async reportEntity() {
       const loading = await loadingController.create({
@@ -78,8 +85,8 @@ export default defineComponent({
         await loading.present()
         await this.$store.dispatch('reportEntity', {
           entityId: this.entity.id,
-          type: 'broken',
-          content: this.reportMessage,
+          type: 'wrong_place',
+          content: `Navrhovaná nová lokácia je: lon-${this.newLocation.lon}, lat-${this.newLocation.lat}.`,
         })
         await loading.dismiss()
 
@@ -104,4 +111,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.map-container-report {
+  border-radius: 5%;
+  height: 70vw;
+  width: 100%;
+}
 </style>
