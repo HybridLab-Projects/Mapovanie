@@ -52,7 +52,7 @@ import { defineComponent } from 'vue'
 import { mapActions, mapState } from 'vuex'
 import { locationOutline, mapOutline } from 'ionicons/icons'
 import ACard from '@/plugins/app/_components/a-card.vue'
-import Geolocation from '@/plugins/jakub/capacitor/geolocation'
+import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 
 export default defineComponent({
   name: 'Profile',

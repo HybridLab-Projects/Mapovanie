@@ -53,7 +53,7 @@ import { mapActions } from 'vuex'
 import { locationOutline, mapOutline } from 'ionicons/icons'
 import { LeaderboardUser } from '@/plugins/app/_config/types'
 import ACard from '@/plugins/app/_components/a-card.vue'
-import Geolocation from '@/plugins/jakub/capacitor/geolocation'
+import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 
 export default defineComponent({
   name: 'User',

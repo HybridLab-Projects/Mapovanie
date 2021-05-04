@@ -41,8 +41,8 @@ import Axios from 'axios'
 import {
   Plugins, GeolocationPosition, CameraPhoto,
 } from '@capacitor/core'
-import Camera from '@/plugins/jakub/capacitor/camera'
-import Geolocation from '@/plugins/jakub/capacitor/geolocation'
+import Camera from '@/plugins/jakub@capacitor/camera'
+import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 import Mapbox from 'mapbox-gl'
 
 const { Device } = Plugins

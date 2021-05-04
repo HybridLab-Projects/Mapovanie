@@ -46,7 +46,7 @@ import {
 } from '@ionic/vue'
 import ACard from '@/plugins/app/_components/a-card.vue'
 import { Entity } from '@/plugins/app/_config/types'
-import Geolocation from '@/plugins/jakub/capacitor/geolocation'
+import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 import { GeolocationPosition } from '@capacitor/core'
 
 export default defineComponent({

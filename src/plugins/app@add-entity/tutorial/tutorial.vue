@@ -31,8 +31,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Camera from '@/plugins/jakub/capacitor/camera'
-import Geolocation from '@/plugins/jakub/capacitor/geolocation'
+import Camera from '@/plugins/jakub@capacitor/camera'
+import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 
 import {
   IonPage,
