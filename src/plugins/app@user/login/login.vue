@@ -19,7 +19,7 @@
           size="large"
           :icon="logoFacebook"
         />
-        <h5 class="ion-no-margin ion-padding font-weight-bold">
+        <h5 class="ion-no-margin ion-padding font-bold">
           Prihlásiť sa cez Facebook
         </h5>
       </ion-button>
@@ -35,7 +35,7 @@
           class=""
           :icon="logoApple"
         />
-        <h5 class="ion-no-margin ion-padding font-weight-bold">
+        <h5 class="ion-no-margin ion-padding font-bold">
           Prihlásiť sa cez Apple ID
         </h5>
       </ion-button>

@@ -26,18 +26,18 @@
       <div class="ion-padding">
         <ion-text
           color="medium"
-          class="d-flex"
+          class="flex"
         >
           <ion-icon
             :icon="locationOutline"
             size="large"
             class="ion-margin-end"
           />
-          <h5 class="font-weight-bold ion-align-self-center ion-no-margin">
+          <h5 class="font-bold ion-align-self-center ion-no-margin">
             {{ entity?.address?.split(',')[0] }}
           </h5>
         </ion-text>
-        <ion-text class="d-flex ion-margin-top">
+        <ion-text class="flex ion-margin-top">
           <ion-icon
             :icon="mapOutline"
             size="large"

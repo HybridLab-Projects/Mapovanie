@@ -3,11 +3,11 @@
     button
     :router-link="`/entity-detail/${entity.id}`"
   >
-    <ion-card-content class="d-flex">
+    <ion-card-content class="flex">
       <ion-avatar class="ion-margin-end">
         <img src="https://www.visitbratislava.com/wp-content/uploads/2018/07/bratislava-logo-official-square-stvorec-plnofarebne-full-color-cervene-pozadie-red-background.png">
       </ion-avatar>
-      <div class="d-flex flex-column top-container">
+      <div class="flex flex-col top-container">
         <p class="top-label">
           Mesto Bratislava &#9679; Skate Park
         </p>
@@ -17,7 +17,7 @@
       </div>
     </ion-card-content>
     <ion-img :src="entity?.images[0]?.url" />
-    <ion-card-content class="d-flex ion-justify-content-between">
+    <ion-card-content class="flex ion-justify-content-between">
       <p>{{ distanceFromObject }} km od teba</p>
       <p>{{ when }}</p>
     </ion-card-content>

@@ -8,7 +8,7 @@
       >
         <ion-refresher-content pulling-icon="lines" />
       </ion-refresher>
-      <div class="d-flex ion-justify-content-center ion-margin-top">
+      <div class="flex ion-justify-content-center ion-margin-top">
         <ion-avatar>
           <img :src="user.avatar">
         </ion-avatar>
