@@ -79,7 +79,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .top-label {
   margin-bottom: auto !important;
 }

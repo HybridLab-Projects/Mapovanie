@@ -99,7 +99,7 @@ export default defineComponent({
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 ion-avatar {
   height: 10rem;
   width: 10rem;

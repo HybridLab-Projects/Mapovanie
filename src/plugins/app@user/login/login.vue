@@ -126,20 +126,21 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .fb-login {
   --background: #1877f2;
   --border-radius: 5px;
 }
+
 @media (prefers-color-scheme: dark) {
   .apple-login {
     --background: #fff;
     --border-radius: 5px;
     --color: #000;
     --background-hover: #ccc;
-
   }
 }
+
 @media (prefers-color-scheme: light) {
   .apple-login {
     --background: #000;
