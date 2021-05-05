@@ -23,7 +23,7 @@ import {
 } from '@ionic/vue'
 
 export default defineComponent({
-  name: 'MyGroups',
+  name: 'OtherGroups',
   components: {
     IonAvatar,
     IonItem,
@@ -68,6 +68,6 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>

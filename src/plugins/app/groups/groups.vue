@@ -136,6 +136,6 @@ export default defineComponent({
 })
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>
