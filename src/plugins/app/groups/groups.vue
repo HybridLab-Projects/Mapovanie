@@ -13,9 +13,9 @@
             Skupiny
           </ion-title>
         </ion-toolbar>
-        <ion-toolbar>
-          <ion-searchbar show-cancel-button="never" />
-        </ion-toolbar>
+        <!--        <ion-toolbar>-->
+        <!--          <ion-searchbar show-cancel-button="never" />-->
+        <!--        </ion-toolbar>-->
         <ion-toolbar>
           <ion-segment v-model="value">
             <ion-segment-button value="mine">
@@ -28,49 +28,112 @@
         </ion-toolbar>
       </ion-header>
 
-      <my-groups v-if="value === 'mine'" />
-      <other-groups v-if="value === 'other'" />
+      <div v-if="value === 'mine'">
+        <a-group-item v-for="group in myGroups" :key="group.id" :group="group" />
+      </div>
+      <div v-if="value === 'other'">
+        <a-group-item v-for="group in newGroups" :key="group.id" :group="group" />
+      </div>
     </ion-content>
   </ion-page>
 </template>
 
 <script>
+import { defineComponent } from 'vue'
+
 import {
   IonPage,
   IonContent,
   IonTitle,
   IonLabel,
-  IonSearchbar,
+  // IonSearchbar,
   IonSegment,
   IonSegmentButton,
   IonHeader,
   IonToolbar,
 } from '@ionic/vue'
 
-import myGroups from '@/plugins/app/groups/my-groups.vue'
-import otherGroups from '@/plugins/app/groups/other-groups.vue'
+import AGroupItem from '@/plugins/app/_components/a-group-item.vue'
 
-export default {
+export default defineComponent({
   name: 'Groups',
   components: {
+    AGroupItem,
     IonPage,
     IonContent,
     IonTitle,
-    IonSearchbar,
+    // IonSearchbar,
     IonSegment,
     IonSegmentButton,
     IonLabel,
     IonHeader,
     IonToolbar,
-    myGroups,
-    otherGroups,
   },
   data() {
     return {
       value: 'mine',
+      myGroups: {
+        Baksetball_ba: {
+          id: 0,
+          name: 'Basketball Bratislava',
+          badge: 'Sport',
+          members: 2354,
+        },
+        Skate: {
+          id: 1,
+          name: 'Skate',
+          badge: 'Sport',
+          members: 345,
+        },
+        Pingpong: {
+          id: 2,
+          name: 'Pingpong Bratislava',
+          badge: 'Volny cas',
+          members: 143,
+        },
+        StreetFutball: {
+          id: 3,
+          name: 'Street Futball Bratislava',
+          badge: 'Sport',
+          members: 645,
+        },
+      },
+      newGroups: {
+        KrcmaBA: {
+          id: 4,
+          name: 'Krcma',
+          badge: 'Volny cas',
+          members: 435,
+        },
+        ShoppingCentre: {
+          id: 5,
+          name: 'Shopping Center',
+          badge: 'Shopping',
+          members: 5423,
+        },
+        BratislavaPools: {
+          id: 6,
+          name: 'Bazeny',
+          badge: 'Sport',
+          members: 233,
+        },
+        Kalistenika: {
+          id: 7,
+          name: 'Kalistenika',
+          badge: 'Sport',
+          members: 3456,
+        },
+        DownhillBike: {
+          id: 8,
+          name: 'DownhillBike',
+          badge: 'Sport',
+          members: 3456,
+        },
+      },
+
     }
   },
-}
+})
 </script>
 
 <style>
