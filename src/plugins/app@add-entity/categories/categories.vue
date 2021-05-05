@@ -19,21 +19,35 @@
       <ion-list-header class="ion-margin-bottom">
         Obľúbené
       </ion-list-header>
-      <ion-list
-        v-for="(category, i) in filteredCategories"
-        :key="i"
-      >
-        <ion-item button :router-link="`/tutorial/${category.id}`">
-          <ion-img :src="category?.icon.url" />
-          <!--          <ion-icon-->
-          <!--            slot="end"-->
-          <!--            :icon="star"-->
-          <!--            @click.stop="test()"-->
-          <!--          />-->
-          <ion-label class="ion-margin-start">
-            <h2>{{ category.full_name }}</h2>
-          </ion-label>
-        </ion-item>
+      <ion-list>
+        <div v-for="(category, i) in categories" :key="i">
+          <ion-item
+            :lines="selectedCategory === i ? 'none' : 'inset'"
+            button
+            :detail-icon="selectedCategory === i ? chevronDown : 'chevron-forward'"
+            @click="toggleSelectedCategory(i)"
+          >
+            <ion-img :src="category?.icon.url" />
+            <!--          <ion-icon-->
+            <!--            slot="end"-->
+            <!--            :icon="star"-->
+            <!--            @click.stop="test()"-->
+            <!--          />-->
+            <ion-label class="ion-margin-start">
+              <h2>{{ category.full_name }}</h2>
+            </ion-label>
+          </ion-item>
+          <div v-if="selectedCategory === i">
+            <ion-item
+              v-for="(subcategory, i) in subcategories"
+              :key="i"
+              button
+              :router-link="`/tutorial/${category.id}`"
+            >
+              <ion-label>{{ subcategory.name }}</ion-label>
+            </ion-item>
+          </div>
+        </div>
       </ion-list>
     </ion-content>
   </ion-page>
@@ -60,6 +74,7 @@ import {
 import {
   starOutline,
   star,
+  chevronDown,
 } from 'ionicons/icons'
 import { Category } from '@/plugins/app/_config/types'
 
@@ -82,7 +97,19 @@ export default defineComponent({
     return {
       starOutline,
       star,
+      chevronDown,
       search: '',
+      selectedCategory: -1,
+      subcategories: {
+        nice: {
+          id: 0,
+          name: 'interier',
+        },
+        ncie: {
+          id: 1,
+          name: 'exterier',
+        },
+      },
     }
   },
   computed: {
@@ -93,6 +120,9 @@ export default defineComponent({
     },
   },
   methods: {
+    toggleSelectedCategory(categoryId: number) {
+      this.selectedCategory = this.selectedCategory === categoryId ? -1 : categoryId
+    },
     ...mapActions(['fetchCategories']),
   },
 })
