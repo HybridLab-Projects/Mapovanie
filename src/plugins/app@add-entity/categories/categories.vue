@@ -6,7 +6,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense" style="--border-width: 0;">
+      <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">
             Kategórie
@@ -17,22 +17,41 @@
         </ion-toolbar>
       </ion-header>
       <ion-list>
-        <ion-item
-          v-for="category in filteredCategories"
-          :key="category.id"
-          button
-          :router-link="`/tutorial/${category.id}`"
-        >
-          <ion-img :src="category?.icon.url" />
-          <!--          <ion-icon-->
-          <!--            slot="end"-->
-          <!--            :icon="star"-->
-          <!--            @click.stop="test()"-->
-          <!--          />-->
-          <ion-label class="ion-margin-start">
-            <h2>{{ category.full_name }}</h2>
-          </ion-label>
-        </ion-item>
+        <div v-for="(category, i) in filteredCategories" :key="i">
+          <ion-item
+            :lines="selectedCategory === i ? 'none' : 'inset'"
+            button
+            :detail-icon="selectedCategory === i ? chevronDown : 'chevron-forward'"
+            class="ion-margin-end"
+            @click="toggleSelectedCategory(i)"
+          >
+            <ion-img :src="category?.icon.url" />
+            <!--          <ion-icon-->
+            <!--            slot="end"-->
+            <!--            :icon="star"-->
+            <!--            @click.stop="test()"-->
+            <!--          />-->
+            <ion-label class="ion-margin-start">
+              <h2>{{ category.full_name }}</h2>
+            </ion-label>
+          </ion-item>
+          <div v-if="selectedCategory === i">
+            <ion-item
+              v-for="(subcategory, j) in subcategories"
+              :key="j"
+              button
+              :router-link="`/tutorial/${category.id}`"
+              class="ion-margin-start"
+            >
+              <ion-avatar>
+                <img src="https://avatars.dicebear.com/api/identicon/:seed.svg">
+              </ion-avatar>
+              <ion-label class="ion-margin-start">
+                {{ subcategory.name }}
+              </ion-label>
+            </ion-item>
+          </div>
+        </div>
       </ion-list>
     </ion-content>
   </ion-page>
@@ -53,11 +72,13 @@ import {
   IonToolbar,
   IonTitle,
   IonSearchbar,
+  IonAvatar,
 } from '@ionic/vue'
 
 import {
   starOutline,
   star,
+  chevronDown,
 } from 'ionicons/icons'
 import { Category } from '@/plugins/app/_config/types'
 
@@ -74,12 +95,25 @@ export default defineComponent({
     IonToolbar,
     IonTitle,
     IonSearchbar,
+    IonAvatar,
   },
   data() {
     return {
       starOutline,
       star,
+      chevronDown,
       search: '',
+      selectedCategory: -1,
+      subcategories: {
+        one: {
+          id: 0,
+          name: 'interier',
+        },
+        two: {
+          id: 1,
+          name: 'exterier',
+        },
+      },
     }
   },
   computed: {
@@ -90,6 +124,9 @@ export default defineComponent({
     },
   },
   methods: {
+    toggleSelectedCategory(categoryId: number) {
+      this.selectedCategory = this.selectedCategory === categoryId ? -1 : categoryId
+    },
     ...mapActions(['fetchCategories']),
   },
 })
