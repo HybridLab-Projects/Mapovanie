@@ -66,4 +66,5 @@ export interface State {
     user: User;
     leaderboardUsers: Array<LeaderboardUser>;
     categories: Array<Category>;
+    myMapUnChecked: Array<number>;
 }

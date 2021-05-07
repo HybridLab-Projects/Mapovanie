@@ -5,6 +5,11 @@
         <ion-title>
           Mapa
         </ion-title>
+        <ion-buttons slot="end">
+          <ion-button @click="openFilterModal()">
+            <ion-icon slot="icon-only" :icon="funnelOutline" />
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content
@@ -23,11 +28,19 @@ import {
   IonHeader,
   IonToolbar,
   IonTitle,
+  IonButtons,
+  IonButton,
+  IonIcon, modalController,
 } from '@ionic/vue'
 
+import { funnelOutline } from 'ionicons/icons'
+
 import Mapbox, { GeoJSONSource, NavigationControl } from 'mapbox-gl'
-import { mapGetters } from 'vuex'
-import { filterOutline } from 'ionicons/icons'
+import { mapGetters, mapState } from 'vuex'
+
+import MapFilterModal from '@/plugins/app@map/map-filter/map-filter.vue'
+import { FeatureCollection, GeoJSON, Point } from 'geojson'
+import { Entity } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'Map',
@@ -37,35 +50,39 @@ export default defineComponent({
     IonHeader,
     IonToolbar,
     IonTitle,
+    IonButtons,
+    IonButton,
+    IonIcon,
   },
   data() {
     return {
-      filterOutline,
+      funnelOutline,
+      map: {} as Mapbox.Map,
     }
   },
   computed: {
-    ...mapGetters(['getEntityGeoJson']),
+    ...mapState(['categories', 'myMapUnChecked']),
   },
   async mounted() {
     Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
-    const map = new Mapbox.Map({
+    this.map = new Mapbox.Map({
       container: 'map-container',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [17.107748, 48.148598],
       zoom: 9,
     })
     const navigation = new NavigationControl()
-    map.addControl(navigation, 'top-right')
+    this.map.addControl(navigation, 'top-right')
 
-    map.on('load', () => {
-      map.addSource('entities', {
+    this.map.on('load', () => {
+      this.map.addSource('entities', {
         type: 'geojson',
-        data: this.getEntityGeoJson,
+        data: this.getEntityGeoJson(),
         cluster: true,
         clusterMaxZoom: 100, // Max zoom to cluster points on
         clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
       })
-      map.addLayer({
+      this.map.addLayer({
         id: 'clusters',
         type: 'circle',
         source: 'entities',
@@ -75,7 +92,7 @@ export default defineComponent({
           'circle-radius': 25,
         },
       })
-      map.addLayer({
+      this.map.addLayer({
         id: 'cluster-count',
         type: 'symbol',
         source: 'entities',
@@ -86,7 +103,7 @@ export default defineComponent({
           'text-size': 12,
         },
       })
-      map.addLayer({
+      this.map.addLayer({
         id: 'unclustered-point',
         type: 'circle',
         source: 'entities',
@@ -118,15 +135,15 @@ export default defineComponent({
           ],
         },
       })
-      map.loadImage('/assets/map/icons/bin.png', (err, image) => {
+      this.map.loadImage('/assets/map/icons/bin.png', (err, image) => {
         if (err || !image) throw err
-        map.addImage('bin', image)
+        this.map.addImage('bin', image)
       })
-      map.loadImage('/assets/map/icons/bench.png', (err, image) => {
+      this.map.loadImage('/assets/map/icons/bench.png', (err, image) => {
         if (err || !image) throw err
-        map.addImage('bench', image)
+        this.map.addImage('bench', image)
       })
-      map.addLayer({
+      this.map.addLayer({
         id: 'point-icon',
         type: 'symbol',
         source: 'entities',
@@ -146,17 +163,17 @@ export default defineComponent({
           'icon-size': 0.35,
         },
       })
-      map.on('click', 'clusters', (e) => {
+      this.map.on('click', 'clusters', (e) => {
         console.log('clustered')
-        const features = map.queryRenderedFeatures(e.point, {
+        const features = this.map.queryRenderedFeatures(e.point, {
           layers: ['clusters'],
         })
         if (features[0].properties) {
           const clusterId = features[0].properties.cluster_id
-          const test = map.getSource('entities') as GeoJSONSource
+          const test = this.map.getSource('entities') as GeoJSONSource
           test.getClusterExpansionZoom(clusterId, (err, zoom) => {
             if (err) return
-            map.easeTo({
+            this.map.easeTo({
               // @ts-expect-error wrong types
               center: features[0].geometry.coordinates,
               zoom,
@@ -164,38 +181,64 @@ export default defineComponent({
           })
         }
       })
-      map.on('click', 'unclustered-point', (e) => {
+      this.map.on('click', 'unclustered-point', (e) => {
         console.log('unclustered', e)
         if (e.features) {
           const entityData = e.features[0].properties
           if (entityData) this.$router.push({ name: 'EntityDetail', params: { id: entityData.id } })
         }
       })
-      map.on('click', (e) => {
+      this.map.on('click', (e) => {
         if (
-          map
+          this.map
             .queryRenderedFeatures(e.point)
             .filter((feature) => feature.source === 'entities').length === 0
         ) {
           console.log('Basemap click')
         }
       })
-      map.on('mouseenter', 'clusters', () => {
-        map.getCanvas().style.cursor = 'pointer'
+      this.map.on('mouseenter', 'clusters', () => {
+        this.map.getCanvas().style.cursor = 'pointer'
       })
-      map.on('mouseleave', 'clusters', () => {
-        map.getCanvas().style.cursor = ''
+      this.map.on('mouseleave', 'clusters', () => {
+        this.map.getCanvas().style.cursor = ''
       })
-      map.on('mouseenter', 'unclustered-point', () => {
-        map.getCanvas().style.cursor = 'pointer'
+      this.map.on('mouseenter', 'unclustered-point', () => {
+        this.map.getCanvas().style.cursor = 'pointer'
       })
-      map.on('mouseleave', 'unclustered-point', () => {
-        map.getCanvas().style.cursor = ''
+      this.map.on('mouseleave', 'unclustered-point', () => {
+        this.map.getCanvas().style.cursor = ''
       })
     })
   },
-})
+  methods: {
+    getEntityGeoJson() {
+      const geoJson = this.$store.getters.getEntityGeoJson as FeatureCollection<Point, Entity>
+      geoJson.features = geoJson.features.filter((feature) => !this.myMapUnChecked.some(
+        (id: number) => id === feature.properties.category.id,
+      ))
 
+      return geoJson
+    },
+    async openFilterModal() {
+      const modal = await modalController.create({
+        component: MapFilterModal,
+        componentProps: {
+          categories: this.categories,
+        },
+        swipeToClose: true,
+        // eslint-disable-next-line no-undef
+        presentingElement: document.querySelector('ion-router-outlet') as HTMLIonRouterOutletElement,
+      })
+      modal.onWillDismiss().then(() => {
+        // @ts-expect-error test
+        this.map.getSource('entities').setData(this.getEntityGeoJson())
+      })
+
+      return modal.present()
+    },
+  },
+})
 </script>
 
 <style lang="postcss" scoped>
@@ -207,4 +250,5 @@ export default defineComponent({
     outline: none;
   }
 }
+
 </style>
