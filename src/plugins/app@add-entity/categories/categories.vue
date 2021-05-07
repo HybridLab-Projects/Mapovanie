@@ -16,14 +16,13 @@
           <ion-searchbar v-model="search" debounce="0" />
         </ion-toolbar>
       </ion-header>
-      <ion-list-header class="ion-margin-bottom">
-        Obľúbené
-      </ion-list-header>
-      <ion-list
-        v-for="(category, i) in filteredCategories"
-        :key="i"
-      >
-        <ion-item button :router-link="`/tutorial/${category.id}`">
+      <ion-list>
+        <ion-item
+          v-for="category in filteredCategories"
+          :key="category.id"
+          button
+          :router-link="`/tutorial/${category.id}`"
+        >
           <ion-img :src="category?.icon.url" />
           <!--          <ion-icon-->
           <!--            slot="end"-->
@@ -47,7 +46,6 @@ import {
   IonPage,
   IonContent,
   IonList,
-  IonListHeader,
   IonItem,
   IonLabel,
   IonImg,
@@ -69,7 +67,6 @@ export default defineComponent({
     IonContent,
     IonPage,
     IonList,
-    IonListHeader,
     IonItem,
     IonLabel,
     IonImg,
