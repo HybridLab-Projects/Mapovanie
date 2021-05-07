@@ -88,7 +88,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="postcss" scoped>
   ion-slides {
     height: 100%;
   }

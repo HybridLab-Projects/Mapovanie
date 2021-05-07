@@ -7,9 +7,9 @@
           <ion-label>Najnovšie</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="map" href="/tabs/map">
-          <ion-icon :icon="map" />
-          <ion-label>Mapa</ion-label>
+        <ion-tab-button tab="groups" href="/tabs/groups">
+          <ion-icon :icon="people" />
+          <ion-label>Skupiny</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="categories" href="/tabs/categories">
@@ -17,14 +17,14 @@
           <ion-label>Pridať</ion-label>
         </ion-tab-button>
 
+        <ion-tab-button tab="map" href="/tabs/map">
+          <ion-icon :icon="map" />
+          <ion-label>Moja mapa</ion-label>
+        </ion-tab-button>
+
         <ion-tab-button tab="profile" href="/tabs/profile">
           <ion-icon :icon="personCircle" />
           <ion-label>Profil</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="settings" href="/tabs/settings">
-          <ion-icon :icon="settings" />
-          <ion-label>Nastavenia</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -38,7 +38,7 @@ import {
   IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage,
 } from '@ionic/vue'
 import {
-  settings, map, camera, list, personCircle,
+  people, map, camera, list, personCircle,
 } from 'ionicons/icons'
 
 export default defineComponent({
@@ -48,7 +48,7 @@ export default defineComponent({
   },
   data() {
     return {
-      settings,
+      people,
       map,
       camera,
       list,
