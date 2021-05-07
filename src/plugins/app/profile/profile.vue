@@ -8,17 +8,42 @@
       >
         <ion-refresher-content pulling-icon="lines" />
       </ion-refresher>
-      <div class="d-flex ion-justify-content-center ion-margin-top">
+      <div class="d-flex ion-justify-content-start ion-margin-top">
         <ion-avatar>
           <img :src="user.avatar">
         </ion-avatar>
+
+        <ion-list>
+          <ion-item lines="none">
+            <h1 class="ion-text-center profile-name">
+              {{ user.name }}
+            </h1>
+          </ion-item>
+
+          <ion-item lines="none">
+            <h6 class="prispevky">
+              Prispevky
+              <h6 class="ion-text-center count">
+                0
+              </h6>
+            </h6>
+            <h6 class="skupiny">
+              Skupiny
+              <h6 class="ion-text-center count">
+                0
+              </h6>
+            </h6>
+          </ion-item>
+        </ion-list>
       </div>
-      <h1 class="ion-text-center">
-        {{ user.name }}
-      </h1>
-      <h6 class="ion-no-margin ion-text-center">
-        {{ user.points }} 🔥
+
+      <h6 class="ion-no-margin ion-text-left text-bio">
+        🏫 OANBA
+        📍 Pozsony / Fél
+        ♀  She / Her
+        🎵 Tublatanka, Darina Rolinsova, Szélenä Gomész, Bódi Csabi
       </h6>
+
       <h5 class="posts-title">
         Moje príspevky
       </h5>
@@ -75,6 +100,8 @@ import {
   IonLabel,
   IonRefresher,
   IonRefresherContent,
+  IonList,
+  IonItem,
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
 import { mapActions, mapState } from 'vuex'
@@ -95,6 +122,8 @@ export default defineComponent({
     IonLabel,
     IonRefresher,
     IonRefresherContent,
+    IonList,
+    IonItem,
   },
   data() {
     return {
@@ -120,11 +149,30 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 ion-avatar {
-  height: 10rem;
-  width: 10rem;
+  height: 5rem;
+  width: 5rem;
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.prispevky {
+  margin-right: 5px;
+}
+
+.skupiny {
+  margin-left: 5px;
+}
+
+.count {
+  margin-top: 5px;
 }
 
 .posts-title {
   margin-top: 2rem;
 }
+
 </style>
