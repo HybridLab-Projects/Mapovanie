@@ -5,7 +5,7 @@ import {
 import Axios from 'axios'
 
 import { Plugins } from '@capacitor/core'
-import Geojson from 'geojson'
+import Geojson, { FeatureCollection, Point } from 'geojson'
 // eslint-disable-next-line import/no-cycle
 import router from './router'
 
@@ -18,6 +18,7 @@ export default createStore<State>({
     user: {} as User,
     leaderboardUsers: [],
     categories: [],
+    myMapUnChecked: [],
   },
   mutations: {
     entitiesFetched(state, entities) {
@@ -42,6 +43,13 @@ export default createStore<State>({
     },
     categoriesFetched(state, categoryData) {
       state.categories = categoryData.data
+    },
+    myMapUnCheckedChanged(state, id) {
+      if (state.myMapUnChecked.some((num) => num === id)) {
+        state.myMapUnChecked.splice(state.myMapUnChecked.indexOf(id), 1)
+      } else {
+        state.myMapUnChecked.push(id)
+      }
     },
   },
   actions: {
@@ -134,8 +142,8 @@ export default createStore<State>({
       (entity) => +entity.id === +id,
     ),
     isUserLoggedIn: (state) => !!state.token,
-    // @ts-expect-error missing type
-    getEntityGeoJson: (state) => Geojson.parse(state.entities, { Point: ['lat', 'lon'] }),
+    // @ts-expect-error missing types on Geojson.parse
+    getEntityGeoJson: (state): FeatureCollection<Point, Entity> => Geojson.parse(state.entities, { Point: ['lat', 'lon'] }),
     getCategoryById: (state) => (id: number|string): Category|undefined => state.categories.find(
       (category) => +category.id === +id,
     ),
