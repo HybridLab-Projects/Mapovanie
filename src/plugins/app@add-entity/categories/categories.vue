@@ -43,8 +43,14 @@
               :key="i"
               button
               :router-link="`/tutorial/${category.id}`"
+              class="ion-margin-start"
             >
-              <ion-label>{{ subcategory.name }}</ion-label>
+              <ion-avatar>
+                <img src="https://avatars.dicebear.com/api/identicon/:seed.svg">
+              </ion-avatar>
+              <ion-label class="ion-margin-start">
+                {{ subcategory.name }}
+              </ion-label>
             </ion-item>
           </div>
         </div>
@@ -101,11 +107,11 @@ export default defineComponent({
       search: '',
       selectedCategory: -1,
       subcategories: {
-        nice: {
+        one: {
           id: 0,
           name: 'interier',
         },
-        ncie: {
+        two: {
           id: 1,
           name: 'exterier',
         },
