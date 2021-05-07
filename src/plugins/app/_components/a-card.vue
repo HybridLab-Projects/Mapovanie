@@ -4,7 +4,7 @@
     :router-link="`/entity-detail/${entity.id}`"
   >
     <ion-card-content class="flex">
-      <ion-avatar class="ion-margin-end">
+      <ion-avatar class="ion-margin-end ion-align-self-center">
         <img src="https://www.visitbratislava.com/wp-content/uploads/2018/07/bratislava-logo-official-square-stvorec-plnofarebne-full-color-cervene-pozadie-red-background.png">
       </ion-avatar>
       <div class="flex flex-col top-container">
