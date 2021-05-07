@@ -6,7 +6,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense" style="--border-width: 0;">
+      <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">
             Kategórie
@@ -16,15 +16,13 @@
           <ion-searchbar v-model="search" debounce="0" />
         </ion-toolbar>
       </ion-header>
-      <ion-list-header class="ion-margin-bottom">
-        Obľúbené
-      </ion-list-header>
       <ion-list>
-        <div v-for="(category, i) in categories" :key="i">
+        <div v-for="(category, i) in filteredCategories" :key="i">
           <ion-item
             :lines="selectedCategory === i ? 'none' : 'inset'"
             button
             :detail-icon="selectedCategory === i ? chevronDown : 'chevron-forward'"
+            class="ion-margin-end"
             @click="toggleSelectedCategory(i)"
           >
             <ion-img :src="category?.icon.url" />
@@ -39,8 +37,8 @@
           </ion-item>
           <div v-if="selectedCategory === i">
             <ion-item
-              v-for="(subcategory, i) in subcategories"
-              :key="i"
+              v-for="(subcategory, j) in subcategories"
+              :key="j"
               button
               :router-link="`/tutorial/${category.id}`"
               class="ion-margin-start"
@@ -67,7 +65,6 @@ import {
   IonPage,
   IonContent,
   IonList,
-  IonListHeader,
   IonItem,
   IonLabel,
   IonImg,
@@ -75,6 +72,7 @@ import {
   IonToolbar,
   IonTitle,
   IonSearchbar,
+  IonAvatar,
 } from '@ionic/vue'
 
 import {
@@ -90,7 +88,6 @@ export default defineComponent({
     IonContent,
     IonPage,
     IonList,
-    IonListHeader,
     IonItem,
     IonLabel,
     IonImg,
@@ -98,6 +95,7 @@ export default defineComponent({
     IonToolbar,
     IonTitle,
     IonSearchbar,
+    IonAvatar,
   },
   data() {
     return {
