@@ -9,19 +9,8 @@ const { Storage, SplashScreen } = Plugins
 
 const routes: Array<RouteRecordRaw> = [
   {
-    name: 'Index',
     path: '/',
-    component: () => import('@/plugins/app/index/index.vue'),
-    async beforeEnter(to, from, next) {
-      const slides = await Storage.get({ key: 'slidesFinished' })
-      console.log('slides', slides)
-      if (!slides.value) {
-        await SplashScreen.hide()
-        next({ name: 'Slides' })
-      } else {
-        next()
-      }
-    },
+    redirect: '/login',
   },
   {
     path: '/tabs/',
@@ -69,14 +58,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Form',
     path: '/form',
     component: () => import('@/plugins/app@add-entity/form/form.vue'),
-    beforeEnter(to, from, next) {
-      if (!to.params.image
-          || !to.params.deviceLocation) {
-        next({ name: 'Latest' })
-      } else {
-        next()
-      }
-    },
   },
   {
     name: 'Success',
@@ -121,9 +102,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (!store.getters.isUserLoggedIn && !(to.name === 'Index' || to.name === 'Login' || to.name === 'Slides')) {
+  if (!store.getters.isUserLoggedIn && !(to.name === 'Index'
+  || to.name === 'Login' || to.name === 'Slides')) {
+    console.log('Login redirect')
     next({ name: 'Login' })
-  } else if (store.getters.isUserLoggedIn && to.name === 'Login') {
+  } else if (store.getters.isUserLoggedIn && (to.name === 'Index' || to.name === 'Login' || to.name === 'Slides')) {
     next({ name: 'Latest' })
   } else {
     next()

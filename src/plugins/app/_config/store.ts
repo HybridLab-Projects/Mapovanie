@@ -63,17 +63,22 @@ export default createStore<State>({
         const { data } = await Axios.post('https://mapovanie.hybridlab.dev/cms/api/v1/auth/refresh', null,
           { headers: { Authorization: `Bearer ${token.value}` } })
 
-        commit('userLoggedIn', { user: data.response.user, token: data.response.token })
+        await commit('userLoggedIn', { user: data.response.user, token: data.response.token })
         await Storage.set({ key: 'userToken', value: data.response.token })
         await Storage.set({ key: 'userData', value: JSON.stringify(data.response.user) })
         await dispatch('fetchLeaderboardUsers')
         await dispatch('fetchEntities')
         await dispatch('fetchCategories')
-        await router.push({ name: 'Latest' })
+        // await router.replace({ name: 'Latest' })
         await SplashScreen.hide()
+        console.log('test')
       } catch (err) {
         console.log(err)
         await dispatch('logout')
+        const slides = await Storage.get({ key: 'slidesFinished' })
+        if (!slides.value) {
+          await router.replace({ name: 'Slides' })
+        }
         await SplashScreen.hide()
       }
     },
