@@ -29,7 +29,11 @@
       </ion-header>
 
       <div v-if="value === 'mine'">
-        <a-group-item v-for="group in myGroups" :key="group.id" :group="group" />
+        <a-group-item
+          v-for="group in myGroups"
+          :key="group.id"
+          :group="group"
+        />
       </div>
       <div v-if="value === 'other'">
         <a-group-item v-for="group in newGroups" :key="group.id" :group="group" />

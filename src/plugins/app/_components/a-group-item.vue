@@ -1,5 +1,5 @@
 <template>
-  <ion-item button>
+  <ion-item button :router-link="`/group/${group.id}`">
     <ion-avatar slot="start">
       <img :src="`https://avatars.dicebear.com/api/identicon/${group.id}.svg`">
     </ion-avatar>

@@ -48,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         name: 'Groups',
         path: 'groups',
-        component: () => import('@/plugins/app/groups/groups.vue'),
+        component: () => import('@/plugins/app@groups/groups/groups.vue'),
       },
     ],
   },
@@ -93,6 +93,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'User',
     path: '/user/:id',
     component: () => import('@/plugins/app@user/user/user.vue'),
+  },
+  {
+    name: 'Group',
+    path: '/group/:id',
+    component: () => import('@/plugins/app@groups/group_screen/group.vue'),
   },
 ]
 
