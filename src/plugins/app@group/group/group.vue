@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <a-header back title="Skupiny" />
+    <a-header back title="Skupina" />
     <ion-content class="ion-padding">
       <ion-refresher
         slot="fixed"
@@ -51,7 +51,7 @@
       <h6 class="ion-no-margin ion-text-left">
         🏀 Mapujeme Basketbalové koše od roku 2003.
       </h6>
-      <ion-button href="/tabs/map" color="success">
+      <ion-button :router-link="`/group/1/map`" color="success">
         mapa
       </ion-button>
     </ion-content>
