@@ -215,7 +215,7 @@ export default defineComponent({
     getEntityGeoJson() {
       const geoJson = this.$store.getters.getEntityGeoJson as FeatureCollection<Point, Entity>
       geoJson.features = geoJson.features.filter((feature) => !this.myMapUnChecked.some(
-        (id: number) => id === feature.properties.category.id,
+        (id: number) => id === feature?.properties?.category?.id,
       ))
 
       return geoJson

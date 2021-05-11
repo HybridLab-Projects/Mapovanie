@@ -85,7 +85,7 @@ export default createStore<State>({
     async fetchEntities({ commit }) {
       try {
         const { data } = await Axios.get(
-          'https://mapovanie.hybridlab.dev/cms/api/entities',
+          'https://mapovanie.hybridlab.dev/cms/api/v1/entities',
         )
         commit('entitiesFetched', data.data)
         await Storage.set({ key: 'entities', value: JSON.stringify(data.data) })
@@ -111,7 +111,7 @@ export default createStore<State>({
     },
     async fetchLeaderboardUsers({ commit }) {
       try {
-        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/users')
+        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/users')
         commit('leaderboardUsersFetched', data)
       } catch (err) {
         console.log(err)
@@ -119,7 +119,7 @@ export default createStore<State>({
     },
     async fetchCategories({ commit }) {
       try {
-        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/categories')
+        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/categories')
         commit('categoriesFetched', data)
       } catch (err) {
         console.log(err)
@@ -135,7 +135,7 @@ export default createStore<State>({
     },
     async reportEntity({ commit }, { entityId, type, content }) {
       try {
-        await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/entities/${entityId}/reports`, { type, content })
+        await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/v1/entities/${entityId}/reports`, { type, content })
       } catch (err) {
         console.log(err)
         throw err

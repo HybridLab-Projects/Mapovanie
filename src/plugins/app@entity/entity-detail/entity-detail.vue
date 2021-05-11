@@ -6,7 +6,7 @@
           <ion-back-button />
         </ion-buttons>
         <ion-title>
-          Lavička *
+          {{ entity?.category.full_name }}
         </ion-title>
         <ion-buttons slot="end">
           <ion-button @click="openReportModal()">
@@ -20,6 +20,20 @@
     </ion-header>
 
     <ion-content class="ion-padding">
+      <div
+        class="flex ion-align-items-center ion-margin-bottom"
+        @click="$router.push(`/user/${entity.author.id}`)"
+      >
+        <ion-avatar class="ion-margin-end avatar">
+          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+        </ion-avatar>
+        <ion-text class="flex ion-justify-content-between flex-grow">
+          <p>{{ entity?.author?.name }}</p>
+          <p>
+            {{ when }}
+          </p>
+        </ion-text>
+      </div>
       <ion-img
         class="image-border-radius ion-margin-bottom"
         :src="entity?.images[0]?.url"
@@ -32,17 +46,6 @@
           {{ entity?.address?.split(',')[0] }}
         </h5>
       </ion-text>
-      <div class="flex ion-align-items-center" @click="$router.push(`/user/${entity.author.id}`)">
-        <ion-avatar class="ion-margin-end avatar">
-          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-        </ion-avatar>
-        <ion-text class="flex ion-justify-content-between flex-grow">
-          <p>{{ entity?.author?.name }}</p>
-          <p>
-            2 weeks ago *
-          </p>
-        </ion-text>
-      </div>
 
       <ion-text>
         <h1 class="ion-margin-top text-2xl">
@@ -53,9 +56,7 @@
         color="medium"
       >
         <p>
-          Malý skatepark, často preplnený.
-          Nachádza sa tu: Rail, Down Rail, Manual Box, Pyramída
-          Otvorené non-stop *
+          {{ entity?.description }}
         </p>
       </ion-text>
 
@@ -100,6 +101,10 @@ import {
 import { flagOutline, locationOutline, mapOutline } from 'ionicons/icons'
 import { Entity } from '@/plugins/app/_config/types'
 import Mapbox from 'mapbox-gl'
+import LocationHelper from '@/plugins/jakub@capacitor/geolocation/_helpers'
+import { GeolocationPosition } from '@capacitor/core'
+import Geolocation from '@/plugins/jakub@capacitor/geolocation'
+import { DateTime } from 'luxon'
 import EntityReportModalNav from '../entity-report/entity-report-nav.vue'
 
 export default defineComponent({
@@ -124,15 +129,24 @@ export default defineComponent({
       locationOutline,
       mapOutline,
       id: '0',
+      userLocation: {} as GeolocationPosition,
     }
   },
   computed: {
     entity(): Entity|undefined {
       return this.$store.getters.getEntityById(this.id)
     },
+    distanceFromObject(): number {
+      return LocationHelper.calculateDistance(this.entity, this.userLocation)
+    },
+    when(): string|null {
+      if (!this.entity) return ''
+      return DateTime.fromISO(this.entity.updated_at).toRelative({ locale: 'sk' })
+    },
   },
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
     this.id = this.$route.params.id as string
+    this.userLocation = await Geolocation.getDeviceLocation()
   },
   mounted() {
     if (!document.querySelector('#map-container-report')) return
@@ -141,11 +155,11 @@ export default defineComponent({
     const map = new Mapbox.Map({
       container: 'map-container-report',
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [+this.entity.lon, +this.entity.lat],
+      center: [+this.entity?.lon, +this.entity?.lat],
       zoom: 18,
     })
     new Mapbox.Marker()
-      .setLngLat([+this.entity.lon, +this.entity.lat])
+      .setLngLat([+this.entity?.lon, +this.entity?.lat])
       .addTo(map)
 
     map.on('load', () => {

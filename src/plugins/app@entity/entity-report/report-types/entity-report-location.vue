@@ -53,12 +53,12 @@ export default defineComponent({
     const map = new Mapbox.Map({
       container: 'map-container-report',
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [+this.entity.lon, +this.entity.lat],
+      center: [+this.entity?.lon, +this.entity?.lat],
       zoom: 18,
     })
 
     const marker = new Mapbox.Marker()
-      .setLngLat([+this.entity.lon, +this.entity.lat])
+      .setLngLat([+this.entity?.lon, +this.entity?.lat])
       .addTo(map)
 
     map.on('click', (e) => {

@@ -1,56 +1,67 @@
 /* eslint-disable camelcase */
+/* eslint-disable no-use-before-define */
+
+export interface Group {
+    id: number,
+    name: string,
+    second_name: string,
+    sort_order: string,
+    created_at:string,
+    updated_at: string,
+    creator: User,
+    description: string,
+    tags_string: string,
+    members_count: number,
+    members: {id: number, is_active: boolean, is_invited: boolean, user: User},
+    categories: Array<Category>,
+    invite_hash: string,
+    invite_expires_at: string
+}
 
 export interface Category {
     id: number;
     key: string;
     full_name: string;
+    description: string;
+    group: Group;
+    icon: {url: string};
     created_at: string;
     updated_at: string;
 }
 
 export interface Entity {
     id: number;
-    condition: string|null;
+    category: Category;
+    condition: string;
+    address: string;
     lon: string;
     lat: string;
-    custom_fields: string;
+    custom_fields: Record<string, any>;
     device_uuid: string;
-    images: [
-        {
-            url: string;
-        }
-    ];
-    date: string;
-    address: string;
-    category: Category;
-    author: {
-        email: string;
-        id: number;
-        name: string
-    };
+    user: User;
+    images: [{url: string}];
+    description: string;
     created_at: string;
-    updated_at: string
+    updated_at: string;
 }
 
 export interface User {
-    id: number;
-    activated_at: string;
-    created_at: string;
-    deleted_at: null;
-    email: string;
-    facebook_id: string;
-    is_activated: boolean;
-    is_guest: string;
-    is_superuser: string;
-    last_login: null;
-    last_seen: null;
-    name: string;
-    permissions: null;
-    surname: null;
-    updated_at: string;
-    username: string;
-    avatar: string;
-    entities: Array<Entity>;
+    id: number,
+    name: string,
+    surname: string,
+    username: string,
+    avatar: {url: string},
+    points: number,
+    entities_count: number,
+    entities: Array<Entity>,
+    description: string,
+    email: string,
+    last_login: string,
+    last_seen: string,
+    created_at: string,
+    updated_at: string,
+    deleted_at:string,
+    is_guest:boolean,
 }
 
 export interface LeaderboardUser {

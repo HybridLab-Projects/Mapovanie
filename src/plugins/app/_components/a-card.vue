@@ -9,10 +9,10 @@
       </ion-avatar>
       <div class="flex flex-col top-container">
         <p class="top-label">
-          Mesto Bratislava &#9679; Skate Park
+          {{ entity.category.group.name }} &#9679; {{ entity.category.full_name }}
         </p>
         <p>
-          Pridal <strong>{{ entity.author.name }}</strong>
+          Pridal <strong>Mark Mucska</strong>
         </p>
       </div>
     </ion-card-content>
@@ -35,6 +35,7 @@ import {
 import { locationOutline, mapOutline } from 'ionicons/icons'
 import { GeolocationPosition } from '@capacitor/core'
 import { DateTime } from 'luxon'
+import LocationHelper from '@/plugins/jakub@capacitor/geolocation/_helpers'
 
 export default defineComponent({
   name: 'ACard',
@@ -62,18 +63,10 @@ export default defineComponent({
   },
   computed: {
     distanceFromObject(): number {
-      if (!this.entity.lat || !this.entity.lon
-          || !this.userLocation?.coords?.latitude || !this.userLocation?.coords?.longitude) return 0
-      const p = 0.017453292519943295 // Math.PI / 180
-      const c = Math.cos
-      const a = 0.5 - c((+this.entity.lat - this.userLocation.coords.latitude) * p) / 2
-            + c(this.userLocation.coords.latitude * p) * c(+this.entity.lat * p)
-            * (1 - c((+this.entity.lon - this.userLocation.coords.longitude) * p)) / 2
-
-      return Math.round(12742 * Math.asin(Math.sqrt(a)) * 10) / 10 // 2 * R; R = 6371 km
+      return LocationHelper.calculateDistance(this.entity, this.userLocation)
     },
     when(): string|null {
-      return DateTime.fromFormat(this.entity.updated_at, 'yyyy-MM-dd hh:mm:ss').toRelative({ locale: 'sk' })
+      return DateTime.fromISO(this.entity.updated_at).toRelative({ locale: 'sk' })
     },
   },
 })

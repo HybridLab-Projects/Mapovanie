@@ -119,7 +119,7 @@ export default defineComponent({
   computed: {
     ...mapState(['categories']),
     filteredCategories(): Array<Category> {
-      return this.categories.filter((category: Category) => category.full_name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      return this.categories.filter((category: Category) => category?.full_name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         .includes(this.search.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')))
     },
   },
