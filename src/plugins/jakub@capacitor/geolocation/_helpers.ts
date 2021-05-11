@@ -1,7 +1,6 @@
 /* eslint-disable no-mixed-operators */
 import { GeolocationPosition } from '@capacitor/core'
 import { Entity } from '@/plugins/app/_config/types'
-import user from '@/plugins/app@user/user/user.vue'
 
 export default {
   getFixedDeviceLocation(deviceLocation: GeolocationPosition): GeolocationPosition {
