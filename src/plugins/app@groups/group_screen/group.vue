@@ -16,9 +16,9 @@
         <ion-list class="ml-2">
           <ion-item lines="none">
             <p class=" text-2xl">
-              Basketball BA
+              Basketball
             </p>
-            <ion-button color="success">
+            <ion-button color="success" class="ion-margin-start">
               Pridať sa
             </ion-button>
           </ion-item>
@@ -40,7 +40,7 @@
         </ion-list>
       </div>
       <ion-item lines="none">
-        <ion-badge color="warning">
+        <ion-badge color="warning ion-margin-end">
           Šport
         </ion-badge>
         <ion-badge color="warning">
