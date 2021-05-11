@@ -78,4 +78,5 @@ export interface State {
     leaderboardUsers: Array<LeaderboardUser>;
     categories: Array<Category>;
     myMapUnChecked: Array<number>;
+    groups: Array<Group>
 }

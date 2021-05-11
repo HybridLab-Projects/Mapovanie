@@ -8,7 +8,7 @@
       <ion-badge color="warning">
         {{ group.badge }}
       </ion-badge>
-      <p>{{ group.members }} členov</p>
+      <p>{{ group.members_count }} členov</p>
     </ion-label>
   </ion-item>
 </template>

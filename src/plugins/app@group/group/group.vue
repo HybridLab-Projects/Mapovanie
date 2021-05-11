@@ -10,13 +10,13 @@
       </ion-refresher>
       <div class="flex ion-justify-content-start ion-margin-top">
         <ion-avatar class="h-16 w-16">
-          <img src="https://play-lh.googleusercontent.com/EjJV6kCXgX9EIhKEtpYhQF8-BUb5En8sDKpOPiWSQJUxv9_RAfl4tMxyIMkQYgeqC6I=s360-rw">
+          <img :src="`https://avatars.dicebear.com/api/identicon/${group?.id}.svg`">
         </ion-avatar>
 
         <ion-list class="ml-2">
           <ion-item lines="none">
             <p class=" text-2xl">
-              Basketball
+              {{ group?.name }}
             </p>
             <ion-button color="success" class="ion-margin-start">
               Pridať sa
@@ -27,32 +27,34 @@
             <div slot="start">
               <p>Príspevky</p>
               <p class="ion-text-center">
-                23
+                ?
               </p>
             </div>
             <div>
-              <p>Mapéri</p>
+              <p>Členovia</p>
               <p class="ion-text-center">
-                54
+                {{ group?.members_count }}
               </p>
             </div>
           </ion-item>
         </ion-list>
       </div>
-      <ion-item lines="none">
-        <ion-badge color="warning ion-margin-end">
-          Šport
+      <div class="ion-margin-vertical">
+        <ion-badge
+          v-for="(tag,i) in group?.tags_string.split(' ')"
+          :key="i"
+          color="warning"
+          class="mx-1"
+        >
+          {{ tag }}
         </ion-badge>
-        <ion-badge color="warning">
-          Voľný čas
-        </ion-badge>
-      </ion-item>
+      </div>
 
       <h6 class="ion-no-margin ion-text-left">
-        🏀 Mapujeme Basketbalové koše od roku 2003.
+        {{ group?.description }}
       </h6>
-      <ion-button :router-link="`/group/1/map`" color="success">
-        mapa
+      <ion-button :router-link="`/group/1/map`" color="success" disabled>
+        Mapa
       </ion-button>
     </ion-content>
   </ion-page>
@@ -72,6 +74,7 @@ import {
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
 import { locationOutline, mapOutline } from 'ionicons/icons'
+import { Group } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'Group',
@@ -90,18 +93,24 @@ export default defineComponent({
     return {
       locationOutline,
       mapOutline,
+      id: '0',
     }
   },
-  // computed: {
-  //   ...mapState(['user']),
-  // },
+  async ionViewWillEnter() {
+    this.id = this.$route.params.id as string
+  },
+  computed: {
+    group(): Group {
+      return this.$store.getters.getGroupById(this.id)
+    },
+  },
   methods: {
     // ...mapActions(['fetchUserinfo']),
-    // async doRefresh(e: CustomEvent) {
-    //   await this.$store.dispatch('fetchUserinfo')
-    //   // @ts-expect-error ionic stuff
-    //   e.target.complete()
-    // },
+    async doRefresh(e: CustomEvent) {
+      await this.$store.dispatch('fetchGroups')
+      // @ts-expect-error ionic stuff
+      e.target.complete()
+    },
   },
 })
 

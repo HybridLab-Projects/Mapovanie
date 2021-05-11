@@ -1,6 +1,6 @@
 import { createStore, createLogger } from 'vuex'
 import {
-  Category, Entity, LeaderboardUser, State, User,
+  Category, Entity, Group, LeaderboardUser, State, User,
 } from '@/plugins/app/_config/types'
 import Axios from 'axios'
 
@@ -19,6 +19,7 @@ export default createStore<State>({
     leaderboardUsers: [],
     categories: [],
     myMapUnChecked: [],
+    groups: [],
   },
   mutations: {
     entitiesFetched(state, entities) {
@@ -51,6 +52,9 @@ export default createStore<State>({
         state.myMapUnChecked.push(id)
       }
     },
+    groupsFetched(state, groups) {
+      state.groups = groups.data
+    },
   },
   actions: {
     async appLoad({ commit, dispatch }) {
@@ -69,7 +73,7 @@ export default createStore<State>({
         await dispatch('fetchLeaderboardUsers')
         await dispatch('fetchEntities')
         await dispatch('fetchCategories')
-        // await router.replace({ name: 'Latest' })
+        await dispatch('fetchGroups')
         await SplashScreen.hide()
         console.log('test')
       } catch (err) {
@@ -100,6 +104,7 @@ export default createStore<State>({
       await dispatch('fetchLeaderboardUsers')
       await dispatch('fetchEntities')
       await dispatch('fetchCategories')
+      await dispatch('fetchGroups')
       await router.push({ name: 'Latest' })
     },
     async logout({ commit }) {
@@ -141,6 +146,15 @@ export default createStore<State>({
         throw err
       }
     },
+    async fetchGroups({ commit }) {
+      try {
+        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/groups')
+        commit('groupsFetched', data)
+      } catch (err) {
+        console.log(err)
+        throw err
+      }
+    },
   },
   getters: {
     getEntityById: (state) => (id: number|string): Entity|undefined => state.entities.find(
@@ -155,6 +169,10 @@ export default createStore<State>({
     getUserById: (state) => (id: number|string): LeaderboardUser|undefined => state.leaderboardUsers
       .find(
         (user) => +user.id === +id,
+      ),
+    getGroupById: (state) => (id: number|string): Group|undefined => state.groups
+      .find(
+        (group) => +group.id === +id,
       ),
   },
   plugins: [createLogger()],

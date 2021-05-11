@@ -30,19 +30,23 @@
 
       <div v-if="value === 'mine'">
         <a-group-item
-          v-for="group in myGroups"
+          v-for="group in groups"
           :key="group.id"
           :group="group"
         />
       </div>
       <div v-if="value === 'other'">
-        <a-group-item v-for="group in newGroups" :key="group.id" :group="group" />
+        <a-group-item
+          v-for="group in groups"
+          :key="group.id"
+          :group="group"
+        />
       </div>
     </ion-content>
   </ion-page>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 
 import {
@@ -58,6 +62,7 @@ import {
 } from '@ionic/vue'
 
 import AGroupItem from '@/plugins/app/_components/a-group-item.vue'
+import { Group } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'Groups',
@@ -137,5 +142,13 @@ export default defineComponent({
 
     }
   },
+  computed: {
+    groups(): Group[] {
+      return this.$store.state.groups
+    },
+  },
+  methods: {
+  },
 })
+
 </script>
