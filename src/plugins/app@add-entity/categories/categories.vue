@@ -101,16 +101,6 @@ export default defineComponent({
       chevronDown,
       search: '',
       selectedCategory: -1,
-      subcategories: {
-        one: {
-          id: 0,
-          name: 'interier',
-        },
-        two: {
-          id: 1,
-          name: 'exterier',
-        },
-      },
     }
   },
   computed: {

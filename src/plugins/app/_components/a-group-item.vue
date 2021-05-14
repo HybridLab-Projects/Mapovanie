@@ -1,12 +1,17 @@
 <template>
-  <ion-item button :router-link="`/group/${group.id}`">
+  <ion-item button :router-link="`/group/${group?.id}`">
     <ion-avatar slot="start">
-      <img :src="`https://avatars.dicebear.com/api/identicon/${group.id}.svg`">
+      <img :src="group?.image.url">
     </ion-avatar>
     <ion-label>
-      <h2>{{ group.name }}</h2>
-      <ion-badge color="warning">
-        {{ group.badge }}
+      <h2>{{ group?.name }}</h2>
+      <ion-badge
+        v-for="(tag, i) in group?.tags_string.split(' ')"
+        :key="i"
+        color="warning"
+        class="mx-1"
+      >
+        {{ tag }}
       </ion-badge>
       <p>{{ group.members_count }} členov</p>
     </ion-label>
@@ -14,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 
 import {
   IonAvatar,
@@ -22,6 +27,7 @@ import {
   IonLabel,
   IonBadge,
 } from '@ionic/vue'
+import { Group } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'AGroupItem',
@@ -33,7 +39,7 @@ export default defineComponent({
   },
   props: {
     group: {
-      type: Object, // TODO make group type - as PropType<Group>,
+      type: Object as PropType<Group>,
       required: true,
     },
   },

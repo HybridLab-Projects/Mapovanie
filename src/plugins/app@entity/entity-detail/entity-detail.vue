@@ -51,13 +51,7 @@
         <h1 class="ion-margin-top text-2xl">
           Popis
         </h1>
-      </ion-text>
-      <ion-text
-        color="medium"
-      >
-        <p>
-          {{ entity?.description }}
-        </p>
+        <p>{{ entity?.description }}</p>
       </ion-text>
 
       <ion-text>

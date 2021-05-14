@@ -162,7 +162,8 @@ export default createStore<State>({
     ),
     isUserLoggedIn: (state) => !!state.token,
     // @ts-expect-error missing types on Geojson.parse
-    getEntityGeoJson: (state): FeatureCollection<Point, Entity> => Geojson.parse(Object.assign(...state.entities.categories), { Point: ['lat', 'lon'] }),
+    getEntityGeoJson: (state): FeatureCollection<Point, Entity> => Geojson.parse(state.entities, { Point: ['lat', 'lon'] }),
+    test: (state) => state.groups,
     getUserById: (state) => (id: number|string): LeaderboardUser|undefined => state.leaderboardUsers
       .find(
         (user) => +user.id === +id,

@@ -213,6 +213,7 @@ export default defineComponent({
   },
   methods: {
     getEntityGeoJson() {
+      console.log(this.$store.getters.test)
       const geoJson = this.$store.getters.getEntityGeoJson as FeatureCollection<Point, Entity>
       geoJson.features = geoJson.features.filter((feature) => !this.myMapUnChecked.some(
         (id: number) => id === feature?.properties?.category?.id,
@@ -224,7 +225,7 @@ export default defineComponent({
       const modal = await modalController.create({
         component: MapFilterModal,
         componentProps: {
-          categories: this.categories,
+          groups: this.$store.state.groups,
         },
         swipeToClose: true,
         // eslint-disable-next-line no-undef

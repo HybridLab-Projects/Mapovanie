@@ -10,6 +10,12 @@
         class="ion-padding form-img"
         @click="retakePicture()"
       />
+      <ion-item>
+        <ion-label position="floating">
+          Popis
+        </ion-label>
+        <ion-textarea v-model="description" />
+      </ion-item>
       <div id="map-container-form" class="map-container-form" />
     </ion-content>
     <ion-footer>
@@ -35,6 +41,7 @@ import {
   IonImg,
   IonButton,
   IonFooter,
+  IonTextarea, IonLabel, IonItem,
 } from '@ionic/vue'
 import Axios from 'axios'
 
@@ -54,6 +61,9 @@ export default defineComponent({
     IonImg,
     IonButton,
     IonFooter,
+    IonTextarea,
+    IonLabel,
+    IonItem,
   },
   data() {
     return {
@@ -61,6 +71,7 @@ export default defineComponent({
       deviceLocation: {} as GeolocationPosition,
       categoryId: 0,
       groupId: 0,
+      description: '',
     }
   },
   ionViewWillEnter() {
@@ -119,6 +130,7 @@ export default defineComponent({
           device_uuid: deviceInfo.uuid,
           image: this.image.dataUrl,
           category_id: this.categoryId,
+          description: this.description,
         })
         await this.$store.dispatch('fetchEntities')
         await this.$store.dispatch('fetchLeaderboardUsers')

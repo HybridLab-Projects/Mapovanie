@@ -114,7 +114,7 @@ export default defineComponent({
     },
     async joinGroup() {
       try {
-        const { data } = await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/v1/group-member/groups/${this.group.invite_hash}`)
+        const { data } = await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/v1/group-member/groups/link-join/${this.group.invite_hash}`)
         console.log(data)
       } catch (err) {
         console.log(err)
