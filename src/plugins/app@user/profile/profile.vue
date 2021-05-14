@@ -1,6 +1,15 @@
 <template>
   <ion-page>
-    <a-header title="Profil" />
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Profil</ion-title>
+        <ion-buttons slot="end">
+          <ion-button slot="icon-only" router-link="/settings">
+            <ion-icon :icon="settingsOutline" />
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
     <ion-content class="ion-padding">
       <ion-refresher
         slot="fixed"
@@ -73,10 +82,11 @@ import {
   IonRefresherContent,
   IonList,
   IonItem,
+  IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon,
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
 import { mapActions, mapState } from 'vuex'
-import { locationOutline, mapOutline } from 'ionicons/icons'
+import { locationOutline, mapOutline, settingsOutline } from 'ionicons/icons'
 import ACard from '@/plugins/app/_components/a-card.vue'
 import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 
@@ -92,11 +102,18 @@ export default defineComponent({
     IonRefresherContent,
     IonList,
     IonItem,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonButtons,
+    IonButton,
+    IonIcon,
   },
   data() {
     return {
       locationOutline,
       mapOutline,
+      settingsOutline,
       currentLocation: {},
     }
   },

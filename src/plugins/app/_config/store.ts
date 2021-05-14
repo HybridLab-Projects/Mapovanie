@@ -162,10 +162,7 @@ export default createStore<State>({
     ),
     isUserLoggedIn: (state) => !!state.token,
     // @ts-expect-error missing types on Geojson.parse
-    getEntityGeoJson: (state): FeatureCollection<Point, Entity> => Geojson.parse(state.entities, { Point: ['lat', 'lon'] }),
-    getCategoryById: (state) => (id: number|string): Category|undefined => state.categories.find(
-      (category) => +category.id === +id,
-    ),
+    getEntityGeoJson: (state): FeatureCollection<Point, Entity> => Geojson.parse(Object.assign(...state.entities.categories), { Point: ['lat', 'lon'] }),
     getUserById: (state) => (id: number|string): LeaderboardUser|undefined => state.leaderboardUsers
       .find(
         (user) => +user.id === +id,
@@ -174,6 +171,10 @@ export default createStore<State>({
       .find(
         (group) => +group.id === +id,
       ),
+    getCategoryById:
+        (state) => (groupId: string, categoryId: string): Category|undefined => state.groups
+          .find((group) => +group.id === +groupId)?.categories
+          .find((category) => +category.id === +categoryId),
   },
   plugins: [createLogger()],
 })

@@ -60,15 +60,18 @@ export default defineComponent({
       image: {} as CameraPhoto,
       deviceLocation: {} as GeolocationPosition,
       categoryId: 0,
+      groupId: 0,
     }
   },
   ionViewWillEnter() {
     const imageStringified = this.$route.params.image as string
     const deviceLocationStringified = this.$route.params.deviceLocation as string
+    const groupIdStringified = this.$route.params.groupId as string
     const categoryIdStringified = this.$route.params.categoryId as string
 
     this.image = JSON.parse(imageStringified)
     this.deviceLocation = JSON.parse(deviceLocationStringified)
+    this.groupId = JSON.parse(groupIdStringified)
     this.categoryId = JSON.parse(categoryIdStringified)
   },
   ionViewDidEnter() {
@@ -110,7 +113,7 @@ export default defineComponent({
 
         const { longitude, latitude } = this.deviceLocation.coords
 
-        await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/categories/${this.categoryId}/entities`, {
+        await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/v1/groups/${this.groupId}/categories/${this.categoryId}/entities`, {
           longitude,
           latitude,
           device_uuid: deviceInfo.uuid,

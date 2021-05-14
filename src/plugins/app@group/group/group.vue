@@ -18,7 +18,7 @@
             <p class=" text-2xl">
               {{ group?.name }}
             </p>
-            <ion-button color="success" class="ion-margin-start">
+            <ion-button color="success" class="ion-margin-start" @click="joinGroup()">
               Pridať sa
             </ion-button>
           </ion-item>
@@ -75,6 +75,7 @@ import {
 import { defineComponent } from 'vue'
 import { locationOutline, mapOutline } from 'ionicons/icons'
 import { Group } from '@/plugins/app/_config/types'
+import Axios from 'axios'
 
 export default defineComponent({
   name: 'Group',
@@ -110,6 +111,14 @@ export default defineComponent({
       await this.$store.dispatch('fetchGroups')
       // @ts-expect-error ionic stuff
       e.target.complete()
+    },
+    async joinGroup() {
+      try {
+        const { data } = await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/v1/group-member/groups/${this.group.invite_hash}`)
+        console.log(data)
+      } catch (err) {
+        console.log(err)
+      }
     },
   },
 })

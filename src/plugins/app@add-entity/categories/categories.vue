@@ -17,37 +17,35 @@
         </ion-toolbar>
       </ion-header>
       <ion-list>
-        <div v-for="(category, i) in filteredCategories" :key="i">
+        <div v-for="group in groups" :key="group.id">
           <ion-item
-            :lines="selectedCategory === i ? 'none' : 'inset'"
+            :lines="selectedCategory === group.id ? 'none' : 'inset'"
             button
-            :detail-icon="selectedCategory === i ? chevronDown : 'chevron-forward'"
+            :detail-icon="selectedCategory === group.id ? chevronDown : 'chevron-forward'"
             class="ion-margin-end"
-            @click="toggleSelectedCategory(i)"
+            @click="toggleSelectedCategory(group.id)"
           >
-            <ion-img :src="category?.icon.url" />
+            <ion-img :src="group?.image.url" />
             <!--          <ion-icon-->
             <!--            slot="end"-->
             <!--            :icon="star"-->
             <!--            @click.stop="test()"-->
             <!--          />-->
             <ion-label class="ion-margin-start">
-              <h2>{{ category.full_name }}</h2>
+              <h2>{{ group.name }}</h2>
             </ion-label>
           </ion-item>
-          <div v-if="selectedCategory === i">
+          <div v-if="selectedCategory === group.id">
             <ion-item
-              v-for="(subcategory, j) in subcategories"
-              :key="j"
+              v-for="category in group.categories"
+              :key="category.id"
               button
-              :router-link="`/tutorial/${category.id}`"
+              :router-link="`/tutorial/${group.id}/${category.id}`"
               class="ion-margin-start"
             >
-              <ion-avatar>
-                <img src="https://avatars.dicebear.com/api/identicon/:seed.svg">
-              </ion-avatar>
+              <ion-img :src="category?.icon?.url" />
               <ion-label class="ion-margin-start">
-                {{ subcategory.name }}
+                {{ category?.full_name }}
               </ion-label>
             </ion-item>
           </div>
@@ -80,7 +78,7 @@ import {
   star,
   chevronDown,
 } from 'ionicons/icons'
-import { Category } from '@/plugins/app/_config/types'
+import { Category, Group } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'Categories',
@@ -95,7 +93,6 @@ export default defineComponent({
     IonToolbar,
     IonTitle,
     IonSearchbar,
-    IonAvatar,
   },
   data() {
     return {
@@ -117,10 +114,8 @@ export default defineComponent({
     }
   },
   computed: {
-    ...mapState(['categories']),
-    filteredCategories(): Array<Category> {
-      return this.categories.filter((category: Category) => category?.full_name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .includes(this.search.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')))
+    groups(): Group[] {
+      return this.$store.state.groups
     },
   },
   methods: {
@@ -135,11 +130,5 @@ export default defineComponent({
 <style lang="postcss" scoped>
 ion-img::part(image) {
   width: 32px;
-}
-
-@media (prefers-color-scheme: dark) {
-  ion-img::part(image) {
-    filter: brightness(0) invert(1);
-  }
 }
 </style>

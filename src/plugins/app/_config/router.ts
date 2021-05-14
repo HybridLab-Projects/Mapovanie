@@ -36,11 +36,6 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/plugins/app@map/map/map.vue'),
       },
       {
-        name: 'Settings',
-        path: 'settings',
-        component: () => import('@/plugins/app/settings/settings.vue'),
-      },
-      {
         name: 'Profile',
         path: 'profile',
         component: () => import('@/plugins/app@user/profile/profile.vue'),
@@ -76,13 +71,18 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     name: 'Tutorial',
-    path: '/tutorial/:id',
+    path: '/tutorial/:groupId/:categoryId',
     component: () => import('@/plugins/app@add-entity/tutorial/tutorial.vue'),
   },
   {
     name: 'EntityDetail',
     path: '/entity-detail/:id',
     component: () => import('@/plugins/app@entity/entity-detail/entity-detail.vue'),
+  },
+  {
+    name: 'Settings',
+    path: '/settings',
+    component: () => import('@/plugins/app/settings/settings.vue'),
   },
   {
     name: 'QnA',
