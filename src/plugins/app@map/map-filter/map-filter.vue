@@ -21,7 +21,9 @@
           class="ion-margin-end"
           @click="toggleSelectedCategory(group.id)"
         >
-          <ion-img :src="group?.image.url" />
+          <ion-avatar>
+            <img :src="group?.image.url">
+          </ion-avatar>
           <!--          <ion-icon-->
           <!--            slot="end"-->
           <!--            :icon="star"-->
@@ -37,7 +39,9 @@
             :key="category.id"
             class="ion-margin-start"
           >
-            <ion-img :src="category?.icon?.url" />
+            <ion-avatar>
+              <img :src="category?.icon?.url">
+            </ion-avatar>
             <ion-label class="ion-margin-start">
               {{ category?.full_name }}
             </ion-label>
@@ -66,7 +70,6 @@ import {
   IonLabel,
   IonItem,
   IonList,
-  IonImg,
   IonCheckbox, modalController,
 } from '@ionic/vue'
 
@@ -85,7 +88,6 @@ export default defineComponent({
     IonLabel,
     IonItem,
     IonList,
-    IonImg,
     IonCheckbox,
   },
   props: {
@@ -119,15 +121,3 @@ export default defineComponent({
 
 })
 </script>
-
-<style lang="postcss" scoped>
-ion-img::part(image) {
-  width: 32px;
-}
-
-@media (prefers-color-scheme: dark) {
-  ion-img::part(image) {
-    filter: brightness(0) invert(1);
-  }
-}
-</style>

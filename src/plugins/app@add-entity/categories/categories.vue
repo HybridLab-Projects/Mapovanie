@@ -25,7 +25,9 @@
             class="ion-margin-end"
             @click="toggleSelectedCategory(group.id)"
           >
-            <ion-img :src="group?.image.url" />
+            <ion-avatar>
+              <img :src="group?.image.url">
+            </ion-avatar>
             <!--          <ion-icon-->
             <!--            slot="end"-->
             <!--            :icon="star"-->
@@ -43,7 +45,9 @@
               :router-link="`/tutorial/${group.id}/${category.id}`"
               class="ion-margin-start"
             >
-              <ion-img :src="category?.icon?.url" />
+              <ion-avatar>
+                <img :src="category?.icon?.url">
+              </ion-avatar>
               <ion-label class="ion-margin-start">
                 {{ category?.full_name }}
               </ion-label>
@@ -57,7 +61,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { mapActions, mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 import {
   IonPage,
@@ -65,7 +69,6 @@ import {
   IonList,
   IonItem,
   IonLabel,
-  IonImg,
   IonHeader,
   IonToolbar,
   IonTitle,
@@ -88,7 +91,7 @@ export default defineComponent({
     IonList,
     IonItem,
     IonLabel,
-    IonImg,
+    IonAvatar,
     IonHeader,
     IonToolbar,
     IonTitle,

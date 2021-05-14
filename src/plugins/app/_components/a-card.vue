@@ -6,7 +6,7 @@
   >
     <ion-card-content class="flex card-content">
       <ion-avatar class="ion-margin-end ion-align-self-center card-avatar">
-        <img src="https://www.visitbratislava.com/wp-content/uploads/2018/07/bratislava-logo-official-square-stvorec-plnofarebne-full-color-cervene-pozadie-red-background.png">
+        <img :src="entity.category.group.image.url">
       </ion-avatar>
       <div class="flex flex-col w-full">
         <ion-text color="dark">
