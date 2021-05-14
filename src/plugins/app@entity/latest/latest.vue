@@ -1,16 +1,16 @@
 <template>
   <ion-page>
     <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>Príspevky</ion-title>
+      <ion-toolbar class="upper-toolbar-bg">
+        <ion-title>Najnovšie</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content :fullcreen="true">
       <ion-header collapse="condense">
-        <ion-toolbar class="ion-padding-bottom">
+        <ion-toolbar class="lower-toolbar-bg">
           <ion-title size="large">
-            Príspevky
+            Najnovšie
           </ion-title>
         </ion-toolbar>
       </ion-header>
@@ -88,6 +88,16 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .card-bg {
-  background-color: #f0f3fa;
+  background-color: #d6d6e426;
+}
+
+.upper-toolbar-bg {
+  background-color: #d6d6e426;
+
+  --background: #d6d6e403;
+}
+
+.lower-toolbar-bg {
+  --background: #d6d6e426;
 }
 </style>

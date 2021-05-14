@@ -2,6 +2,11 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+:root {
+  --ion-text-color: #1A1D3F;
+  --ion-toolbar-background: #d6d6e426;
+}
+
 ion-button {
   --border-radius: 4px;
 
