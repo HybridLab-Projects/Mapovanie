@@ -2,25 +2,24 @@
   <ion-card
     button
     :router-link="`/entity-detail/${entity.id}`"
+    class="object-card"
   >
-    <ion-card-content class="flex">
-      <ion-avatar class="ion-margin-end ion-align-self-center">
+    <ion-card-content class="flex top-content">
+      <ion-avatar class="ion-margin-end ion-align-self-center card-avatar">
         <img src="https://www.visitbratislava.com/wp-content/uploads/2018/07/bratislava-logo-official-square-stvorec-plnofarebne-full-color-cervene-pozadie-red-background.png">
       </ion-avatar>
-      <div class="flex flex-col top-container">
-        <p class="top-label">
-          {{ entity.category.group.name }} &#9679; {{ entity.category.full_name }}
-        </p>
-        <p>
-          Pridal <strong>Mark Mucska</strong>
-        </p>
+      <div class="flex flex-col w-full">
+        <ion-text color="dark">
+          <p class="font-bold">
+            {{ entity.category.group.name }} &#9679; {{ entity.category.full_name }}
+          </p>
+        </ion-text>
+        <ion-text color="medium">
+          <p>{{ distanceFromObject }} km od teba &#9679; {{ when }}</p>
+        </ion-text>
       </div>
     </ion-card-content>
     <ion-img :src="entity?.images[0]?.url" />
-    <ion-card-content class="flex ion-justify-content-between">
-      <p>{{ distanceFromObject }} km od teba</p>
-      <p>{{ when }}</p>
-    </ion-card-content>
   </ion-card>
 </template>
 
@@ -30,7 +29,7 @@
 import { defineComponent, PropType } from 'vue'
 import { Entity } from '@/plugins/app/_config/types'
 import {
-  IonCard, IonCardContent, IonImg, IonAvatar,
+  IonCard, IonCardContent, IonImg, IonAvatar, IonText,
 } from '@ionic/vue'
 import { locationOutline, mapOutline } from 'ionicons/icons'
 import { GeolocationPosition } from '@capacitor/core'
@@ -44,6 +43,7 @@ export default defineComponent({
     IonCardContent,
     IonImg,
     IonAvatar,
+    IonText,
   },
   props: {
     entity: {
@@ -73,19 +73,22 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.top-label {
-  margin-bottom: auto !important;
-}
 
-.top-container {
-  padding: 0.2rem 0;
-}
-
-ion-card-content {
+.top-content {
   padding: 1rem;
 }
 
 p {
   margin: 0;
+}
+
+.object-card {
+  border-radius: 0;
+  margin: 0 0 1rem;
+}
+
+.card-avatar {
+  height: 40px;
+  width: 40px;
 }
 </style>

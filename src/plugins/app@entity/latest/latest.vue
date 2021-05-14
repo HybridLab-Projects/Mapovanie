@@ -21,13 +21,14 @@
       >
         <ion-refresher-content pulling-icon="lines" />
       </ion-refresher>
-
-      <a-card
-        v-for="entity in entities"
-        :key="entity.id"
-        :entity="entity"
-        :user-location="currentLocation"
-      />
+      <div class="card-bg">
+        <a-card
+          v-for="entity in entities"
+          :key="entity.id"
+          :entity="entity"
+          :user-location="currentLocation"
+        />
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -84,3 +85,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="postcss" scoped>
+.card-bg {
+  background-color: #f0f3fa;
+}
+</style>
