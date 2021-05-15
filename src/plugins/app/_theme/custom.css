@@ -2,9 +2,17 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-:root {
-  --ion-text-color: #1A1D3F;
-  --ion-toolbar-background: #d6d6e426;
+@media (prefers-color-scheme: light) {
+  .ios body {
+    --ion-text-color: #1a1d3f;
+    --ion-toolbar-background: #f9f9fb;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .ios body {
+    --ion-toolbar-background: #202022;
+  }
 }
 
 ion-button {

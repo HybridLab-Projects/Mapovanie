@@ -1,20 +1,19 @@
 <template>
   <ion-page>
     <ion-header :translucent="true">
-      <ion-toolbar class="upper-toolbar-bg">
+      <ion-toolbar>
         <ion-title>Najnovšie</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content :fullcreen="true">
       <ion-header collapse="condense">
-        <ion-toolbar class="lower-toolbar-bg">
+        <ion-toolbar>
           <ion-title size="large">
             Najnovšie
           </ion-title>
         </ion-toolbar>
       </ion-header>
-
       <ion-refresher
         slot="fixed"
         @ionRefresh="doRefresh($event)"
@@ -73,8 +72,15 @@ export default defineComponent({
       return this.$store.state.entities
     },
   },
+  ionViewDidEnter() {
+    document.body.classList.add('latest-bg')
+  },
+  ionViewWillLeave() {
+    document.body.classList.remove('latest-bg')
+  },
   methods: {
     async doRefresh(e: CustomEvent) {
+      // debugger
       await this.$store.dispatch('fetchEntities')
       // @ts-expect-error ionic stuff
       e.target.complete()
@@ -88,16 +94,19 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .card-bg {
-  background-color: #d6d6e426;
+  background-color: var(--ion-toolbar-background);
 }
 
-.upper-toolbar-bg {
-  background-color: #d6d6e426;
+ion-toolbar, ion-refresher, ion-refresher-content {
+  background-color: var(--ion-toolbar-background);
 
-  --background: #d6d6e403;
+  --background: var(--ion-toolbar-background);
 }
+</style>
 
-.lower-toolbar-bg {
-  --background: #d6d6e426;
+<style lang="postcss">
+.latest-bg {
+  --ion-background-color: var(--ion-toolbar-background) !important;
+  --ion-card-background: #fff;
 }
 </style>

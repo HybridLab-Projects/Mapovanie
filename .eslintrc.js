@@ -24,5 +24,6 @@ module.exports = {
         allowFirstLine: false,
       },
     }],
+    'import/no-extraneous-dependencies': 'off'
   },
 }
