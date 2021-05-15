@@ -20,14 +20,12 @@
       >
         <ion-refresher-content pulling-icon="lines" />
       </ion-refresher>
-      <div class="card-bg">
-        <a-card
-          v-for="entity in entities"
-          :key="entity.id"
-          :entity="entity"
-          :user-location="currentLocation"
-        />
-      </div>
+      <a-card
+        v-for="entity in entities"
+        :key="entity.id"
+        :entity="entity"
+        :user-location="currentLocation"
+      />
     </ion-content>
   </ion-page>
 </template>
@@ -72,12 +70,6 @@ export default defineComponent({
       return this.$store.state.entities
     },
   },
-  ionViewDidEnter() {
-    document.body.classList.add('latest-bg')
-  },
-  ionViewWillLeave() {
-    document.body.classList.remove('latest-bg')
-  },
   methods: {
     async doRefresh(e: CustomEvent) {
       // debugger
@@ -93,22 +85,9 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.card-bg {
-  background-color: var(--ion-toolbar-background);
-}
-
-ion-toolbar,
-ion-refresher,
-ion-refresher-content {
+ion-toolbar {
   background-color: var(--ion-toolbar-background);
 
   --background: var(--ion-toolbar-background);
-}
-</style>
-
-<style lang="postcss">
-.latest-bg {
-  --ion-background-color: var(--ion-toolbar-background) !important;
-  --ion-card-background: #fff;
 }
 </style>

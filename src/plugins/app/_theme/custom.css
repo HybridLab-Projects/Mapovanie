@@ -5,13 +5,24 @@
 @media (prefers-color-scheme: light) {
   .ios body {
     --ion-text-color: #1a1d3f;
+    --ion-text-color-rgb: 26, 29, 63;
+    --ion-background-color: #f9f9fb;
+    --ion-background-color-rgb: 249, 249, 251;
     --ion-toolbar-background: #f9f9fb;
+    --ion-card-background: #fff;
+    --ion-item-background: #f9f9fb;
   }
 }
 
 @media (prefers-color-scheme: dark) {
   .ios body {
+    --ion-background-color: #202022;
+    --ion-background-color-rgb: 32, 32, 34;
+    --ion-text-color: #fff;
+    --ion-text-color-rgb: 255, 255, 255;
     --ion-toolbar-background: #202022;
+    --ion-card-background: #1c1c1d;
+    --ion-item-background: #202022;
   }
 }
 
