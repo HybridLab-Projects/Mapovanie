@@ -12,8 +12,10 @@
       <h1>Ďakujeme za nahlásenie</h1>
     </ion-text>
     <ion-text>
-      <p class="mt-6">Vďaka Vám dokážeme udržat
-        Mapovanie bezpečné a aktuálne.</p>
+      <p class="mt-6">
+        Vďaka Vám dokážeme udržat
+        Mapovanie bezpečné a aktuálne.
+      </p>
     </ion-text>
   </ion-content>
   <ion-footer class="ion-padding">

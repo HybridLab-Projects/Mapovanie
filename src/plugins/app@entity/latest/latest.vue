@@ -97,7 +97,9 @@ export default defineComponent({
   background-color: var(--ion-toolbar-background);
 }
 
-ion-toolbar, ion-refresher, ion-refresher-content {
+ion-toolbar,
+ion-refresher,
+ion-refresher-content {
   background-color: var(--ion-toolbar-background);
 
   --background: var(--ion-toolbar-background);
