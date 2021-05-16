@@ -1,18 +1,21 @@
 <template>
   <ion-page>
-    <a-header title="Mapovanie" />
-    <ion-content class="ion-padding ion-text-center">
-      <ion-img :src="require('./img/login.svg')" />
-      <ion-text>
-        <h1>Welcome</h1>
+    <ion-content class="ion-text-center">
+      <ion-img class="background-map" :src="require('./img/background.svg')" />
+      <ion-img class="bluepoint" :src="require('./img/bluepoint.svg')" />
+
+      <ion-text class="login-text">
+        <h1 class="main-text">
+          Prihlásenie
+        </h1>
         <p>
-          Prihláste sa do Mapovania a začnite mapovať svoje okolie.
+          Zadajte vaše meno alebo sa prihláste pomocou google účtu.
         </p>
       </ion-text>
       <ion-button
         expand="block"
         size="large"
-        class="ion-margin-top fb-login"
+        class="ion-margin-top fb-login ion-margin"
         @click="facebookLogin()"
       >
         <ion-icon
@@ -27,7 +30,7 @@
         :strong="true"
         expand="block"
         size="large"
-        class="ion-margin-top apple-login"
+        class="ion-margin-top apple-login ion-margin"
         @click="appleLogin()"
       >
         <ion-icon
@@ -127,6 +130,28 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
+.background-map {
+  position: absolute;
+}
+
+.bluepoint {
+  position: relative;
+  width: 60%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.login-text {
+  position: relative;
+  color: #000;
+}
+
+.main-text {
+  margin-top: 50px;
+  font-size: 25px;
+  font-weight: 700;
+}
+
 .fb-login {
   --background: #1877f2;
   --border-radius: 5px;
