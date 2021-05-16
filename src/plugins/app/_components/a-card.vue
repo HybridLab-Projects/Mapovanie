@@ -4,28 +4,30 @@
     :router-link="`/entity-detail/${entity.id}`"
     class="object-card"
   >
-    <ion-card-content class="flex card-content">
-      <ion-avatar class="ion-margin-end ion-align-self-center card-avatar">
-        <img :src="entity.category.group.image.url">
-      </ion-avatar>
-      <div class="flex flex-col w-full">
-        <ion-text color="dark">
-          <p class="font-bold">
-            {{ entity.category.group?.name }} &#9679; {{ entity.category.full_name }}
-          </p>
-        </ion-text>
-        <ion-text color="medium">
-          <p>{{ distanceFromObject }} km od teba &#9679; {{ when }}</p>
-        </ion-text>
+    <ion-card-content class="flex pb-4 pl-4 pr-0 pt-0">
+      <div class="flex mt-4">
+        <ion-avatar class="ion-margin-end ion-align-self-center card-avatar">
+          <img :src="entity.category.group.image.url">
+        </ion-avatar>
+        <div class="flex flex-col w-full">
+          <ion-text color="dark">
+            <p class="font-bold">
+              {{ entity.category.group?.name }} &#9679; {{ entity.category.full_name }}
+            </p>
+          </ion-text>
+          <ion-text color="medium">
+            <p>{{ distanceFromObject }} km od teba &#9679; {{ when }}</p>
+          </ion-text>
+        </div>
       </div>
-      <ion-buttons slot="end" class="items-start">
+      <ion-buttons slot="end" class="items-start pt-2.5 pr-2 flex-grow justify-end">
         <ion-button slot="icon-only" @click="openActionSheet">
           <ion-icon :icon="ellipsisVertical" />
         </ion-button>
       </ion-buttons>
     </ion-card-content>
     <ion-img :src="entity?.images[0]?.url" />
-    <ion-card-content class="card-content">
+    <ion-card-content class="p-4">
       <ion-label color="dark">
         <p>
           {{ entity?.description.slice(0, 50).trim() }}...
@@ -126,10 +128,6 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.card-content {
-  padding: 1rem;
-}
-
 p {
   margin: 0;
 }
@@ -142,22 +140,6 @@ p {
 .card-avatar {
   height: 40px;
   width: 40px;
-}
-
-ion-buttons {
-  height: 16px;
-  margin-top: 0.1rem;
-}
-
-ion-button {
-  height: 16px;
-  padding: 0;
-  margin: 0;
-}
-
-ion-button::part(native) {
-  padding: 0;
-  margin: 0;
 }
 
 ion-icon {
