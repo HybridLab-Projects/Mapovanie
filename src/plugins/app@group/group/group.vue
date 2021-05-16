@@ -10,7 +10,7 @@
       </ion-refresher>
       <div class="flex ion-justify-content-start ion-margin-top">
         <ion-avatar class="h-16 w-16">
-          <img :src="group.image.url">
+          <img :src="group?.image.url">
         </ion-avatar>
 
         <ion-list class="ml-2">

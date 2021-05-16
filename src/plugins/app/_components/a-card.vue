@@ -6,7 +6,7 @@
   >
     <ion-card-content class="flex pb-4 pl-4 pr-0 pt-0">
       <div class="flex mt-4">
-        <ion-avatar class="ion-margin-end ion-align-self-center card-avatar">
+        <ion-avatar class="ion-margin-end ion-align-self-center card-avatar" @click="avatarClick">
           <img :src="entity.category.group.image.url">
         </ion-avatar>
         <div class="flex flex-col w-full">
@@ -122,6 +122,10 @@ export default defineComponent({
 
       const { role } = await actionSheet.onDidDismiss()
       console.log('onDidDismiss resolved with role', role)
+    },
+    avatarClick(e: CustomEvent) {
+      e.stopPropagation()
+      this.$router.push(`/group/${this.entity.category.group.id}`)
     },
   },
 })
