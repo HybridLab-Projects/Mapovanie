@@ -20,7 +20,7 @@
           </ion-text>
         </div>
       </div>
-      <ion-buttons slot="end" class="items-start pt-2.5 pr-2 flex-grow justify-end">
+      <ion-buttons slot="end" class="items-start pt-2 pr-2 flex-grow justify-end">
         <ion-button slot="icon-only" @click="openActionSheet">
           <ion-icon :icon="ellipsisVertical" />
         </ion-button>
