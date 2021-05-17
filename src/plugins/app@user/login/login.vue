@@ -1,18 +1,20 @@
 <template>
   <ion-page>
-    <a-header title="Mapovanie" />
-    <ion-content class="ion-padding ion-text-center">
-      <ion-img :src="require('./img/login.svg')" />
+    <ion-content class="ion-text-center">
+      <ion-img :src="require('./img/bluepoint.svg')" class="w-56 mx-auto mt-10" />
+
       <ion-text>
-        <h1>Welcome</h1>
-        <p>
-          Prihláste sa do Mapovania a začnite mapovať svoje okolie.
+        <h1 class="main-text mt-10 text-2xl font-bold">
+          Prihlásenie
+        </h1>
+        <p class="px-10 mt-1">
+          Prihláste sa cez jedného z poskytovateľov.
         </p>
       </ion-text>
       <ion-button
         expand="block"
         size="large"
-        class="ion-margin-top fb-login"
+        class="mt-10 fb-login ion-margin"
         @click="facebookLogin()"
       >
         <ion-icon
@@ -27,7 +29,7 @@
         :strong="true"
         expand="block"
         size="large"
-        class="ion-margin-top apple-login"
+        class="ion-margin-top apple-login ion-margin"
         @click="appleLogin()"
       >
         <ion-icon
@@ -39,14 +41,6 @@
           Prihlásiť sa cez Apple ID
         </h5>
       </ion-button>
-      <div class="ion-text-center">
-        <ion-button
-          router-link="/slides"
-          fill="clear"
-        >
-          Zobraziť úvod
-        </ion-button>
-      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -127,6 +121,10 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
+ion-content {
+  --background: linear-gradient(transparent, white 35%), url("./img/map.svg");
+}
+
 .fb-login {
   --background: #1877f2;
   --border-radius: 5px;
