@@ -131,6 +131,10 @@ export default defineComponent({
     , url("./img/map-dark.svg");
   }
 
+  ion-img {
+    filter: brightness(1.25);
+  }
+
   .apple-login {
     --background: #fff;
     --color: #000;
