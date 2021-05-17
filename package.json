@@ -8,7 +8,7 @@
     "build:android": "npm run build && ionic cap sync && ionic cap open android",
     "build:ios": "npm run build && ionic cap sync && ionic cap open ios",
     "lint": "vue-cli-service lint",
-    "lint:scss": "stylelint ./src/**/*.{vue,scss} --fix",
+    "lint:scss": "stylelint ./src/**/*.{vue,css,pcss} --fix",
     "deploy": "npm install && npm run build && rm -rf ../htdocs/js/ && rm -rf ../htdocs/css/ && rm -rf ../htdocs/assets/ && rm ../htdocs/index.html && cp -r dist/. ../htdocs/"
   },
   "dependencies": {
@@ -18,17 +18,17 @@
     "@capacitor/core": "^2.4.7",
     "@capacitor/ios": "^2.4.7",
     "@ionic/pwa-elements": "^3.0.2",
-    "@ionic/vue": "^5.6.6",
-    "@ionic/vue-router": "^5.6.6",
+    "@ionic/vue": "^5.6.7",
+    "@ionic/vue-router": "^5.6.7",
     "axios": "^0.21.1",
     "core-js": "^3.12.1",
     "geojson": "^0.5.0",
     "ionicons": "^5.5.1",
-    "luxon": "^1.26.0",
+    "luxon": "^1.27.0",
     "mapbox-gl": "^2.2.0",
     "scriptjs": "^2.5.9",
     "vue": "^3.0.9",
-    "vue-router": "^4.0.6",
+    "vue-router": "^4.0.8",
     "vuex": "^4.0.0"
   },
   "devDependencies": {

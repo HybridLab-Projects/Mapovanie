@@ -1,9 +1,11 @@
 <template>
   <ion-page>
-    <a-header back :title="category?.full_name || ''" />
+    <a-header back :title="category?.full_name || 'Objekt'" />
     <ion-content class="ion-padding">
       <ion-img :src="category?.icon.url" />
-      <h1>Ako fotiť?</h1>
+      <h1 class="ion-margin-vertical">
+        Ako fotiť?
+      </h1>
       <p>
         A great food photograph can do a lot of things! It can make a viewer hungry, it can
         convince a diner to order a dish and it can sell a hell of a lot of food and recipe books.
@@ -21,7 +23,7 @@
       <ion-button
         expand="block"
         class="ion-margin"
-        @click="takePicture(categoryId)"
+        @click="takePicture()"
       >
         Ďalej
       </ion-button>
@@ -62,22 +64,20 @@ export default defineComponent({
   data() {
     return {
       categoryId: '0',
+      groupId: '0',
     }
   },
   ionViewWillEnter() {
-    if (!this.$route.params.id.length || typeof this.$route.params.id !== 'string') {
-      this.$router.push({ name: 'Categories' })
-    } else {
-      this.categoryId = this.$route.params.id as string
-    }
+    this.groupId = this.$route.params.groupId as string
+    this.categoryId = this.$route.params.categoryId as string
   },
   computed: {
     category(): Category|undefined {
-      return this.$store.getters.getCategoryById(this.categoryId)
+      return this.$store.getters.getCategoryById(this.groupId, this.categoryId)
     },
   },
   methods: {
-    async takePicture(categoryId: string) {
+    async takePicture() {
       try {
         const photo = await Camera.getFullPhoto()
         const deviceLocation = await Geolocation.getDeviceLocation()
@@ -87,7 +87,8 @@ export default defineComponent({
           params: {
             image: JSON.stringify(photo),
             deviceLocation: JSON.stringify(deviceLocation),
-            categoryId,
+            groupId: this.groupId,
+            categoryId: this.categoryId,
           },
         })
       } catch (err) {
@@ -105,11 +106,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="postcss" scoped>
-@media (prefers-color-scheme: dark) {
-  ion-img::part(image) {
-    filter: brightness(0) invert(1);
-  }
-}
-</style>

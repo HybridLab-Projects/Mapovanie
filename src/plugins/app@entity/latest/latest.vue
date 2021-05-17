@@ -2,26 +2,24 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Príspevky</ion-title>
+        <ion-title>Najnovšie</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content :fullcreen="true">
       <ion-header collapse="condense">
-        <ion-toolbar class="ion-padding-bottom">
+        <ion-toolbar>
           <ion-title size="large">
-            Príspevky
+            Najnovšie
           </ion-title>
         </ion-toolbar>
       </ion-header>
-
       <ion-refresher
         slot="fixed"
         @ionRefresh="doRefresh($event)"
       >
         <ion-refresher-content pulling-icon="lines" />
       </ion-refresher>
-
       <a-card
         v-for="entity in entities"
         :key="entity.id"
@@ -74,6 +72,7 @@ export default defineComponent({
   },
   methods: {
     async doRefresh(e: CustomEvent) {
+      // debugger
       await this.$store.dispatch('fetchEntities')
       // @ts-expect-error ionic stuff
       e.target.complete()
@@ -84,3 +83,11 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="postcss" scoped>
+ion-toolbar {
+  background-color: var(--ion-toolbar-background);
+
+  --background: var(--ion-toolbar-background);
+}
+</style>

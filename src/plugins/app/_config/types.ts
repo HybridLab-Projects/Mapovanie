@@ -15,7 +15,8 @@ export interface Group {
     members: {id: number, is_active: boolean, is_invited: boolean, user: User},
     categories: Array<Category>,
     invite_hash: string,
-    invite_expires_at: string
+    invite_expires_at: string;
+    image: {url: string}
 }
 
 export interface Category {

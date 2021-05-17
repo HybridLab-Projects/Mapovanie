@@ -22,13 +22,13 @@
     <ion-content class="ion-padding">
       <div
         class="flex ion-align-items-center ion-margin-bottom"
-        @click="$router.push(`/user/${entity.author.id}`)"
+        @click="$router.push(`/user/${entity?.user.id}`)"
       >
         <ion-avatar class="ion-margin-end avatar">
-          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+          <img :src="entity?.user?.avatar">
         </ion-avatar>
         <ion-text class="flex ion-justify-content-between flex-grow">
-          <p>{{ entity?.author?.name }}</p>
+          <p>{{ entity?.user?.name }}</p>
           <p>
             {{ when }}
           </p>
@@ -51,13 +51,7 @@
         <h1 class="ion-margin-top text-2xl">
           Popis
         </h1>
-      </ion-text>
-      <ion-text
-        color="medium"
-      >
-        <p>
-          {{ entity?.description }}
-        </p>
+        <p>{{ entity?.description }}</p>
       </ion-text>
 
       <ion-text>
