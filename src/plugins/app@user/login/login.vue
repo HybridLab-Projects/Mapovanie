@@ -121,15 +121,16 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-ion-content {
-  --background: linear-gradient(transparent, var(--ion-background-color) 35%), url("./img/map.svg");
-}
-
 .fb-login {
   --background: #1877f2;
 }
 
 @media (prefers-color-scheme: dark) {
+  ion-content {
+    --background: linear-gradient(transparent, var(--ion-background-color) 35%)
+    , url("./img/map-dark.svg");
+  }
+
   .apple-login {
     --background: #fff;
     --color: #000;
@@ -139,6 +140,11 @@ ion-content {
 }
 
 @media (prefers-color-scheme: light) {
+  ion-content {
+    --background: linear-gradient(transparent, var(--ion-background-color) 35%)
+    , url("./img/map.svg");
+  }
+
   .apple-login {
     --background: #000;
     --color: #fff;
