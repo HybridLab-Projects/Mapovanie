@@ -1,21 +1,20 @@
 <template>
   <ion-page>
     <ion-content class="ion-text-center">
-      <ion-img class="background-map" :src="require('./img/background.svg')" />
-      <ion-img class="bluepoint" :src="require('./img/bluepoint.svg')" />
+      <ion-img :src="require('./img/bluepoint.svg')" class="w-56 mx-auto mt-10" />
 
-      <ion-text class="login-text">
-        <h1 class="main-text">
+      <ion-text>
+        <h1 class="main-text mt-10 text-2xl font-bold">
           Prihlásenie
         </h1>
-        <p>
-          Zadajte vaše meno alebo sa prihláste pomocou google účtu.
+        <p class="px-10 mt-1">
+          Prihláste sa cez jedného z poskytovateľov.
         </p>
       </ion-text>
       <ion-button
         expand="block"
         size="large"
-        class="ion-margin-top fb-login ion-margin"
+        class="mt-10 fb-login ion-margin"
         @click="facebookLogin()"
       >
         <ion-icon
@@ -42,14 +41,6 @@
           Prihlásiť sa cez Apple ID
         </h5>
       </ion-button>
-      <div class="ion-text-center">
-        <ion-button
-          router-link="/slides"
-          fill="clear"
-        >
-          Zobraziť úvod
-        </ion-button>
-      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -130,26 +121,8 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.background-map {
-  position: absolute;
-}
-
-.bluepoint {
-  position: relative;
-  width: 60%;
-  margin: auto;
-  margin-top: 50px;
-}
-
-.login-text {
-  position: relative;
-  color: #000;
-}
-
-.main-text {
-  margin-top: 50px;
-  font-size: 25px;
-  font-weight: 700;
+ion-content {
+  --background: linear-gradient(transparent, white 35%), url("./img/map.svg");
 }
 
 .fb-login {
