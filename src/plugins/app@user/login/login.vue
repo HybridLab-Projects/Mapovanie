@@ -4,7 +4,7 @@
       <ion-img :src="require('./img/bluepoint.svg')" class="w-56 mx-auto mt-10" />
 
       <ion-text>
-        <h1 class="main-text mt-10 text-2xl font-bold">
+        <h1 class="main-text mt-16 text-2xl font-bold">
           Prihlásenie
         </h1>
         <p class="px-10 mt-1">
@@ -122,7 +122,7 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 ion-content {
-  --background: linear-gradient(transparent, white 35%), url("./img/map.svg");
+  --background: linear-gradient(transparent, var(--ion-background-color) 35%), url("./img/map.svg");
 }
 
 .fb-login {
@@ -134,6 +134,7 @@ ion-content {
     --background: #fff;
     --color: #000;
     --background-hover: #ccc;
+    --background-activated: #ddd;
   }
 }
 
@@ -142,6 +143,7 @@ ion-content {
     --background: #000;
     --color: #fff;
     --background-hover: #333;
+    --background-activated: #222;
   }
 }
 </style>
