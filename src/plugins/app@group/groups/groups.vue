@@ -18,7 +18,7 @@
         <!--        </ion-toolbar>-->
         <ion-toolbar>
           <ion-segment v-model="value">
-            <ion-segment-button value="mine">
+            <ion-segment-button value="my">
               <ion-label>Moje</ion-label>
             </ion-segment-button>
             <ion-segment-button value="other">
@@ -28,16 +28,16 @@
         </ion-toolbar>
       </ion-header>
 
-      <div v-if="value === 'mine'">
+      <div v-if="value === 'my'">
         <a-group-item
-          v-for="group in groups"
+          v-for="group in myGroups"
           :key="group.id"
           :group="group"
         />
       </div>
       <div v-if="value === 'other'">
         <a-group-item
-          v-for="group in groups"
+          v-for="group in otherGroups"
           :key="group.id"
           :group="group"
         />
@@ -62,7 +62,7 @@ import {
 } from '@ionic/vue'
 
 import AGroupItem from '@/plugins/app/_components/a-group-item.vue'
-import { Group } from '@/plugins/app/_config/types'
+import { Group, User } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'Groups',
@@ -80,71 +80,23 @@ export default defineComponent({
   },
   data() {
     return {
-      value: 'mine',
-      myGroups: {
-        Baksetball_ba: {
-          id: 0,
-          name: 'Basketball Bratislava',
-          badge: 'Sport',
-          members: 2354,
-        },
-        Skate: {
-          id: 1,
-          name: 'Skate',
-          badge: 'Sport',
-          members: 345,
-        },
-        Pingpong: {
-          id: 2,
-          name: 'Pingpong Bratislava',
-          badge: 'Volny cas',
-          members: 143,
-        },
-        StreetFutball: {
-          id: 3,
-          name: 'Street Futball Bratislava',
-          badge: 'Sport',
-          members: 645,
-        },
-      },
-      newGroups: {
-        KrcmaBA: {
-          id: 4,
-          name: 'Krcma',
-          badge: 'Volny cas',
-          members: 435,
-        },
-        ShoppingCentre: {
-          id: 5,
-          name: 'Shopping Center',
-          badge: 'Shopping',
-          members: 5423,
-        },
-        BratislavaPools: {
-          id: 6,
-          name: 'Bazeny',
-          badge: 'Sport',
-          members: 233,
-        },
-        Kalistenika: {
-          id: 7,
-          name: 'Kalistenika',
-          badge: 'Sport',
-          members: 3456,
-        },
-        DownhillBike: {
-          id: 8,
-          name: 'DownhillBike',
-          badge: 'Sport',
-          members: 3456,
-        },
-      },
-
+      value: 'my',
     }
   },
   computed: {
     groups(): Group[] {
       return this.$store.state.groups
+    },
+    user(): User {
+      return this.$store.state.user
+    },
+    myGroups(): Group[] {
+      return this.groups.filter((group) => group.members
+        .some((member) => member.user.id === this.user.id))
+    },
+    otherGroups(): Group[] {
+      return this.groups.filter((group) => !group.members
+        .some((member) => member.user.id === this.user.id))
     },
   },
   methods: {

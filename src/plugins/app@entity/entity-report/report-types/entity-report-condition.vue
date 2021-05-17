@@ -33,8 +33,19 @@
 
 import { defineComponent, PropType } from 'vue'
 import {
-  IonHeader, IonToolbar, IonFooter, IonButtons, IonContent,
-  IonTitle, IonBackButton, IonButton, loadingController, alertController, IonTextarea, IonItem,
+  IonHeader,
+  IonToolbar,
+  IonFooter,
+  IonButtons,
+  IonContent,
+  IonTitle,
+  IonBackButton,
+  IonButton,
+  loadingController,
+  alertController,
+  IonTextarea,
+  IonItem,
+  IonLabel,
 } from '@ionic/vue'
 import EntityReportSuccessView from '@/plugins/app@entity/entity-report/entity-report-success.vue'
 import { Entity } from '@/plugins/app/_config/types'
@@ -52,6 +63,7 @@ export default defineComponent({
     IonButton,
     IonTextarea,
     IonItem,
+    IonLabel,
   },
   props: {
     entity: {

@@ -12,7 +12,7 @@
           <ion-button @click="openReportModal()">
             <ion-icon
               slot="icon-only"
-              :icon="flagOutline"
+              :icon="megaphoneOutline"
             />
           </ion-button>
         </ion-buttons>
@@ -92,7 +92,7 @@ import {
   IonAvatar,
 } from '@ionic/vue'
 
-import { flagOutline, locationOutline, mapOutline } from 'ionicons/icons'
+import { megaphoneOutline, locationOutline, mapOutline } from 'ionicons/icons'
 import { Entity } from '@/plugins/app/_config/types'
 import Mapbox from 'mapbox-gl'
 import LocationHelper from '@/plugins/jakub@capacitor/geolocation/_helpers'
@@ -119,7 +119,7 @@ export default defineComponent({
   },
   data() {
     return {
-      flagOutline,
+      megaphoneOutline,
       locationOutline,
       mapOutline,
       id: '0',

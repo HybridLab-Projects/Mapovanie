@@ -13,7 +13,7 @@ import store from './plugins/app/_config/store'
 
 store.dispatch('appLoad').then(() => {
   const app = createApp(App)
-    .use(IonicVue, { mode: 'ios', swipeBackEnabled: false })
+    .use(IonicVue, { mode: 'ios', backButtonText: 'Späť' })
     .use(router)
     .use(store)
 

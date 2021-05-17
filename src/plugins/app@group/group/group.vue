@@ -18,8 +18,21 @@
             <p class=" text-2xl">
               {{ group?.name }}
             </p>
-            <ion-button color="success" class="ion-margin-start" @click="joinGroup()">
+            <ion-button
+              v-if="!group?.members.some(u => u.user.id === user.id)"
+              color="success"
+              class="ion-margin-start"
+              @click="joinGroup()"
+            >
               Pridať sa
+            </ion-button>
+            <ion-button
+              v-else
+              color="success"
+              class="ion-margin-start"
+              disabled
+            >
+              Opustiť
             </ion-button>
           </ion-item>
 
@@ -27,7 +40,7 @@
             <div slot="start">
               <p>Príspevky</p>
               <p class="ion-text-center">
-                ?
+                {{ group?.entities_count }}
               </p>
             </div>
             <div>
@@ -74,7 +87,7 @@ import {
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
 import { locationOutline, mapOutline } from 'ionicons/icons'
-import { Group } from '@/plugins/app/_config/types'
+import { Group, User } from '@/plugins/app/_config/types'
 import Axios from 'axios'
 
 export default defineComponent({
@@ -104,17 +117,20 @@ export default defineComponent({
     group(): Group {
       return this.$store.getters.getGroupById(this.id)
     },
+    user(): User {
+      return this.$store.state.user
+    },
   },
   methods: {
     // ...mapActions(['fetchUserinfo']),
     async doRefresh(e: CustomEvent) {
-      await this.$store.dispatch('fetchGroups')
       // @ts-expect-error ionic stuff
       e.target.complete()
     },
     async joinGroup() {
       try {
         const { data } = await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/v1/group-member/groups/link-join/${this.group.invite_hash}`)
+        await this.$store.dispatch('fetchGroups')
         console.log(data)
       } catch (err) {
         console.log(err)

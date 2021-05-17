@@ -70,7 +70,9 @@ import {
   IonLabel,
   IonItem,
   IonList,
-  IonCheckbox, modalController,
+  IonCheckbox,
+  modalController,
+  IonAvatar,
 } from '@ionic/vue'
 
 import { chevronDown } from 'ionicons/icons'
@@ -89,6 +91,7 @@ export default defineComponent({
     IonItem,
     IonList,
     IonCheckbox,
+    IonAvatar,
   },
   props: {
     groups: {

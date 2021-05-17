@@ -12,11 +12,12 @@ export interface Group {
     description: string,
     tags_string: string,
     members_count: number,
-    members: {id: number, is_active: boolean, is_invited: boolean, user: User},
+    members: [{id: number, is_active: boolean, is_invited: boolean, user: User}],
     categories: Array<Category>,
     invite_hash: string,
     invite_expires_at: string;
-    image: {url: string}
+    image: {url: string};
+    entities_count: string
 }
 
 export interface Category {
@@ -77,7 +78,6 @@ export interface State {
     token: string;
     user: User;
     leaderboardUsers: Array<LeaderboardUser>;
-    categories: Array<Category>;
     myMapUnChecked: Array<number>;
     groups: Array<Group>
 }

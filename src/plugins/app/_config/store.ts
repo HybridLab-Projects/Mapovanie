@@ -17,7 +17,6 @@ export default createStore<State>({
     token: '',
     user: {} as User,
     leaderboardUsers: [],
-    categories: [],
     myMapUnChecked: [],
     groups: [],
   },
@@ -41,9 +40,6 @@ export default createStore<State>({
     },
     userinfoFetched(state, userinfo) {
       state.user = userinfo.response.user
-    },
-    categoriesFetched(state, categoryData) {
-      state.categories = categoryData.data
     },
     myMapUnCheckedChanged(state, id) {
       if (state.myMapUnChecked.some((num) => num === id)) {
@@ -72,7 +68,6 @@ export default createStore<State>({
         await Storage.set({ key: 'userData', value: JSON.stringify(data.response.user) })
         await dispatch('fetchLeaderboardUsers')
         await dispatch('fetchEntities')
-        await dispatch('fetchCategories')
         await dispatch('fetchGroups')
         await SplashScreen.hide()
         console.log('test')
@@ -89,7 +84,7 @@ export default createStore<State>({
     async fetchEntities({ commit }) {
       try {
         const { data } = await Axios.get(
-          'https://mapovanie.hybridlab.dev/cms/api/v1/entities',
+          'https://mapovanie.hybridlab.dev/cms/api/v1/my-entities',
         )
         commit('entitiesFetched', data.data)
         await Storage.set({ key: 'entities', value: JSON.stringify(data.data) })
@@ -103,7 +98,6 @@ export default createStore<State>({
       await Storage.set({ key: 'userData', value: JSON.stringify(loginData.user) })
       await dispatch('fetchLeaderboardUsers')
       await dispatch('fetchEntities')
-      await dispatch('fetchCategories')
       await dispatch('fetchGroups')
       await router.push({ name: 'Latest' })
     },
@@ -118,14 +112,6 @@ export default createStore<State>({
       try {
         const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/users')
         commit('leaderboardUsersFetched', data)
-      } catch (err) {
-        console.log(err)
-      }
-    },
-    async fetchCategories({ commit }) {
-      try {
-        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/categories')
-        commit('categoriesFetched', data)
       } catch (err) {
         console.log(err)
       }

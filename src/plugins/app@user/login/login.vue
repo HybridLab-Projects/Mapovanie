@@ -127,13 +127,11 @@ ion-content {
 
 .fb-login {
   --background: #1877f2;
-  --border-radius: 5px;
 }
 
 @media (prefers-color-scheme: dark) {
   .apple-login {
     --background: #fff;
-    --border-radius: 5px;
     --color: #000;
     --background-hover: #ccc;
   }
@@ -142,7 +140,6 @@ ion-content {
 @media (prefers-color-scheme: light) {
   .apple-login {
     --background: #000;
-    --border-radius: 5px;
     --color: #fff;
     --background-hover: #333;
   }

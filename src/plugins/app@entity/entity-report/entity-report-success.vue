@@ -39,6 +39,7 @@ import {
   IonButton,
   IonFooter,
   IonText,
+  IonImg,
 } from '@ionic/vue'
 
 export default defineComponent({
@@ -51,6 +52,7 @@ export default defineComponent({
     IonButton,
     IonFooter,
     IonText,
+    IonImg,
   },
   methods: {
     async closeModal() {
