@@ -99,6 +99,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/group/:id',
     component: () => import('@/plugins/app@group/group/group.vue'),
   },
+  {
+    name: 'GroupMap',
+    path: '/group/:id/map',
+    component: () => import('@/plugins/app@group/group-map/group-map.vue'),
+  },
 ]
 
 const router = createRouter({

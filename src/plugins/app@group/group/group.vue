@@ -10,7 +10,7 @@
       </ion-refresher>
       <div class="flex ion-justify-content-start ion-margin-top">
         <ion-avatar class="h-16 w-16">
-          <img :src="group?.image.url">
+          <img :src="group?.image?.url">
         </ion-avatar>
 
         <ion-list class="ml-2">
@@ -19,7 +19,7 @@
               {{ group?.name }}
             </p>
             <ion-button
-              v-if="!group?.members.some(u => u.user.id === user.id)"
+              v-if="!group?.members?.some(u => u.user.id === user.id)"
               color="success"
               class="ion-margin-start"
               @click="joinGroup()"
@@ -30,7 +30,7 @@
               v-else
               color="success"
               class="ion-margin-start"
-              disabled
+              @click="leaveGroup()"
             >
               Opustiť
             </ion-button>
@@ -54,7 +54,7 @@
       </div>
       <div class="ion-margin-vertical">
         <ion-badge
-          v-for="(tag,i) in group?.tags_string.split(' ')"
+          v-for="(tag,i) in group?.tags_string?.split(' ')"
           :key="i"
           color="warning"
           class="mx-1"
@@ -66,7 +66,7 @@
       <h6 class="ion-no-margin ion-text-left">
         {{ group?.description }}
       </h6>
-      <ion-button :router-link="`/group/1/map`" color="success" disabled>
+      <ion-button :router-link="`/group/1/map`" color="success">
         Mapa
       </ion-button>
     </ion-content>
@@ -108,15 +108,16 @@ export default defineComponent({
       locationOutline,
       mapOutline,
       id: '0',
+      group: {} as Group,
     }
   },
   async ionViewWillEnter() {
     this.id = this.$route.params.id as string
+
+    const group = await Axios.get(`https://mapovanie.hybridlab.dev/cms/api/v1/groups/${this.id}`)
+    this.group = group.data.data
   },
   computed: {
-    group(): Group {
-      return this.$store.getters.getGroupById(this.id)
-    },
     user(): User {
       return this.$store.state.user
     },
@@ -130,6 +131,15 @@ export default defineComponent({
     async joinGroup() {
       try {
         const { data } = await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/v1/group-member/groups/link-join/${this.group.invite_hash}`)
+        await this.$store.dispatch('fetchGroups')
+        console.log(data)
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    async leaveGroup() {
+      try {
+        const { data } = await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/v1/groups/${this.group.id}/leave`)
         await this.$store.dispatch('fetchGroups')
         console.log(data)
       } catch (err) {
