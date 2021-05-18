@@ -28,6 +28,13 @@
         </ion-toolbar>
       </ion-header>
 
+      <ion-refresher
+        slot="fixed"
+        @ionRefresh="doRefresh($event)"
+      >
+        <ion-refresher-content pulling-icon="lines" />
+      </ion-refresher>
+
       <div v-if="value === 'my'">
         <a-group-item
           v-for="group in myGroups"
@@ -58,7 +65,7 @@ import {
   IonSegment,
   IonSegmentButton,
   IonHeader,
-  IonToolbar,
+  IonToolbar, IonRefresherContent, IonRefresher,
 } from '@ionic/vue'
 
 import AGroupItem from '@/plugins/app/_components/a-group-item.vue'
@@ -78,6 +85,8 @@ export default defineComponent({
     IonLabel,
     IonHeader,
     IonToolbar,
+    IonRefresher,
+    IonRefresherContent,
   },
   data() {
     return {
@@ -96,6 +105,15 @@ export default defineComponent({
   async ionViewWillEnter() {
     const otherGroups = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/groups')
     this.otherGroups = otherGroups.data.data
+  },
+  methods: {
+    async doRefresh(e: CustomEvent) {
+      await this.$store.dispatch('fetchGroups')
+      const otherGroups = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/groups')
+      this.otherGroups = otherGroups.data.data
+      // @ts-expect-error ionic stuff
+      e.target.complete()
+    },
   },
 })
 

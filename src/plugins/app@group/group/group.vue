@@ -125,12 +125,16 @@ export default defineComponent({
   methods: {
     // ...mapActions(['fetchUserinfo']),
     async doRefresh(e: CustomEvent) {
+      const group = await Axios.get(`https://mapovanie.hybridlab.dev/cms/api/v1/groups/${this.id}`)
+      this.group = group.data.data
       // @ts-expect-error ionic stuff
       e.target.complete()
     },
     async joinGroup() {
       try {
         const { data } = await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/v1/group-member/groups/link-join/${this.group.invite_hash}`)
+        const group = await Axios.get(`https://mapovanie.hybridlab.dev/cms/api/v1/groups/${this.id}`)
+        this.group = group.data.data
         await this.$store.dispatch('fetchGroups')
         console.log(data)
       } catch (err) {
@@ -140,6 +144,8 @@ export default defineComponent({
     async leaveGroup() {
       try {
         const { data } = await Axios.post(`https://mapovanie.hybridlab.dev/cms/api/v1/groups/${this.group.id}/leave`)
+        const group = await Axios.get(`https://mapovanie.hybridlab.dev/cms/api/v1/groups/${this.id}`)
+        this.group = group.data.data
         await this.$store.dispatch('fetchGroups')
         console.log(data)
       } catch (err) {

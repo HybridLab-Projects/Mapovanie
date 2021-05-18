@@ -16,7 +16,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content
-      id="map-container"
+      id="group-map-container"
       class="map-container"
     />
   </ion-page>
@@ -33,7 +33,8 @@ import {
   IonTitle,
   IonButtons,
   IonButton,
-  IonIcon, modalController,
+  IonIcon,
+  modalController, IonBackButton,
 } from '@ionic/vue'
 
 import { funnelOutline } from 'ionicons/icons'
@@ -43,7 +44,8 @@ import { mapGetters, mapState } from 'vuex'
 
 import MapFilterModal from '@/plugins/app@map/map-filter/map-filter.vue'
 import { FeatureCollection, GeoJSON, Point } from 'geojson'
-import { Entity } from '@/plugins/app/_config/types'
+import { Entity, Group } from '@/plugins/app/_config/types'
+import Axios from 'axios'
 
 export default defineComponent({
   name: 'MapGroup',
@@ -56,20 +58,29 @@ export default defineComponent({
     IonButtons,
     IonButton,
     IonIcon,
+    IonBackButton,
   },
   data() {
     return {
       funnelOutline,
       map: {} as Mapbox.Map,
+      id: '0',
+      group: {} as Group,
     }
   },
   computed: {
-    ...mapState(['categories', 'myMapUnChecked']),
+    ...mapState(['myMapUnChecked']),
+  },
+  async ionViewWillEnter() {
+    this.id = this.$route.params.id as string
+
+    const group = await Axios.get(`https://mapovanie.hybridlab.dev/cms/api/v1/groups/${this.id}`)
+    this.group = group.data.data
   },
   async mounted() {
     Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
     this.map = new Mapbox.Map({
-      container: 'map-container',
+      container: 'group-map-container',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [17.107748, 48.148598],
       zoom: 9,
@@ -216,9 +227,9 @@ export default defineComponent({
   },
   methods: {
     getEntityGeoJson() {
-      console.log(this.$store.getters.test)
       const geoJson = this.$store.getters.getEntityGeoJson as FeatureCollection<Point, Entity>
-      geoJson.features = geoJson.features.filter((feature) => !this.myMapUnChecked.some(
+      geoJson.features = geoJson.features.filter((feature) => +feature.properties.category
+        .group.id === +this.id && !this.myMapUnChecked.some(
         (id: number) => id === feature?.properties?.category?.id,
       ))
 
@@ -228,7 +239,7 @@ export default defineComponent({
       const modal = await modalController.create({
         component: MapFilterModal,
         componentProps: {
-          groups: this.$store.state.groups,
+          groups: [this.group],
         },
         swipeToClose: true,
         // eslint-disable-next-line no-undef
