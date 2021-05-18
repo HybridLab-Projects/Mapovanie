@@ -27,21 +27,30 @@
           </ion-segment>
         </ion-toolbar>
       </ion-header>
-
-      <div v-if="value === 'my'">
-        <a-group-item
-          v-for="group in myGroups"
-          :key="group.id"
-          :group="group"
-        />
-      </div>
-      <div v-if="value === 'other'">
-        <a-group-item
-          v-for="group in otherGroups"
-          :key="group.id"
-          :group="group"
-        />
-      </div>
+        <div v-if="value === 'my'">
+          <div v-if="myGroups.length === 0">
+            <no-content />
+          </div>
+          <div v-else>
+            <a-group-item
+                v-for="group in myGroups "
+                :key="group.id"
+                :group="group"
+            />
+          </div>
+        </div>
+        <div v-if="value === 'other'">
+          <div v-if="otherGroups.length === 0">
+            <no-content />
+          </div>
+          <div v-else>
+            <a-group-item
+                v-for="group in otherGroups"
+                :key="group.id"
+                :group="group"
+            />
+          </div>
+        </div>
     </ion-content>
   </ion-page>
 </template>
@@ -62,6 +71,7 @@ import {
 } from '@ionic/vue'
 
 import AGroupItem from '@/plugins/app/_components/a-group-item.vue'
+import noContent from '@/plugins/app@group/no-content/no-content.vue'
 import { Group, User } from '@/plugins/app/_config/types'
 import Axios from 'axios'
 
@@ -78,6 +88,7 @@ export default defineComponent({
     IonLabel,
     IonHeader,
     IonToolbar,
+    noContent,
   },
   data() {
     return {

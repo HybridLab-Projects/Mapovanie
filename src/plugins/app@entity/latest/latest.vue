@@ -20,12 +20,17 @@
       >
         <ion-refresher-content pulling-icon="lines" />
       </ion-refresher>
-      <a-card
-        v-for="entity in entities"
-        :key="entity.id"
-        :entity="entity"
-        :user-location="currentLocation"
-      />
+      <div v-if="entities.length === 0">
+        <no-content />
+      </div>
+      <div v-else>
+        <a-card
+            v-for="entity in entities"
+            :key="entity.id"
+            :entity="entity"
+            :user-location="currentLocation"
+        />
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -43,6 +48,7 @@ import {
   IonRefresherContent,
 } from '@ionic/vue'
 import ACard from '@/plugins/app/_components/a-card.vue'
+import noContent from '@/plugins/app@entity/no-content/no-content.vue'
 import { Entity } from '@/plugins/app/_config/types'
 import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 import { GeolocationPosition } from '@capacitor/core'
@@ -58,6 +64,7 @@ export default defineComponent({
     IonTitle,
     IonRefresher,
     IonRefresherContent,
+    noContent,
   },
   data() {
     return {
