@@ -134,7 +134,7 @@ export default createStore<State>({
     },
     async fetchGroups({ commit }) {
       try {
-        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/groups')
+        const { data } = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/my-groups')
         commit('groupsFetched', data)
       } catch (err) {
         console.log(err)

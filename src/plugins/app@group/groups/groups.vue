@@ -63,6 +63,7 @@ import {
 
 import AGroupItem from '@/plugins/app/_components/a-group-item.vue'
 import { Group, User } from '@/plugins/app/_config/types'
+import Axios from 'axios'
 
 export default defineComponent({
   name: 'Groups',
@@ -81,25 +82,20 @@ export default defineComponent({
   data() {
     return {
       value: 'my',
+      otherGroups: [] as Group[],
     }
   },
   computed: {
-    groups(): Group[] {
+    myGroups(): Group[] {
       return this.$store.state.groups
     },
     user(): User {
       return this.$store.state.user
     },
-    myGroups(): Group[] {
-      return this.groups.filter((group) => group.members
-        .some((member) => member.user.id === this.user.id))
-    },
-    otherGroups(): Group[] {
-      return this.groups.filter((group) => !group.members
-        .some((member) => member.user.id === this.user.id))
-    },
   },
-  methods: {
+  async ionViewWillEnter() {
+    const otherGroups = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/groups')
+    this.otherGroups = otherGroups.data.data
   },
 })
 
