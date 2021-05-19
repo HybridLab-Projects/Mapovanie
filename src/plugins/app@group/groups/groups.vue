@@ -36,18 +36,22 @@
       </ion-refresher>
 
       <div v-if="value === 'my'">
-        <a-group-item
-          v-for="group in myGroups"
-          :key="group.id"
-          :group="group"
-        />
+        <ion-list>
+          <a-group-item
+            v-for="group in myGroups"
+            :key="group.id"
+            :group="group"
+          />
+        </ion-list>
       </div>
       <div v-if="value === 'other'">
-        <a-group-item
-          v-for="group in otherGroups"
-          :key="group.id"
-          :group="group"
-        />
+        <ion-list>
+          <a-group-item
+            v-for="group in otherGroups"
+            :key="group.id"
+            :group="group"
+          />
+        </ion-list>
       </div>
     </ion-content>
   </ion-page>
@@ -65,7 +69,10 @@ import {
   IonSegment,
   IonSegmentButton,
   IonHeader,
-  IonToolbar, IonRefresherContent, IonRefresher,
+  IonToolbar,
+  IonRefresherContent,
+  IonRefresher,
+  IonList,
 } from '@ionic/vue'
 
 import AGroupItem from '@/plugins/app/_components/a-group-item.vue'
@@ -87,6 +94,7 @@ export default defineComponent({
     IonToolbar,
     IonRefresher,
     IonRefresherContent,
+    IonList,
   },
   data() {
     return {

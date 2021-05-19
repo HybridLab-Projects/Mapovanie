@@ -4,16 +4,19 @@
       <img :src="group?.image.url">
     </ion-avatar>
     <ion-label>
-      <h2>{{ group?.name }}</h2>
+      <p class="group-text">
+        {{ group?.name }}
+      </p>
+      <p class="member-text">
+        {{ group.members_count }} členov
+      </p>
       <ion-badge
-        v-for="(tag, i) in group?.tags_string.split(' ')"
+        v-for="(tag, i) in group?.tags_string.split(' ').slice(0,2)"
         :key="i"
-        color="warning"
-        class="mx-1"
+        class="mr-1"
       >
         {{ tag }}
       </ion-badge>
-      <p>{{ group.members_count }} členov</p>
     </ion-label>
   </ion-item>
 </template>
@@ -45,3 +48,32 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="postcss" scoped>
+ion-avatar {
+  height: 40px;
+  width: 40px;
+}
+
+.group-text {
+  @apply text-base font-bold text-black m-0;
+}
+
+.member-text {
+  @apply font-semibold mb-1 text-sm;
+}
+
+ion-item::part(detail-icon) {
+  color: var(--ion-text-color);
+  opacity: 1;
+  border: 1px #dddde2 solid;
+  border-radius: 100%;
+  padding: 0.5625rem;
+  font-size: 0.625rem;
+}
+
+ion-item {
+  --inner-padding-top: 0.2rem;
+  --inner-padding-bottom: 0.2rem;
+}
+</style>

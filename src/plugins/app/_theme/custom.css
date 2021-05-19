@@ -31,3 +31,8 @@ ion-button {
 
   font-weight: bold;
 }
+
+ion-badge {
+  --background: var(--ion-color-primary);
+  border-radius: 4px;
+}
