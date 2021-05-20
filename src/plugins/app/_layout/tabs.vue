@@ -3,27 +3,27 @@
     <ion-tabs>
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="latest" href="/tabs/latest">
-          <ion-icon :icon="list" />
+          <ion-icon :src="require('./img/latest.svg')" />
           <ion-label>Najnovšie</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="groups" href="/tabs/groups">
-          <ion-icon :icon="people" />
+          <ion-icon :src="require('./img/groups.svg')" />
           <ion-label>Skupiny</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="categories" href="/tabs/categories">
-          <ion-icon :icon="camera" />
-          <ion-label>Pridať</ion-label>
+          <ion-icon :src="require('./img/camera.svg')" />
+          <ion-label>Odfotiť</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="map" href="/tabs/map">
-          <ion-icon :icon="map" />
+          <ion-icon :src="require('./img/map.svg')" />
           <ion-label>Moja mapa</ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="profile" href="/tabs/profile">
-          <ion-icon :icon="personCircle" />
+          <ion-icon :src="require('./img/profile.svg')" />
           <ion-label>Profil</ion-label>
         </ion-tab-button>
       </ion-tab-bar>

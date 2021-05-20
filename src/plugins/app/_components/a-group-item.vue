@@ -56,7 +56,8 @@ ion-avatar {
 }
 
 .group-text {
-  @apply text-base font-bold text-black m-0;
+  @apply text-base font-bold m-0;
+  color: var(--ion-text-color);
 }
 
 .member-text {

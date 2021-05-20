@@ -5,7 +5,7 @@
         <ion-title>Kategórie</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true">
+    <ion-content>
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">

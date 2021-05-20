@@ -6,7 +6,7 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content :fullcreen="true">
+    <ion-content>
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">
@@ -83,11 +83,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="postcss" scoped>
-ion-toolbar {
-  background-color: var(--ion-toolbar-background);
-
-  --background: var(--ion-toolbar-background);
-}
-</style>

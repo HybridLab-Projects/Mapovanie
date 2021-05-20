@@ -51,7 +51,12 @@
         <h1 class="ion-margin-top text-2xl">
           Popis
         </h1>
-        <p>{{ entity?.description }}</p>
+        <p v-if="entity?.description?.length">
+          {{ entity?.description }}
+        </p>
+        <p v-else>
+          Užívateľ neposkytol žiadny popis.
+        </p>
       </ion-text>
 
       <ion-text>
