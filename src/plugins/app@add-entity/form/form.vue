@@ -50,7 +50,7 @@ import {
 } from '@capacitor/core'
 import Camera from '@/plugins/jakub@capacitor/camera'
 import Geolocation from '@/plugins/jakub@capacitor/geolocation'
-import Mapbox from 'mapbox-gl'
+import Mapbox, { Map } from 'mapbox-gl'
 
 const { Device } = Plugins
 export default defineComponent({
@@ -72,6 +72,7 @@ export default defineComponent({
       categoryId: 0,
       groupId: 0,
       description: '',
+      map: {} as Mapbox.Map,
     }
   },
   ionViewWillEnter() {
@@ -87,7 +88,8 @@ export default defineComponent({
   },
   ionViewDidEnter() {
     Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
-    const map = new Mapbox.Map({
+    if (Object.keys(this.map).length) return
+    this.map = new Mapbox.Map({
       container: 'map-container-form',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [this.deviceLocation.coords.longitude, this.deviceLocation.coords.latitude],
@@ -96,9 +98,9 @@ export default defineComponent({
 
     const marker = new Mapbox.Marker()
       .setLngLat([this.deviceLocation.coords.longitude, this.deviceLocation.coords.latitude])
-      .addTo(map)
+      .addTo(this.map)
 
-    map.on('click', (e) => {
+    this.map.on('click', (e) => {
       console.log(e)
       marker.setLngLat(e.lngLat)
       this.deviceLocation.coords.longitude = e.lngLat.lng

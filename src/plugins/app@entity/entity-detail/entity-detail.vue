@@ -60,7 +60,7 @@
         </h1>
       </ion-text>
 
-      <div id="map-container-report" class="map-container-report" />
+      <div :id="`map-container-entity-${entity?.id}`" class="map-container-report" />
 
       <!-- <ion-text class="flex ion-margin-top">
           <h1
@@ -124,6 +124,7 @@ export default defineComponent({
       mapOutline,
       id: '0',
       userLocation: {} as GeolocationPosition,
+      map: {} as Mapbox.Map,
     }
   },
   computed: {
@@ -142,23 +143,20 @@ export default defineComponent({
     this.id = this.$route.params.id as string
     this.userLocation = await Geolocation.getDeviceLocation()
   },
-  mounted() {
-    if (!document.querySelector('#map-container-report')) return
+  ionViewDidEnter() {
+    if (!document.querySelector(`#map-container-entity-${this.entity?.id}`)) return
     Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
     if (!this.entity) return
-    const map = new Mapbox.Map({
-      container: 'map-container-report',
+    if (Object.keys(this.map).length) return
+    this.map = new Mapbox.Map({
+      container: `map-container-entity-${this.entity.id}`,
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [+this.entity?.lon, +this.entity?.lat],
       zoom: 18,
     })
     new Mapbox.Marker()
       .setLngLat([+this.entity?.lon, +this.entity?.lat])
-      .addTo(map)
-
-    map.on('load', () => {
-      map.resize()
-    })
+      .addTo(this.map)
   },
   methods: {
     async openReportModal() {

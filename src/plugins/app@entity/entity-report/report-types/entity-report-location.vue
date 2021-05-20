@@ -45,12 +45,14 @@ export default defineComponent({
   data() {
     return {
       newLocation: { lon: 0, lat: 0 },
+      map: {} as Mapbox.Map,
     }
   },
-  mounted() {
+  ionViewDidEnter() {
     if (!document.querySelector('#map-container-report')) return
     Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
-    const map = new Mapbox.Map({
+    if (Object.keys(this.map).length) return
+    this.map = new Mapbox.Map({
       container: 'map-container-report',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [+this.entity?.lon, +this.entity?.lat],
@@ -59,16 +61,13 @@ export default defineComponent({
 
     const marker = new Mapbox.Marker()
       .setLngLat([+this.entity?.lon, +this.entity?.lat])
-      .addTo(map)
+      .addTo(this.map)
 
-    map.on('click', (e) => {
+    this.map.on('click', (e) => {
       console.log(e)
       marker.setLngLat(e.lngLat)
       this.newLocation.lon = e.lngLat.lng
       this.newLocation.lat = e.lngLat.lat
-    })
-    map.on('load', () => {
-      map.resize()
     })
   },
   methods: {

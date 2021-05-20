@@ -13,16 +13,20 @@
             Skupiny
           </ion-title>
         </ion-toolbar>
-        <!--        <ion-toolbar>-->
-        <!--          <ion-searchbar show-cancel-button="never" />-->
-        <!--        </ion-toolbar>-->
+        <ion-toolbar>
+          <ion-searchbar v-model="search" placeholder="Vyhľadaj" />
+        </ion-toolbar>
         <ion-toolbar>
           <ion-segment v-model="value">
             <ion-segment-button value="my">
-              <ion-label>Moje</ion-label>
+              <ion-label class="font-semibold">
+                Moje
+              </ion-label>
             </ion-segment-button>
             <ion-segment-button value="other">
-              <ion-label>Nájsť</ion-label>
+              <ion-label class="font-semibold">
+                Nájsť
+              </ion-label>
             </ion-segment-button>
           </ion-segment>
         </ion-toolbar>
@@ -38,7 +42,7 @@
       <div v-if="value === 'my'">
         <ion-list>
           <a-group-item
-            v-for="group in myGroups"
+            v-for="group in searchedGroups"
             :key="group.id"
             :group="group"
           />
@@ -47,7 +51,7 @@
       <div v-if="value === 'other'">
         <ion-list>
           <a-group-item
-            v-for="group in otherGroups"
+            v-for="group in searchedGroups"
             :key="group.id"
             :group="group"
           />
@@ -65,7 +69,7 @@ import {
   IonContent,
   IonTitle,
   IonLabel,
-  // IonSearchbar,
+  IonSearchbar,
   IonSegment,
   IonSegmentButton,
   IonHeader,
@@ -86,7 +90,7 @@ export default defineComponent({
     IonPage,
     IonContent,
     IonTitle,
-    // IonSearchbar,
+    IonSearchbar,
     IonSegment,
     IonSegmentButton,
     IonLabel,
@@ -100,6 +104,7 @@ export default defineComponent({
     return {
       value: 'my',
       otherGroups: [] as Group[],
+      search: '',
     }
   },
   computed: {
@@ -108,6 +113,11 @@ export default defineComponent({
     },
     user(): User {
       return this.$store.state.user
+    },
+    searchedGroups(): Group[] {
+      const currentGroups = this.value === 'my' ? this.myGroups : this.otherGroups
+      return currentGroups.filter((group) => group.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .includes(this.search.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')))
     },
   },
   async ionViewWillEnter() {

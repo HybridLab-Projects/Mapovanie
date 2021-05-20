@@ -63,14 +63,16 @@ export default defineComponent({
   computed: {
     ...mapState(['categories', 'myMapUnChecked']),
   },
-  async mounted() {
+  async ionViewDidEnter() {
     Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
+    if (Object.keys(this.map).length) return
     this.map = new Mapbox.Map({
       container: 'map-container',
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [17.107748, 48.148598],
       zoom: 9,
     })
+
     const navigation = new NavigationControl()
     this.map.addControl(navigation, 'top-right')
 
@@ -244,7 +246,7 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .map-container {
-  height: 100%;
+  height: calc(100% - (var(--header-height) + var(--footer-height)));
   width: 100%;
 
   &:focus {

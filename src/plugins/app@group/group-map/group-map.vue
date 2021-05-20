@@ -77,8 +77,9 @@ export default defineComponent({
     const group = await Axios.get(`https://mapovanie.hybridlab.dev/cms/api/v1/groups/${this.id}`)
     this.group = group.data.data
   },
-  async mounted() {
+  async ionViewDidEnter() {
     Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
+    if (Object.keys(this.map).length) return
     this.map = new Mapbox.Map({
       container: 'group-map-container',
       style: 'mapbox://styles/mapbox/streets-v11',
