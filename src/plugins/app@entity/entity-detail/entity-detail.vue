@@ -19,53 +19,52 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content class="ion-padding">
+    <ion-content>
       <div
-        class="flex ion-align-items-center ion-margin-bottom"
+        class="flex ion-align-items-center ion-padding"
         @click="$router.push(`/user/${entity?.user.id}`)"
       >
         <ion-avatar class="ion-margin-end avatar">
-          <img :src="entity?.user?.avatar">
+          <img :src="entity.category.group.image.url">
         </ion-avatar>
         <ion-text class="flex ion-justify-content-between flex-grow">
-          <p>{{ entity?.user?.name }}</p>
+          <p>{{ entity.category.group?.name }}</p>
           <p>
             {{ when }}
           </p>
         </ion-text>
       </div>
       <ion-img
-        class="image-border-radius ion-margin-bottom"
+        class="ion-margin-bottom"
         :src="entity?.images[0]?.url"
       />
-      <ion-text
-        color="medium"
-        class="ion-text-center"
-      >
-        <h5 class="font-bold ion-align-self-center ion-no-margin text-lg">
-          {{ entity?.address?.split(',')[0] }}
-        </h5>
-      </ion-text>
-
-      <ion-text>
-        <h1 class="ion-margin-top text-2xl">
-          Popis
-        </h1>
-        <p v-if="entity?.description?.length">
-          {{ entity?.description }}
-        </p>
-        <p v-else>
-          Užívateľ neposkytol žiadny popis.
-        </p>
-      </ion-text>
-
-      <ion-text>
-        <h1 class="ion-margin-top text-2xl">
-          Poloha
-        </h1>
-      </ion-text>
+      <div class="ion-margin">
+        <ion-text>
+          <p v-if="entity?.description?.length">
+            {{ entity?.description }}
+          </p>
+          <p v-else>
+            Užívateľ neposkytol žiadny popis.
+          </p>
+        </ion-text>
+        <ion-list class="ion-margin-top">
+          <ion-item>
+            <ion-avatar slot="start">
+              <img src="../assets/location.svg">
+            </ion-avatar>
+            <ion-label>{{ entity?.address?.split(',')[0] }}</ion-label>
+          </ion-item>
+          <ion-item lines="none" @click="$router.push(`/user/${entity?.user.id}`)">
+            <ion-avatar slot="start">
+              <img :src="entity?.user?.avatar">
+            </ion-avatar>
+            <ion-label>{{ entity?.user?.name }}</ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
 
       <div :id="`map-container-entity-${entity?.id}`" class="map-container-report" />
+      <ion-button class="ion-margin" expand="block">Navrhnúť úpravu</ion-button>
 
       <!-- <ion-text class="flex ion-margin-top">
           <h1
@@ -95,6 +94,9 @@ import {
   IonBackButton,
   modalController,
   IonAvatar,
+  IonList,
+  IonItem,
+  IonLabel,
 } from '@ionic/vue'
 
 import { megaphoneOutline, locationOutline, mapOutline } from 'ionicons/icons'
@@ -121,6 +123,9 @@ export default defineComponent({
     IonTitle,
     IonBackButton,
     IonAvatar,
+    IonList,
+    IonItem,
+    IonLabel,
   },
   data() {
     return {
@@ -192,7 +197,6 @@ export default defineComponent({
 
 .map-container-report {
   aspect-ratio: 1 / 1;
-  border-radius: 1rem;
   margin-top: 1rem !important;
   width: 100%;
 }
