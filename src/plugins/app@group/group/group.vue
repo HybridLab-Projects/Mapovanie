@@ -73,7 +73,13 @@
         </ion-button>
       </div>
       <hr class="ion-margin-vertical">
-      <div />
+      <div>
+        <a-card
+          v-for="entity in entities"
+          :key="entity.id"
+          :entity="entity"
+        />
+      </div>
       <ion-fab
         slot="fixed"
         vertical="bottom"
@@ -110,14 +116,15 @@ import {
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
 import { locationOutline, mapOutline } from 'ionicons/icons'
-import { Group, User } from '@/plugins/app/_config/types'
+import { Entity, Group, User } from '@/plugins/app/_config/types'
 import Axios from 'axios'
 import ACard from '@/plugins/app/_components/a-card.vue'
+import store from '@/plugins/app/_config/store'
 
 export default defineComponent({
   name: 'Group',
   components: {
-    // ACard,
+    ACard,
     IonPage,
     IonContent,
     IonAvatar,
@@ -137,6 +144,7 @@ export default defineComponent({
       mapOutline,
       id: '0',
       group: {} as Group,
+      entities: [] as Entity[],
     }
   },
   async ionViewWillEnter() {
@@ -144,17 +152,24 @@ export default defineComponent({
 
     const group = await Axios.get(`https://mapovanie.hybridlab.dev/cms/api/v1/groups/${this.id}`)
     this.group = group.data.data
+    const entities = await Axios.get(`https://mapovanie.hybridlab.dev/cms/api/v1/groups/${this.id}/entities`)
+    this.entities = entities.data.data
   },
   computed: {
     user(): User {
       return this.$store.state.user
     },
   },
+  mounted() {
+    store.dispatch('setUserLocation')
+  },
   methods: {
     // ...mapActions(['fetchUserinfo']),
     async doRefresh(e: CustomEvent) {
       const group = await Axios.get(`https://mapovanie.hybridlab.dev/cms/api/v1/groups/${this.id}`)
       this.group = group.data.data
+      await store.dispatch('setUserLocation')
+
       // @ts-expect-error ionic stuff
       e.target.complete()
     },

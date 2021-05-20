@@ -33,13 +33,13 @@
             <div slot="start">
               <p>Prispevky</p>
               <p class="ion-text-center">
-                0
+                {{ user.entities_count }}
               </p>
             </div>
             <div>
               <p>Skupiny</p>
               <p class="ion-text-center">
-                0
+                -
               </p>
             </div>
           </ion-item>
@@ -60,7 +60,6 @@
           v-for="entity in user.entities"
           :key="entity.id"
           :entity="entity"
-          :user-location="currentLocation"
         />
       </div>
       <div v-else>
@@ -89,6 +88,7 @@ import { mapActions, mapState } from 'vuex'
 import { locationOutline, mapOutline, settingsOutline } from 'ionicons/icons'
 import ACard from '@/plugins/app/_components/a-card.vue'
 import Geolocation from '@/plugins/jakub@capacitor/geolocation'
+import store from '@/plugins/app/_config/store'
 
 export default defineComponent({
   name: 'Profile',
@@ -114,24 +114,24 @@ export default defineComponent({
       locationOutline,
       mapOutline,
       settingsOutline,
-      currentLocation: {},
     }
   },
   computed: {
     ...mapState(['user']),
   },
+  mounted() {
+    store.dispatch('setUserLocation')
+  },
   methods: {
     ...mapActions(['fetchUserinfo']),
     async doRefresh(e: CustomEvent) {
       await this.$store.dispatch('fetchUserinfo')
+      await store.dispatch('setUserLocation')
+
       // @ts-expect-error ionic stuff
       e.target.complete()
     },
   },
-  async ionViewWillEnter() {
-    this.currentLocation = await Geolocation.getDeviceLocation()
-  },
-
 })
 
 </script>

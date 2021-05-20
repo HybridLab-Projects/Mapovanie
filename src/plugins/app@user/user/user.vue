@@ -24,7 +24,7 @@
             <div slot="start">
               <p>Prispevky</p>
               <p class="ion-text-center">
-                0
+                {{ user?.entities_count }}
               </p>
             </div>
             <div>
@@ -51,7 +51,6 @@
           v-for="entity in user?.entities"
           :key="entity.id"
           :entity="entity"
-          :user-location="currentLocation"
         />
       </div>
       <div v-else>
@@ -80,6 +79,7 @@ import { locationOutline, mapOutline } from 'ionicons/icons'
 import { LeaderboardUser } from '@/plugins/app/_config/types'
 import ACard from '@/plugins/app/_components/a-card.vue'
 import Geolocation from '@/plugins/jakub@capacitor/geolocation'
+import store from '@/plugins/app/_config/store'
 
 export default defineComponent({
   name: 'User',
@@ -99,14 +99,7 @@ export default defineComponent({
       locationOutline,
       mapOutline,
       id: '0',
-      currentLocation: {},
     }
-  },
-  async ionViewWillEnter() {
-    console.log('test')
-    this.id = this.$route.params.id as string
-    console.log(this.id)
-    this.currentLocation = await Geolocation.getDeviceLocation()
   },
   computed: {
     user(): LeaderboardUser|undefined {
@@ -114,10 +107,20 @@ export default defineComponent({
       return this.$store.getters.getUserById(this.id)
     },
   },
+  mounted() {
+    store.dispatch('setUserLocation')
+  },
+  async ionViewWillEnter() {
+    console.log('test')
+    this.id = this.$route.params.id as string
+    console.log(this.id)
+  },
   methods: {
     ...mapActions(['fetchUserinfo']),
     async doRefresh(e: CustomEvent) {
       await this.$store.dispatch('fetchUserinfo')
+      await store.dispatch('setUserLocation')
+
       // @ts-expect-error ionic stuff
       e.target.complete()
     },

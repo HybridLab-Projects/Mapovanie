@@ -1,6 +1,8 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-use-before-define */
 
+import { GeolocationPosition } from '@capacitor/core'
+
 export interface Group {
     id: number,
     name: string,
@@ -67,10 +69,15 @@ export interface User {
 }
 
 export interface LeaderboardUser {
-    id: number;
-    name: string;
-    email: string;
-    points: number;
+    avatar:string;
+    email:string;
+    entities_count: number
+    id:number
+    name: string
+    points:number;
+    surname: string;
+    username: string;
+
 }
 
 export interface State {
@@ -79,5 +86,6 @@ export interface State {
     user: User;
     leaderboardUsers: Array<LeaderboardUser>;
     myMapUnChecked: Array<number>;
-    groups: Array<Group>
+    groups: Array<Group>;
+    userLocation: GeolocationPosition
 }

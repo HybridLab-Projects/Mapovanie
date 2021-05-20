@@ -24,7 +24,6 @@
         v-for="entity in entities"
         :key="entity.id"
         :entity="entity"
-        :user-location="currentLocation"
       />
     </ion-content>
   </ion-page>
@@ -46,6 +45,7 @@ import ACard from '@/plugins/app/_components/a-card.vue'
 import { Entity } from '@/plugins/app/_config/types'
 import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 import { GeolocationPosition } from '@capacitor/core'
+import store from '@/plugins/app/_config/store'
 
 export default defineComponent({
   name: 'Latest',
@@ -62,7 +62,6 @@ export default defineComponent({
   data() {
     return {
       value: 'entities',
-      currentLocation: {} as GeolocationPosition,
     }
   },
   computed: {
@@ -70,16 +69,17 @@ export default defineComponent({
       return this.$store.state.entities
     },
   },
+  mounted() {
+    store.dispatch('setUserLocation')
+  },
   methods: {
     async doRefresh(e: CustomEvent) {
       // debugger
       await this.$store.dispatch('fetchEntities')
+      await store.dispatch('setUserLocation')
       // @ts-expect-error ionic stuff
       e.target.complete()
     },
-  },
-  async ionViewWillEnter() {
-    this.currentLocation = await Geolocation.getDeviceLocation()
   },
 })
 </script>
