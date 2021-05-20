@@ -153,8 +153,7 @@ ion-icon {
 
 @media (prefers-color-scheme: dark) {
   .object-card {
-    box-shadow: rgb(255 255 255 / 15%) 0px 4px 16px;
-
+    box-shadow: rgb(255 255 255 / 15%) 0 4px 16px;
   }
 }
 
