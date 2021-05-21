@@ -57,6 +57,7 @@ ion-avatar {
 
 .group-text {
   @apply text-base font-bold m-0;
+
   color: var(--ion-text-color);
 }
 
@@ -71,6 +72,7 @@ ion-item::part(detail-icon) {
   border-radius: 100%;
   padding: 0.5625rem;
   font-size: 0.625rem;
+  margin-right: 0.5rem;
 }
 
 ion-item {
