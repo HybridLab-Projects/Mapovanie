@@ -54,7 +54,7 @@ export interface User {
     name: string,
     surname: string,
     username: string,
-    avatar: {url: string},
+    avatar: string,
     points: number,
     entities_count: number,
     entities: Array<Entity>,
@@ -66,6 +66,7 @@ export interface User {
     updated_at: string,
     deleted_at:string,
     is_guest:boolean,
+    groups_count: number
 }
 
 export interface LeaderboardUser {

@@ -10,7 +10,7 @@
     --ion-background-color-rgb: 255, 255, 255;
     --ion-toolbar-background: #f9f9fb;
     --ion-card-background: #fff;
-    --ion-item-background: #fff;
+    --ion-item-background: #f9f9fb;
   }
 }
 
@@ -22,7 +22,7 @@
     --ion-text-color-rgb: 255, 255, 255;
     --ion-toolbar-background: #202022;
     --ion-card-background: #000;
-    --ion-item-background: #000;
+    --ion-item-background: #202022;
   }
 }
 
@@ -45,6 +45,4 @@ ion-tab-bar {
   --background: var(--ion-toolbar-background);
 }
 
-ion-content {
-  --background: var(--ion-color-default);
-}
+

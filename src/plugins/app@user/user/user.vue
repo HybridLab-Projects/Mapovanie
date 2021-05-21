@@ -8,44 +8,45 @@
       >
         <ion-refresher-content pulling-icon="lines" />
       </ion-refresher>
-      <div class="flex ion-justify-content-start ion-margin-top">
-        <ion-avatar class="h-16 w-16">
-          <img :src="user?.avatar">
-        </ion-avatar>
 
-        <ion-list class="ml-2">
-          <ion-item lines="none">
-            <p class="ion-text-center text-2xl">
+      <div>
+        <ion-item lines="none">
+          <ion-avatar slot="start">
+            <img :src="user?.avatar">
+          </ion-avatar>
+          <ion-label>
+            <p class="group-text">
               {{ user?.name }}
             </p>
-          </ion-item>
-
-          <ion-item lines="none">
-            <div slot="start">
-              <p>Prispevky</p>
-              <p class="ion-text-center">
-                {{ user?.entities_count }}
-              </p>
-            </div>
-            <div>
-              <p>Skupiny</p>
-              <p class="ion-text-center">
-                0
-              </p>
-            </div>
-          </ion-item>
-        </ion-list>
+            <p class="member-text">
+              Používateľ
+            </p>
+          </ion-label>
+        </ion-item>
+        <p class="ion-margin">
+          Mapovanie pekných design domov  #apartmentlivingroom #apartmentliving
+        </p>
+        <div class="flex justify-between">
+          <div class="flex flex-col items-center w-1/2">
+            <h1 class="text-4xl font-semibold">
+              {{ user?.entities_count }}
+            </h1>
+            <p class="font-semibold">
+              Príspevkov
+            </p>
+          </div>
+          <div class="divider" />
+          <div class="flex flex-col items-center w-1/2">
+            <h1 class="text-4xl font-semibold">
+              {{ user?.groups_count }}
+            </h1>
+            <p class="font-semibold">
+              Skupín
+            </p>
+          </div>
+        </div>
       </div>
-
-      <h6 class="ion-no-margin ion-text-left">
-        🏫 OANBA<br>
-        📍 Pozsony / Fél<br>
-        ♀  She / Her<br>
-        🎵 Tublatanka, Darina Rolinsova, Szélenä Gomész, Bódi Csabi
-      </h6>
-      <h5 class="ion-margin-top text-xl">
-        Moje príspevky
-      </h5>
+      <div class="ion-margin-vertical w-full divider-horizontal" />
       <div v-if="user?.entities?.length">
         <a-card
           v-for="entity in user?.entities"
@@ -54,9 +55,9 @@
         />
       </div>
       <div v-else>
-        <ion-label color="medium">
-          Uživateľ zatiaľ nemá žiadne príspevky.
-        </ion-label>
+        <p class="text-gray-400 text-center">
+          Nemáte zatiaľ žiadne príspevky.
+        </p>
       </div>
     </ion-content>
   </ion-page>
@@ -76,10 +77,11 @@ import {
 import { defineComponent } from 'vue'
 import { mapActions } from 'vuex'
 import { locationOutline, mapOutline } from 'ionicons/icons'
-import { LeaderboardUser } from '@/plugins/app/_config/types'
+import { LeaderboardUser, User } from '@/plugins/app/_config/types'
 import ACard from '@/plugins/app/_components/a-card.vue'
 import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 import store from '@/plugins/app/_config/store'
+import Axios from 'axios'
 
 export default defineComponent({
   name: 'User',
@@ -91,7 +93,6 @@ export default defineComponent({
     IonLabel,
     IonRefresher,
     IonRefresherContent,
-    IonList,
     IonItem,
   },
   data() {
@@ -99,21 +100,17 @@ export default defineComponent({
       locationOutline,
       mapOutline,
       id: '0',
+      user: {} as User,
     }
-  },
-  computed: {
-    user(): LeaderboardUser|undefined {
-      console.log(this.id)
-      return this.$store.getters.getUserById(this.id)
-    },
   },
   mounted() {
     store.dispatch('setUserLocation')
   },
   async ionViewWillEnter() {
-    console.log('test')
     this.id = this.$route.params.id as string
-    console.log(this.id)
+
+    const user = await Axios.get(`https://mapovanie.hybridlab.dev/cms/api/v1/users/${this.id}`)
+    this.user = user.data.data
   },
   methods: {
     ...mapActions(['fetchUserinfo']),
@@ -125,7 +122,41 @@ export default defineComponent({
       e.target.complete()
     },
   },
-
 })
-
 </script>
+
+<style lang="postcss" scoped>
+ion-avatar {
+  height: 40px;
+  width: 40px;
+}
+
+.group-text {
+  @apply text-base font-bold m-0;
+
+  color: var(--ion-text-color);
+}
+
+.member-text {
+  @apply font-semibold mb-1 text-sm;
+}
+
+ion-item {
+  --inner-padding-top: 0.2rem;
+  --inner-padding-bottom: 0.2rem;
+}
+
+.divider {
+  border-left: 0.5px #c8c7cc solid;
+}
+
+.divider-horizontal {
+  border-bottom: 0.5px #c8c7cc solid;
+}
+
+@media (prefers-color-scheme: dark) {
+  .divider {
+    border: 0.5px #404040 solid;
+  }
+}
+</style>

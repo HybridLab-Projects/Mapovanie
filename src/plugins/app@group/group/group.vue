@@ -72,13 +72,18 @@
           Opustiť skupinu
         </ion-button>
       </div>
-      <hr class="ion-margin-vertical">
-      <div>
+      <div class="ion-margin-vertical w-full divider-horizontal" />
+      <div v-if="entities?.length">
         <a-card
           v-for="entity in entities"
           :key="entity.id"
           :entity="entity"
         />
+      </div>
+      <div v-else>
+        <p class="text-gray-400 text-center">
+          Skupina zatiaľ nemá žiadne príspevky.
+        </p>
       </div>
       <ion-fab
         slot="fixed"
@@ -222,7 +227,11 @@ ion-item {
 }
 
 .divider {
-  border: 0.5px #c8c7cc solid;
+  border-left: 0.5px #c8c7cc solid;
+}
+
+.divider-horizontal {
+  border-bottom: 0.5px #c8c7cc solid;
 }
 
 @media (prefers-color-scheme: dark) {
