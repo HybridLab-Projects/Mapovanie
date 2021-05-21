@@ -27,10 +27,10 @@
         <ion-avatar class="ion-margin-end avatar">
           <img :src="entity?.category?.group?.image.url">
         </ion-avatar>
-        <ion-text class="flex ion-justify-content-between flex-grow">
-          <p>{{ entity?.category?.group?.name }}</p>
-          <p>
-            {{ when }}
+        <ion-text class="">
+          <p>{{ entity?.category?.group?.name }} • {{ entity?.user?.name }}</p>
+          <p class="text-gray-400">
+            {{ when }} • {{ distanceFromObject }} km od teba
           </p>
         </ion-text>
       </div>
@@ -39,14 +39,14 @@
         :src="entity?.images[0]?.url"
       />
       <div class="ion-margin">
-        <ion-text>
+        <ion-label>
           <p v-if="entity?.description?.length">
             {{ entity?.description }}
           </p>
           <p v-else>
             Užívateľ neposkytol žiadny popis.
           </p>
-        </ion-text>
+        </ion-label>
         <ion-list class="ion-margin-top">
           <ion-item>
             <ion-avatar slot="start">
