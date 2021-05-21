@@ -6,9 +6,14 @@
   >
     <ion-card-content class="flex pb-4 pl-4 pr-0 pt-0">
       <div class="flex mt-4">
-        <ion-avatar class="ion-margin-end ion-align-self-center card-avatar" @click="avatarClick">
-          <img :src="entity.category.group.image.url">
-        </ion-avatar>
+        <div>
+          <ion-avatar
+            class="ion-margin-end ion-align-self-center card-avatar"
+            @click="avatarClick"
+          >
+            <img :src="entity.category.group.image.url">
+          </ion-avatar>
+        </div>
         <div class="flex flex-col w-full">
           <ion-text color="dark">
             <p class="font-bold">
@@ -152,7 +157,7 @@ ion-icon {
 
 @media (prefers-color-scheme: dark) {
   .object-card {
-    box-shadow: rgb(255 255 255 / 15%) 0 4px 16px;
+    box-shadow: none;
   }
 }
 

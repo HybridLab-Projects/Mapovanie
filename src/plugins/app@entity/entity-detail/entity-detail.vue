@@ -6,7 +6,7 @@
           <ion-back-button />
         </ion-buttons>
         <ion-title>
-          {{ entity?.category.full_name }}
+          {{ entity?.category?.full_name }}
         </ion-title>
         <ion-buttons slot="end">
           <ion-button @click="openReportModal()">
@@ -19,61 +19,67 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content class="ion-padding">
-      <div
-        class="flex ion-align-items-center ion-margin-bottom"
-        @click="$router.push(`/user/${entity?.user.id}`)"
-      >
-        <ion-avatar class="ion-margin-end avatar">
-          <img :src="entity?.user?.avatar">
-        </ion-avatar>
-        <ion-text class="flex ion-justify-content-between flex-grow">
-          <p>{{ entity?.user?.name }}</p>
-          <p>
-            {{ when }}
-          </p>
-        </ion-text>
-      </div>
+    <ion-content>
+      <ion-card-content class="flex pb-4 pl-4 pr-0 pt-0">
+        <div class="flex mt-4">
+          <div>
+            <ion-avatar
+              class="ion-margin-end ion-align-self-center"
+              @click="avatarClick()"
+            >
+              <img :src="entity?.category?.group?.image?.url">
+            </ion-avatar>
+          </div>
+          <div class="flex flex-col w-full">
+            <ion-text color="dark">
+              <p class="font-bold">
+                {{ entity?.category?.group?.name }} &#9679; {{ entity?.category?.full_name }}
+              </p>
+            </ion-text>
+            <ion-text color="medium">
+              <p>{{ distanceFromObject }} km od teba &#9679; {{ when }}</p>
+            </ion-text>
+          </div>
+        </div>
+      </ion-card-content>
       <ion-img
-        class="image-border-radius ion-margin-bottom"
+        class="ion-margin-bottom"
         :src="entity?.images[0]?.url"
       />
-      <ion-text
-        color="medium"
-        class="ion-text-center"
-      >
-        <h5 class="font-bold ion-align-self-center ion-no-margin text-lg">
-          {{ entity?.address?.split(',')[0] }}
-        </h5>
-      </ion-text>
-
-      <ion-text>
-        <h1 class="ion-margin-top text-2xl">
-          Popis
-        </h1>
-        <p v-if="entity?.description?.length">
-          {{ entity?.description }}
-        </p>
-        <p v-else>
-          Užívateľ neposkytol žiadny popis.
-        </p>
-      </ion-text>
-
-      <ion-text>
-        <h1 class="ion-margin-top text-2xl">
-          Poloha
-        </h1>
-      </ion-text>
+      <div>
+        <div class="ion-margin-horizontal">
+          <p v-if="entity?.description?.length">
+            {{ entity?.description }}
+          </p>
+          <p v-else>
+            Užívateľ neposkytol žiadny popis.
+          </p>
+        </div>
+        <div class="flex items-center mx-2 px-2 mt-4 pb-3 border-b">
+          <ion-avatar slot="start" class="mr-2">
+            <img :src="require('./img/location.svg')">
+          </ion-avatar>
+          <ion-label class="font-bold">
+            {{ entity?.address?.split(',')[0] }}
+          </ion-label>
+        </div>
+        <div
+          class="flex items-center mx-2 px-2 mb-8 mt-3"
+          @click="$router.push(`/user/${entity?.user.id}`)"
+        >
+          <ion-avatar slot="start" class="mr-2">
+            <img :src="entity?.user?.avatar">
+          </ion-avatar>
+          <ion-label class="font-bold">
+            {{ entity?.user?.name }}
+          </ion-label>
+        </div>
+      </div>
 
       <div :id="`map-container-entity-${entity?.id}`" class="map-container-report" />
-
-      <!-- <ion-text class="flex ion-margin-top">
-          <h1
-            class="ion-no-margin ion ion-align-self-center"
-          >
-            {{ entity?.category.full_name }}
-          </h1>
-        </ion-text> -->
+      <ion-button class="ion-margin" expand="block" @click="openReportModal">
+        Navrhnúť úpravu
+      </ion-button>
     </ion-content>
   </ion-page>
 </template>
@@ -95,6 +101,10 @@ import {
   IonBackButton,
   modalController,
   IonAvatar,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonCardContent,
 } from '@ionic/vue'
 
 import { megaphoneOutline, locationOutline, mapOutline } from 'ionicons/icons'
@@ -121,6 +131,8 @@ export default defineComponent({
     IonTitle,
     IonBackButton,
     IonAvatar,
+    IonLabel,
+    IonCardContent,
   },
   data() {
     return {
@@ -176,24 +188,23 @@ export default defineComponent({
       })
       return modal.present()
     },
+    avatarClick() {
+      this.$router.push(`/group/${this.entity?.category.group.id}`)
+    },
   },
+
 })
 </script>
 
 <style lang="postcss" scoped>
-.image-border-radius::part(image) {
-  border-radius: 1rem;
-}
-
-.avatar {
-  height: 2.5rem;
-  width: 2.5rem;
-}
 
 .map-container-report {
   aspect-ratio: 1 / 1;
-  border-radius: 1rem;
   margin-top: 1rem !important;
   width: 100%;
+}
+ion-avatar {
+  height: 40px;
+  width: 40px;
 }
 </style>
