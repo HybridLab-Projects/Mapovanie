@@ -25,10 +25,10 @@
         @click="$router.push(`/user/${entity?.user.id}`)"
       >
         <ion-avatar class="ion-margin-end avatar">
-          <img :src="entity.category.group.image.url">
+          <img :src="entity?.category?.group?.image.url">
         </ion-avatar>
         <ion-text class="flex ion-justify-content-between flex-grow">
-          <p>{{ entity.category.group?.name }}</p>
+          <p>{{ entity?.category?.group?.name }}</p>
           <p>
             {{ when }}
           </p>
@@ -64,7 +64,9 @@
       </div>
 
       <div :id="`map-container-entity-${entity?.id}`" class="map-container-report" />
-      <ion-button class="ion-margin" expand="block">Navrhnúť úpravu</ion-button>
+      <ion-button class="ion-margin" expand="block">
+        Navrhnúť úpravu
+      </ion-button>
 
       <!-- <ion-text class="flex ion-margin-top">
           <h1
