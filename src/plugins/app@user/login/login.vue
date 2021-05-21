@@ -127,8 +127,9 @@ export default defineComponent({
 
 @media (prefers-color-scheme: dark) {
   ion-content {
-    --background: linear-gradient(transparent, var(--ion-background-color) 35%)
-    , url("./img/map-dark.svg");
+    --background:
+      linear-gradient(transparent, var(--ion-background-color) 35%),
+      url("./img/map-dark.svg");
   }
 
   ion-img {
@@ -145,8 +146,9 @@ export default defineComponent({
 
 @media (prefers-color-scheme: light) {
   ion-content {
-    --background: linear-gradient(transparent, var(--ion-background-color) 35%)
-    , url("./img/map.svg");
+    --background:
+      linear-gradient(transparent, var(--ion-background-color) 35%),
+      url("./img/map.svg");
   }
 
   .apple-login {

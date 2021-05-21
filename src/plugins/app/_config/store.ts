@@ -4,7 +4,8 @@ import {
 } from '@/plugins/app/_config/types'
 import Axios from 'axios'
 
-import { Plugins } from '@capacitor/core'
+import { GeolocationPosition, Plugins } from '@capacitor/core'
+import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 import Geojson, { FeatureCollection, Point } from 'geojson'
 // eslint-disable-next-line import/no-cycle
 import router from './router'
@@ -19,6 +20,7 @@ export default createStore<State>({
     leaderboardUsers: [],
     myMapUnChecked: [],
     groups: [],
+    userLocation: {} as GeolocationPosition,
   },
   mutations: {
     entitiesFetched(state, entities) {
@@ -50,6 +52,9 @@ export default createStore<State>({
     },
     groupsFetched(state, groups) {
       state.groups = groups.data
+    },
+    userLocationSet(state, userLocation) {
+      state.userLocation = userLocation
     },
   },
   actions: {
@@ -140,6 +145,10 @@ export default createStore<State>({
         console.log(err)
         throw err
       }
+    },
+    async setUserLocation({ commit }) {
+      const userLocation = await Geolocation.getDeviceLocation()
+      commit('userLocationSet', userLocation)
     },
   },
   getters: {

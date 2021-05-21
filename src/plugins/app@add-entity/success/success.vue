@@ -2,17 +2,24 @@
   <ion-page>
     <a-header title="Mapovanie" />
     <ion-content class="ion-padding ion-text-center">
-      <ion-img :src="require('./img/confirmed.svg')" class="ion-margin-bottom" />
-      <h1>Ďakujeme</h1>
-      <p>Lavička bola úspešne pridaná do databázy.</p>
+      <ion-img :src="require('./img/success.svg')" class="ion-margin-bottom" />
+      <ion-text class="text-3xl">
+        <h1>Ďakujeme</h1>
+      </ion-text>
+      <ion-text>
+        <p class="mt-6">
+          Lavička bola úspešne pridaná do mapy.
+        </p>
+      </ion-text>
     </ion-content>
+
     <ion-footer>
       <ion-button
         expand="block"
         class="ion-margin"
         @click="hotfix()"
       >
-        Späť na domovskú obrazovku
+        Späť na príspevky
       </ion-button>
     </ion-footer>
   </ion-page>
@@ -26,6 +33,8 @@ import {
   IonContent,
   IonButton,
   IonFooter,
+  IonText,
+  IonImg,
 } from '@ionic/vue'
 
 export default defineComponent({
@@ -35,6 +44,8 @@ export default defineComponent({
     IonPage,
     IonButton,
     IonFooter,
+    IonText,
+    IonImg,
   },
   methods: {
     // TODO fix ionic thing

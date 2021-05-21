@@ -34,10 +34,13 @@ ion-button {
 
 ion-badge {
   --background: var(--ion-color-primary);
+
   border-radius: 4px;
+  font-weight: normal;
 }
 
 ion-tab-bar {
   height: 4rem;
+
   --background: var(--ion-toolbar-background);
 }

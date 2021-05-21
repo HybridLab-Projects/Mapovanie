@@ -76,10 +76,6 @@ export default defineComponent({
       type: Object as PropType<Entity>,
       required: true,
     },
-    userLocation: {
-      type: Object as PropType<GeolocationPosition>,
-      required: true,
-    },
   },
   data() {
     return {
@@ -92,6 +88,9 @@ export default defineComponent({
     },
     when(): string|null {
       return DateTime.fromISO(this.entity.updated_at).toRelative({ locale: 'sk' })
+    },
+    userLocation(): GeolocationPosition {
+      return this.$store.state.userLocation
     },
   },
   methods: {
