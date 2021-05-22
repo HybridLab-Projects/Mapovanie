@@ -54,18 +54,43 @@
           </div>
         </div>
       </div>
-      <div class="ion-margin-vertical w-full divider-horizontal" />
-      <div v-if="user?.entities?.length">
-        <a-card
-          v-for="entity in user?.entities"
-          :key="entity.id"
-          :entity="entity"
-        />
+      <div class="px-4 pt-6 pb-4">
+        <ion-segment v-model="segmentValue" value="entities">
+          <ion-segment-button value="entities">
+            <ion-label>Objekty</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="groups">
+            <ion-label>Skupiny</ion-label>
+          </ion-segment-button>
+        </ion-segment>
       </div>
-      <div v-else>
-        <p class="text-gray-400 text-center">
-          Nemáte zatiaľ žiadne príspevky.
-        </p>
+      <div v-if="segmentValue === 'entities'">
+        <div v-if="user?.entities?.length">
+          <a-card
+            v-for="entity in user?.entities"
+            :key="entity.id"
+            :entity="entity"
+          />
+        </div>
+        <div v-else>
+          <p class="text-gray-400 text-center">
+            Zatiaľ nemáte žiadne príspevky.
+          </p>
+        </div>
+      </div>
+      <div v-if="segmentValue === 'groups'">
+        <div v-if="userGroups.length">
+          <a-group-item
+            v-for="group in userGroups"
+            :key="group.id"
+            :group="group"
+          />
+        </div>
+        <div v-else>
+          <p class="text-gray-400 text-center">
+            Zatiaľ nie ste v žiadnych skupinách.
+          </p>
+        </div>
       </div>
     </ion-content>
   </ion-page>
@@ -81,7 +106,7 @@ import {
   IonRefresherContent,
   IonList,
   IonItem,
-  IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon,
+  IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonSegment, IonSegmentButton,
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
 import { mapActions, mapState } from 'vuex'
@@ -89,10 +114,14 @@ import { locationOutline, mapOutline, settingsOutline } from 'ionicons/icons'
 import ACard from '@/plugins/app/_components/a-card.vue'
 import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 import store from '@/plugins/app/_config/store'
+import { Group } from '@/plugins/app/_config/types'
+import Axios from 'axios'
+import AGroupItem from '@/plugins/app/_components/a-group-item.vue'
 
 export default defineComponent({
   name: 'Profile',
   components: {
+    AGroupItem,
     ACard,
     IonPage,
     IonContent,
@@ -107,25 +136,35 @@ export default defineComponent({
     IonButtons,
     IonButton,
     IonIcon,
+    IonSegment,
+    IonSegmentButton,
   },
   data() {
     return {
       locationOutline,
       mapOutline,
       settingsOutline,
+      segmentValue: 'entities',
+      userGroups: [] as Group[],
     }
   },
   computed: {
     ...mapState(['user']),
   },
-  mounted() {
+  async mounted() {
     store.dispatch('setUserLocation')
+
+    const userGroups = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/my-groups')
+    this.userGroups = userGroups.data.data
   },
   methods: {
     ...mapActions(['fetchUserinfo']),
     async doRefresh(e: CustomEvent) {
       await this.$store.dispatch('fetchUserinfo')
       await store.dispatch('setUserLocation')
+
+      const userGroups = await Axios.get('https://mapovanie.hybridlab.dev/cms/api/v1/my-groups')
+      this.userGroups = userGroups.data.data
 
       // @ts-expect-error ionic stuff
       e.target.complete()
@@ -160,15 +199,8 @@ ion-item {
   border-left: 0.5px #c8c7cc solid;
 }
 
-.divider-horizontal {
-  border-bottom: 0.5px #c8c7cc solid;
-}
-
 @media (prefers-color-scheme: dark) {
   .divider {
-    border: 0.5px #404040 solid;
-  }
-  .divider-horizontal {
     border: 0.5px #404040 solid;
   }
 }

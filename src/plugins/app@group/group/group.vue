@@ -82,7 +82,6 @@
           </ion-segment-button>
         </ion-segment>
       </div>
-      <!--      <div class="ion-margin-vertical w-full divider-horizontal" />-->
       <div v-if="segmentValue === 'entities'">
         <div v-if="entities?.length">
           <a-card
@@ -262,16 +261,8 @@ ion-avatar {
   border-left: 0.5px #c8c7cc solid;
 }
 
-.divider-horizontal {
-  border-bottom: 0.5px #c8c7cc solid;
-}
-
 @media (prefers-color-scheme: dark) {
   .divider {
-    border: 0.5px #404040 solid;
-  }
-
-  .divider-horizontal {
     border: 0.5px #404040 solid;
   }
 }
