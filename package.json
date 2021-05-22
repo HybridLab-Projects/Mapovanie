@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@capacitor-community/apple-sign-in": "^0.0.14",
-    "@capacitor-community/facebook-login": "^2.0.0",
+    "@capacitor-community/facebook-login": "^3.0.0",
     "@capacitor/android": "^2.4.7",
     "@capacitor/core": "^2.4.7",
     "@capacitor/ios": "^2.4.7",
