@@ -14,8 +14,8 @@
   "dependencies": {
     "@capacitor-community/apple-sign-in": "^0.0.14",
     "@capacitor-community/facebook-login": "^2.0.0",
-    "@capacitor/android": "^2.4.7",
-    "@capacitor/core": "^2.4.7",
+    "@capacitor/android": "^3.0.0",
+    "@capacitor/core": "^3.0.0",
     "@capacitor/ios": "^2.4.7",
     "@ionic/pwa-elements": "^3.0.2",
     "@ionic/vue": "^5.6.7",
