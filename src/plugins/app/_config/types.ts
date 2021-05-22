@@ -3,6 +3,14 @@
 
 import { GeolocationPosition } from '@capacitor/core'
 
+export interface GroupMember {
+    id: number,
+    is_active: boolean,
+    is_invited: boolean,
+    role: string,
+    user: User
+}
+
 export interface Group {
     id: number,
     name: string,
@@ -14,7 +22,7 @@ export interface Group {
     description: string,
     tags_string: string,
     members_count: number,
-    members: [{id: number, is_active: boolean, is_invited: boolean, user: User}],
+    members: GroupMember[],
     categories: Array<Category>,
     invite_hash: string,
     invite_expires_at: string;

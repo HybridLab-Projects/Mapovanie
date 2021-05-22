@@ -12,7 +12,7 @@
       <!--          <img :src="group?.image?.url">-->
       <!--        </ion-avatar>-->
       <div class="ion-padding-horizontal">
-        <ion-item lines="full">
+        <ion-item class="item-padding" lines="full">
           <ion-avatar slot="start">
             <img :src="group?.image?.url">
           </ion-avatar>
@@ -72,19 +72,46 @@
           Opustiť skupinu
         </ion-button>
       </div>
-      <div class="ion-margin-vertical w-full divider-horizontal" />
-      <div v-if="entities?.length">
-        <a-card
-          v-for="entity in entities"
-          :key="entity.id"
-          :entity="entity"
-        />
+      <div class="px-4 pt-6 pb-4">
+        <ion-segment v-model="segmentValue" value="entities">
+          <ion-segment-button value="entities">
+            <ion-label>Objekty</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="members">
+            <ion-label>Členovia</ion-label>
+          </ion-segment-button>
+        </ion-segment>
       </div>
-      <div v-else>
-        <p class="text-gray-400 text-center">
-          Skupina zatiaľ nemá žiadne príspevky.
-        </p>
+      <!--      <div class="ion-margin-vertical w-full divider-horizontal" />-->
+      <div v-if="segmentValue === 'entities'">
+        <div v-if="entities?.length">
+          <a-card
+            v-for="entity in entities"
+            :key="entity?.id"
+            :entity="entity"
+          />
+        </div>
+        <div v-else>
+          <p class="text-gray-400 text-center">
+            Skupina zatiaľ nemá žiadne príspevky.
+          </p>
+        </div>
       </div>
+      <div v-if="segmentValue === 'members'">
+        <div v-if="group?.members?.length">
+          <a-group-member-item
+            v-for="member in group?.members"
+            :key="member?.id"
+            :member="member"
+          />
+        </div>
+        <div v-else>
+          <p class="text-gray-400 text-center">
+            Skupina zatiaľ nemá žiadnych členov.
+          </p>
+        </div>
+      </div>
+
       <ion-fab
         slot="fixed"
         vertical="bottom"
@@ -117,7 +144,7 @@ import {
   IonItem,
   IonButton,
   IonBadge, IonLabel, IonFabButton, IonFab,
-  IonIcon,
+  IonIcon, IonSegment, IonSegmentButton,
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
 import { locationOutline, mapOutline } from 'ionicons/icons'
@@ -125,10 +152,12 @@ import { Entity, Group, User } from '@/plugins/app/_config/types'
 import Axios from 'axios'
 import ACard from '@/plugins/app/_components/a-card.vue'
 import store from '@/plugins/app/_config/store'
+import AGroupMemberItem from '@/plugins/app/_components/a-group-member-item.vue'
 
 export default defineComponent({
   name: 'Group',
   components: {
+    AGroupMemberItem,
     ACard,
     IonPage,
     IonContent,
@@ -142,6 +171,8 @@ export default defineComponent({
     IonFabButton,
     IonFab,
     IonIcon,
+    IonSegment,
+    IonSegmentButton,
   },
   data() {
     return {
@@ -150,6 +181,7 @@ export default defineComponent({
       id: '0',
       group: {} as Group,
       entities: [] as Entity[],
+      segmentValue: 'entities',
     }
   },
   async ionViewWillEnter() {
@@ -221,7 +253,7 @@ ion-avatar {
   @apply font-semibold mb-1 text-sm;
 }
 
-ion-item {
+.item-padding {
   --inner-padding-top: 0.2rem;
   --inner-padding-bottom: 0.2rem;
 }
@@ -236,6 +268,10 @@ ion-item {
 
 @media (prefers-color-scheme: dark) {
   .divider {
+    border: 0.5px #404040 solid;
+  }
+
+  .divider-horizontal {
     border: 0.5px #404040 solid;
   }
 }

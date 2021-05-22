@@ -158,5 +158,8 @@ ion-item {
   .divider {
     border: 0.5px #404040 solid;
   }
+  .divider-horizontal {
+    border: 0.5px #404040 solid;
+  }
 }
 </style>
