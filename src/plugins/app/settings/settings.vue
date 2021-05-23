@@ -76,3 +76,11 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="postcss" scoped>
+ion-item {
+  --inner-padding-bottom: 0.2rem;
+  --inner-padding-top: 0.2rem;
+  font-weight: bold;
+}
+</style>
