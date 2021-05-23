@@ -44,3 +44,7 @@ ion-tab-bar {
 
   --background: var(--ion-toolbar-background);
 }
+
+ion-segment-button > ion-label {
+  font-weight: bold;
+}

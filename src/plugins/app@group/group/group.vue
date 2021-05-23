@@ -75,10 +75,14 @@
       <div class="px-4 pt-6 pb-4">
         <ion-segment v-model="segmentValue" value="entities">
           <ion-segment-button value="entities">
-            <ion-label>Objekty</ion-label>
+            <ion-label>
+              Objekty
+            </ion-label>
           </ion-segment-button>
           <ion-segment-button value="members">
-            <ion-label>Členovia</ion-label>
+            <ion-label>
+              Členovia
+            </ion-label>
           </ion-segment-button>
         </ion-segment>
       </div>

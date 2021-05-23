@@ -9,51 +9,28 @@
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">
-            Kategórie
+            Odfotiť
           </ion-title>
         </ion-toolbar>
         <ion-toolbar>
-          <ion-searchbar v-model="search" debounce="0" />
+          <ion-searchbar v-model="search" placeholder="Vyhľadaj" />
         </ion-toolbar>
       </ion-header>
+      <ion-refresher
+        slot="fixed"
+        @ionRefresh="doRefresh($event)"
+      >
+        <ion-refresher-content pulling-icon="lines" />
+      </ion-refresher>
       <ion-list>
-        <div v-for="group in groups" :key="group.id">
-          <ion-item
-            :lines="selectedCategory === group.id ? 'none' : 'inset'"
-            button
-            :detail-icon="selectedCategory === group.id ? chevronDown : 'chevron-forward'"
-            class="ion-margin-end"
-            @click="toggleSelectedCategory(group.id)"
-          >
-            <ion-avatar>
-              <img :src="group?.image.url">
-            </ion-avatar>
-            <!--          <ion-icon-->
-            <!--            slot="end"-->
-            <!--            :icon="star"-->
-            <!--            @click.stop="test()"-->
-            <!--          />-->
-            <ion-label class="ion-margin-start">
-              <h2>{{ group.name }}</h2>
-            </ion-label>
-          </ion-item>
-          <div v-if="selectedCategory === group.id">
-            <ion-item
-              v-for="category in group.categories"
-              :key="category.id"
-              button
-              :router-link="`/tutorial/${group.id}/${category.id}`"
-              class="ion-margin-start"
-            >
-              <ion-avatar>
-                <img :src="category?.icon?.url">
-              </ion-avatar>
-              <ion-label class="ion-margin-start">
-                {{ category?.full_name }}
-              </ion-label>
-            </ion-item>
-          </div>
-        </div>
+        <a-category-item
+          v-for="group in searchedGroups"
+          :key="group.id"
+          :group="group"
+          :selected-id="selectedId"
+          @itemClick="selectGroup"
+        />
+        <ion-list />
       </ion-list>
     </ion-content>
   </ion-page>
@@ -74,6 +51,8 @@ import {
   IonTitle,
   IonSearchbar,
   IonAvatar,
+  IonRefresher,
+  IonRefresherContent,
 } from '@ionic/vue'
 
 import {
@@ -82,20 +61,23 @@ import {
   chevronDown,
 } from 'ionicons/icons'
 import { Category, Group } from '@/plugins/app/_config/types'
+import ACategoryItem from '@/plugins/app/_components/a-category-item.vue'
+import groups from '@/plugins/app@group/groups/groups.vue'
+import Axios from 'axios'
 
 export default defineComponent({
   name: 'Categories',
   components: {
+    ACategoryItem,
     IonContent,
     IonPage,
     IonList,
-    IonItem,
-    IonLabel,
-    IonAvatar,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonSearchbar,
+    IonRefresher,
+    IonRefresherContent,
   },
   data() {
     return {
@@ -103,19 +85,28 @@ export default defineComponent({
       star,
       chevronDown,
       search: '',
-      selectedCategory: -1,
+      selectedId: -1,
     }
   },
   computed: {
     groups(): Group[] {
       return this.$store.state.groups
     },
+    searchedGroups(): Group[] {
+      return this.groups.filter((group: Group) => group.name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .includes(this.search.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')))
+    },
   },
   methods: {
-    toggleSelectedCategory(categoryId: number) {
-      this.selectedCategory = this.selectedCategory === categoryId ? -1 : categoryId
+    selectGroup(groupId: number) {
+      this.selectedId = this.selectedId === groupId ? -1 : groupId
     },
     ...mapActions(['fetchCategories']),
+    async doRefresh(e: CustomEvent) {
+      await this.$store.dispatch('fetchGroups')
+      // @ts-expect-error ionic stuff
+      e.target.complete()
+    },
   },
 })
 </script>
