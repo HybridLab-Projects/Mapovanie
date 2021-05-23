@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <a-header title="Užívateľ" back />
-    <ion-content class="ion-padding">
+    <ion-content>
       <ion-refresher
         slot="fixed"
         @ionRefresh="doRefresh($event)"
@@ -9,7 +9,7 @@
         <ion-refresher-content pulling-icon="lines" />
       </ion-refresher>
 
-      <div>
+      <div class="ion-padding-horizontal">
         <ion-item lines="none">
           <ion-avatar slot="start">
             <img :src="user?.avatar">

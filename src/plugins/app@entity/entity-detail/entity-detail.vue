@@ -46,8 +46,8 @@
         class="ion-margin-bottom"
         :src="entity?.images[0]?.url"
       />
-      <div>
-        <div class="ion-margin-horizontal">
+      <div class="mx-4 ion-margin-top">
+        <div>
           <p v-if="entity?.description?.length">
             {{ entity?.description }}
           </p>
@@ -55,7 +55,7 @@
             Užívateľ neposkytol žiadny popis.
           </p>
         </div>
-        <div class="flex items-center mx-2 px-2 mt-4 pb-3 border-b">
+        <div class="flex items-center mt-6 mb-3">
           <ion-avatar slot="start" class="mr-2">
             <img :src="require('./img/location.svg')">
           </ion-avatar>
@@ -63,8 +63,9 @@
             {{ entity?.address?.split(',')[0] }}
           </ion-label>
         </div>
+        <div class="divider my-4" />
         <div
-          class="flex items-center mx-2 px-2 mb-8 mt-3"
+          class="flex items-center my-3"
           @click="$router.push(`/user/${entity?.user.id}`)"
         >
           <ion-avatar slot="start" class="mr-2">
@@ -161,7 +162,6 @@ export default defineComponent({
     this.userLocation = await Geolocation.getDeviceLocation()
   },
   ionViewDidEnter() {
-    if (!document.querySelector(`#map-container-entity-${this.entity?.id}`)) return
     Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
     if (!this.entity) return
     if (Object.keys(this.map).length) return
@@ -206,5 +206,17 @@ export default defineComponent({
 ion-avatar {
   height: 40px;
   width: 40px;
+}
+
+.divider {
+  width: 100%;
+  border-bottom: 0.5px #c8c7cc solid;
+}
+
+@media (prefers-color-scheme: dark) {
+  .divider {
+    width: 100%;
+    border-bottom: 0.5px #404040 solid;
+  }
 }
 </style>

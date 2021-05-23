@@ -75,4 +75,14 @@ ion-item {
   --inner-padding-top: 0.2rem;
   --inner-padding-bottom: 0.2rem;
 }
+
+ion-item::part(detail-icon) {
+  color: var(--ion-text-color);
+  opacity: 1;
+  border: 1px #dddde2 solid;
+  border-radius: 100%;
+  padding: 0.5625rem;
+  font-size: 0.625rem;
+  margin-right: 0.5rem;
+}
 </style>
