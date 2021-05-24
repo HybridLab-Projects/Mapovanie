@@ -7,7 +7,7 @@
     @click="itemClick()"
   >
     <ion-avatar slot="start">
-      <img :src="group?.image.url">
+      <img :src="group?.image">
     </ion-avatar>
     <ion-label>
       <p class="group-text">
@@ -24,9 +24,9 @@
       :router-link="`/tutorial/${group.id}/${category.id}`"
     >
       <ion-avatar slot="start">
-        <img :src="category.icon.url">
+        <img :src="category?.icon">
       </ion-avatar>
-      <ion-label>{{ category.full_name }}</ion-label>
+      <ion-label>{{ category?.full_name }}</ion-label>
     </ion-item>
   </ion-list>
 </template>

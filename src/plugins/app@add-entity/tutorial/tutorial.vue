@@ -2,7 +2,7 @@
   <ion-page>
     <a-header back :title="category?.full_name || 'Objekt'" />
     <ion-content class="ion-padding">
-      <ion-img :src="category?.icon.url" />
+      <ion-img :src="category?.icon" />
       <h1 class="ion-margin-vertical">
         Ako fotiť?
       </h1>

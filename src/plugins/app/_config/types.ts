@@ -26,7 +26,7 @@ export interface Group {
     categories: Array<Category>,
     invite_hash: string,
     invite_expires_at: string;
-    image: {url: string};
+    image: string;
     entities_count: string
 }
 
@@ -36,7 +36,7 @@ export interface Category {
     full_name: string;
     description: string;
     group: Group;
-    icon: {url: string};
+    icon: string;
     created_at: string;
     updated_at: string;
 }

@@ -1,7 +1,7 @@
 <template>
   <ion-item button :router-link="`/group/${group?.id}`">
     <ion-avatar slot="start">
-      <img :src="group?.image.url">
+      <img :src="group?.image">
     </ion-avatar>
     <ion-label>
       <p class="group-text">

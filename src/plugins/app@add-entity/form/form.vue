@@ -1,32 +1,36 @@
 <template>
   <ion-page>
     <a-header
-      title="Pridať lavičku"
+      title="Formulár"
       back
     />
-    <ion-content class="ion-padding">
+    <ion-content>
       <ion-img
         :src="image.webPath"
-        class="ion-padding form-img"
+        class="ion-margin-top"
         @click="retakePicture()"
       />
-      <ion-item>
+      <ion-item class="ion-margin-bottom">
         <ion-label position="floating">
           Popis
         </ion-label>
         <ion-textarea v-model="description" />
       </ion-item>
+      <ion-text>
+        <h4 class="ion-text-center ion-margin-vertical font-bold">
+          Presná poloha
+        </h4>
+      </ion-text>
       <div id="map-container-form" class="map-container-form" />
-    </ion-content>
-    <ion-footer>
       <ion-button
         expand="block"
         class="ion-margin"
+        :disabled="!description.length"
         @click="submit()"
       >
         Odoslať
       </ion-button>
-    </ion-footer>
+    </ion-content>
   </ion-page>
 </template>
 
@@ -41,7 +45,7 @@ import {
   IonImg,
   IonButton,
   IonFooter,
-  IonTextarea, IonLabel, IonItem,
+  IonTextarea, IonLabel, IonItem, IonText,
 } from '@ionic/vue'
 import Axios from 'axios'
 
@@ -60,10 +64,10 @@ export default defineComponent({
     IonContent,
     IonImg,
     IonButton,
-    IonFooter,
     IonTextarea,
     IonLabel,
     IonItem,
+    IonText,
   },
   data() {
     return {
@@ -162,14 +166,8 @@ export default defineComponent({
 </script>
 
 <style lang="postcss" scoped>
-.form-img::part(image) {
-  border-radius: 5%;
-}
-
 .map-container-form {
-  border-radius: 5%;
-  height: 70vw;
-  margin: 2rem auto auto;
-  width: calc(100% - 2rem);
+  height: 100vw;
+  width: 100vw;
 }
 </style>

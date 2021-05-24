@@ -22,7 +22,7 @@
           @click="toggleSelectedCategory(group.id)"
         >
           <ion-avatar>
-            <img :src="group?.image.url">
+            <img :src="group?.image">
           </ion-avatar>
           <!--          <ion-icon-->
           <!--            slot="end"-->
@@ -40,7 +40,7 @@
             class="ion-margin-start"
           >
             <ion-avatar>
-              <img :src="category?.icon?.url">
+              <img :src="category?.icon">
             </ion-avatar>
             <ion-label class="ion-margin-start">
               {{ category?.full_name }}

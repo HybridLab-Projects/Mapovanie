@@ -8,13 +8,10 @@
       >
         <ion-refresher-content pulling-icon="lines" />
       </ion-refresher>
-      <!--        <ion-avatar class="h-16 w-16">-->
-      <!--          <img :src="group?.image?.url">-->
-      <!--        </ion-avatar>-->
       <div class="ion-padding-horizontal">
         <ion-item class="item-padding" lines="full">
           <ion-avatar slot="start">
-            <img :src="group?.image?.url">
+            <img :src="group?.image">
           </ion-avatar>
           <ion-label>
             <p class="group-text">

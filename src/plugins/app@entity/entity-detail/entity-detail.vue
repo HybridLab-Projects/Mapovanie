@@ -27,7 +27,7 @@
               class="ion-margin-end ion-align-self-center"
               @click="avatarClick()"
             >
-              <img :src="entity?.category?.group?.image?.url">
+              <img :src="entity?.category?.group?.image">
             </ion-avatar>
           </div>
           <div class="flex flex-col w-full">
