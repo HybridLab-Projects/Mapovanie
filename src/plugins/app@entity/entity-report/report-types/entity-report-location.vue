@@ -11,7 +11,7 @@
     <p class="ion-no-margin ion-margin-bottom">
       Prosím vyberte správnu polohu objektu.
     </p>
-    <div id="map-container-report" class="map-container-report" />
+    <div :id="`map-container-report-${entity?.id}`" class="map-container-report" />
   </ion-content>
   <ion-footer class="ion-padding">
     <ion-button expand="block" @click="reportEntity()">
@@ -48,12 +48,12 @@ export default defineComponent({
       map: {} as Mapbox.Map,
     }
   },
-  ionViewDidEnter() {
-    if (!document.querySelector('#map-container-report')) return
+  mounted() {
+    console.log('stest')
     Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
     if (Object.keys(this.map).length) return
     this.map = new Mapbox.Map({
-      container: 'map-container-report',
+      container: `map-container-report-${this.entity?.id}`,
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [+this.entity?.lon, +this.entity?.lat],
       zoom: 18,
@@ -68,6 +68,10 @@ export default defineComponent({
       marker.setLngLat(e.lngLat)
       this.newLocation.lon = e.lngLat.lng
       this.newLocation.lat = e.lngLat.lat
+    })
+
+    this.map.on('load', (e) => {
+      this.map.resize()
     })
   },
   methods: {
@@ -111,8 +115,7 @@ export default defineComponent({
 
 <style lang="postcss" scoped>
 .map-container-report {
-  border-radius: 5%;
-  height: 70vw;
+  height: 80vw;
   width: 100%;
 }
 </style>

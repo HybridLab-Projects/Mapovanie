@@ -199,9 +199,8 @@ export default defineComponent({
 <style lang="postcss" scoped>
 
 .map-container-report {
-  aspect-ratio: 1 / 1;
-  margin-top: 1rem !important;
-  width: 100%;
+  height: 100vw;
+  width: 100vw;
 }
 ion-avatar {
   height: 40px;
