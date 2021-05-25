@@ -4,20 +4,28 @@
       <ion-slides pager="true">
         <ion-slide>
           <div class="ion-padding">
-            <ion-img :src="require('./img/welcome.svg')" />
-            <div>
-              <h2>Vitajte v Mapovaní</h2>
-            </div>
+            <ion-img
+              class="mb-8"
+              :src="require('./img/welcome.svg')"
+            />
+            <ion-text class="text-xl font-bold">
+              <h1>Vitajte v Mapovaní</h1>
+            </ion-text>
           </div>
         </ion-slide>
 
         <ion-slide>
           <div class="ion-padding">
-            <ion-img :src="require('./img/question.svg')" />
+            <ion-img
+              class="mb-8"
+              :src="require('./img/question.svg')"
+            />
             <div>
-              <h2>Čo je to Mapovanie?</h2>
-              <p>
-                Pomôžte zmapovať svoje mesto a uľahčiť život ostatným ľudom v meste.
+              <ion-text class="text-xl font-bold">
+                <h1>Čo je to Mapovanie?</h1>
+              </ion-text>
+              <p class="mt-3">
+                Pomôžte zmapovať svoje okolie a odporučiť zaujímavé miesta ostatným ľudom.
               </p>
             </div>
           </div>
@@ -25,8 +33,30 @@
 
         <ion-slide>
           <div class="ion-padding">
-            <ion-img :src="require('./img/start.svg')" />
-            <h2>Ste pripravený?</h2>
+            <ion-img
+              class="mb-8"
+              :src="require('./img/group.svg')"
+            />
+            <div>
+              <ion-text class="text-xl font-bold">
+                <h1>V skupine to ide lepšie!</h1>
+              </ion-text>
+              <p class="mt-3">
+                Pridajte sa do skupín ktoré Vás zaujímajú a spoznávajte obľúbené miesta.
+              </p>
+            </div>
+          </div>
+        </ion-slide>
+
+        <ion-slide>
+          <div class="ion-padding">
+            <ion-img
+              class="mb-8"
+              :src="require('./img/start.svg')"
+            />
+            <ion-text class="text-xl font-bold">
+              <h1>Ste pripravený?</h1>
+            </ion-text>
             <ion-button
               fill="clear"
               @click="finishSlides()"
