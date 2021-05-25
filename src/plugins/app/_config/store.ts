@@ -4,13 +4,13 @@ import {
 } from '@/plugins/app/_config/types'
 import Axios from 'axios'
 
-import { GeolocationPosition, Plugins } from '@capacitor/core'
+import { Position } from '@capacitor/geolocation'
+import { SplashScreen } from '@capacitor/splash-screen'
+import { Storage } from '@capacitor/storage'
 import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 import Geojson, { FeatureCollection, Point } from 'geojson'
 // eslint-disable-next-line import/no-cycle
 import router from './router'
-
-const { Storage, SplashScreen } = Plugins
 
 export default createStore<State>({
   state: {
@@ -20,7 +20,7 @@ export default createStore<State>({
     leaderboardUsers: [],
     myMapUnChecked: [],
     groups: [],
-    userLocation: {} as GeolocationPosition,
+    userLocation: {} as Position,
   },
   mutations: {
     entitiesFetched(state, entities) {

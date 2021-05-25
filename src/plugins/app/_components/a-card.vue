@@ -52,7 +52,7 @@ import {
   IonImg, IonAvatar, IonText, IonLabel, IonIcon, IonButton,
   IonButtons, actionSheetController, modalController,
 } from '@ionic/vue'
-import { GeolocationPosition } from '@capacitor/core'
+import { Position } from '@capacitor/geolocation'
 import { DateTime } from 'luxon'
 import LocationHelper from '@/plugins/jakub@capacitor/geolocation/_helpers'
 import { ellipsisVertical, megaphone } from 'ionicons/icons'
@@ -89,7 +89,7 @@ export default defineComponent({
     when(): string|null {
       return DateTime.fromISO(this.entity.updated_at).toRelative({ locale: 'sk' })
     },
-    userLocation(): GeolocationPosition {
+    userLocation(): Position {
       return this.$store.state.userLocation
     },
   },

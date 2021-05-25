@@ -1,10 +1,8 @@
-import { GeolocationPosition, Plugins } from '@capacitor/core'
+import { Geolocation, Position } from '@capacitor/geolocation'
 import GeoHelpers from './_helpers'
 
-const { Geolocation } = Plugins
-
 export default {
-  async getDeviceLocation(): Promise<GeolocationPosition> {
+  async getDeviceLocation(): Promise<Position> {
     const deviceLocation = await Geolocation.getCurrentPosition({
       enableHighAccuracy: false,
       maximumAge: 0,
