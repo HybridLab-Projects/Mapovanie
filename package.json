@@ -12,7 +12,7 @@
     "deploy": "npm install && npm run build && rm -rf ../htdocs/js/ && rm -rf ../htdocs/css/ && rm -rf ../htdocs/assets/ && rm ../htdocs/index.html && cp -r dist/. ../htdocs/"
   },
   "dependencies": {
-    "@capacitor-community/apple-sign-in": "^0.0.14",
+    "@capacitor-community/apple-sign-in": "^0.1.1",
     "@capacitor-community/facebook-login": "^2.0.0",
     "@capacitor/android": "^2.4.7",
     "@capacitor/core": "^2.4.7",
