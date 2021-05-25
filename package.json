@@ -32,7 +32,7 @@
     "vuex": "^4.0.1"
   },
   "devDependencies": {
-    "@capacitor/cli": "2.4.7",
+    "@capacitor/cli": "3.0.0",
     "@types/geojson": "^7946.0.7",
     "@types/luxon": "^1.26.5",
     "@types/mapbox-gl": "^2.1.2",
