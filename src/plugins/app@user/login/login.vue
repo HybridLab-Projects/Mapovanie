@@ -8,20 +8,20 @@
           Prihlásenie
         </h1>
         <p class="px-10 mt-1">
-          Prihláste sa cez jedného z poskytovateľov.
+          Prihláste sa cez Facebook alebo Apple.
         </p>
       </ion-text>
       <ion-button
         expand="block"
         size="large"
-        class="mt-10 fb-login ion-margin"
+        class="mt-8 fb-login ion-margin"
         @click="facebookLogin()"
       >
         <ion-icon
           size="large"
           :icon="logoFacebook"
         />
-        <h5 class="ion-no-margin ion-padding font-bold">
+        <h5 class="ion-no-margin font-bold ml-1">
           Prihlásiť sa cez Facebook
         </h5>
       </ion-button>
@@ -34,10 +34,9 @@
       >
         <ion-icon
           size="large"
-          class=""
           :icon="logoApple"
         />
-        <h5 class="ion-no-margin ion-padding font-bold">
+        <h5 class="ion-no-margin font-bold ml-1">
           Prihlásiť sa cez Apple ID
         </h5>
       </ion-button>
