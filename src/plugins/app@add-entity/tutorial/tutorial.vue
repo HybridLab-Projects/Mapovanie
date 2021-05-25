@@ -3,41 +3,25 @@
     <a-header back :title="category?.full_name || 'Objekt'" />
     <ion-content class="ion-padding ion-text-center">
       <ion-img
-        style="width: 80%; margin: auto"
         :src="require('./img/tutorial.svg')"
-        class="ion-margin-bottom"
+        class="ion-margin-bottom w-4/5 mx-auto"
       />
 
       <ion-text class="text-3xl">
-        <h1>Ako odfotiť lavičku ?</h1>
+        <h1>{{ category?.full_name }}</h1>
       </ion-text>
       <ion-text>
         <p class="mt-6 ion-padding-bottom">
-          Mapovaním lavičiek pomáhate ostatným ľudom
-          jednoducho nájsť miesto na odpočinok v našom meste.
-        </p>
-        <p>
-          Prosím odfoťte celú lavičku spredu a upresnite jej polohu na mape.
+          {{ category?.tutorial }}
         </p>
       </ion-text>
-    </ion-content>
-
-    <ion-footer>
-      <!-- <ion-item lines="none">
-        <ion-checkbox
-          slot="start"
-          color="dark"
-        />
-        <ion-label>Už nezobrazovať</ion-label>
-      </ion-item> -->
       <ion-button
         expand="block"
-        class="ion-margin"
         @click="takePicture()"
       >
         Rozumiem
       </ion-button>
-    </ion-footer>
+    </ion-content>
   </ion-page>
 </template>
 
@@ -55,7 +39,7 @@ import {
   // IonItem,
   // IonLabel,
   // IonCheckbox,
-  alertController,
+  alertController, IonText,
 } from '@ionic/vue'
 import { Category } from '@/plugins/app/_config/types'
 
@@ -65,8 +49,8 @@ export default defineComponent({
     IonContent,
     IonPage,
     IonButton,
-    IonFooter,
     IonImg,
+    IonText,
     // IonItem,
     // IonLabel,
     // IonCheckbox,

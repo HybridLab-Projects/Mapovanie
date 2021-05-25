@@ -202,6 +202,7 @@ export default defineComponent({
   height: 100vw;
   width: 100vw;
 }
+
 ion-avatar {
   height: 40px;
   width: 40px;
