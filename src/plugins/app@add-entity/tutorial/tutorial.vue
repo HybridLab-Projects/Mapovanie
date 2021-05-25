@@ -1,17 +1,27 @@
 <template>
   <ion-page>
     <a-header back :title="category?.full_name || 'Objekt'" />
-    <ion-content class="ion-padding">
-      <ion-img :src="category?.icon" />
-      <h1 class="ion-margin-vertical">
-        Ako fotiť?
-      </h1>
-      <p>
-        A great food photograph can do a lot of things! It can make a viewer hungry, it can
-        convince a diner to order a dish and it can sell a hell of a lot of food and recipe books.
-        Knowing how to photograph food to get great results requires a specific knowledge of
-      </p>
+    <ion-content class="ion-padding ion-text-center">
+      <ion-img
+        style="width: 80%; margin: auto"
+        :src="require('./img/tutorial.svg')"
+        class="ion-margin-bottom"
+      />
+
+      <ion-text class="text-3xl">
+        <h1>Ako odfotiť lavičku ?</h1>
+      </ion-text>
+      <ion-text>
+        <p class="mt-6 ion-padding-bottom">
+          Mapovaním lavičiek pomáhate ostatným ľudom
+          jednoducho nájsť miesto na odpočinok v našom meste.
+        </p>
+        <p>
+          Prosím odfoťte celú lavičku spredu a upresnite jej polohu na mape.
+        </p>
+      </ion-text>
     </ion-content>
+
     <ion-footer>
       <!-- <ion-item lines="none">
         <ion-checkbox
@@ -25,7 +35,7 @@
         class="ion-margin"
         @click="takePicture()"
       >
-        Ďalej
+        Rozumiem
       </ion-button>
     </ion-footer>
   </ion-page>
