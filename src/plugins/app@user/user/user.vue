@@ -24,7 +24,7 @@
           </ion-label>
         </ion-item>
         <p class="ion-margin">
-          Mapovanie pekných design domov  #apartmentlivingroom #apartmentliving
+          {{ user?.description }}
         </p>
         <div class="flex justify-between">
           <div class="flex flex-col items-center w-1/2">

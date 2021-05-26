@@ -2,7 +2,6 @@
 	"appId": "dev.hybridlab.mapovanie",
 	"appName": "Mapovanie",
 	"bundledWebRuntime": false,
-	"npmClient": "npm",
 	"webDir": "dist",
 	"plugins": {
 		"SplashScreen": {
