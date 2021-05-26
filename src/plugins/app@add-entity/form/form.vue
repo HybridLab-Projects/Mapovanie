@@ -104,7 +104,6 @@ export default defineComponent({
       .addTo(this.map)
 
     this.map.on('click', (e) => {
-      console.log(e)
       marker.setLngLat(e.lngLat)
       this.deviceLocation.coords.longitude = e.lngLat.lng
       this.deviceLocation.coords.latitude = e.lngLat.lat
