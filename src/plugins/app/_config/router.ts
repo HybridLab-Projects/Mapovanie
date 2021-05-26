@@ -1,11 +1,8 @@
 import { createRouter, createWebHashHistory } from '@ionic/vue-router'
 import { RouteRecordRaw } from 'vue-router'
-import { Plugins } from '@capacitor/core'
 import Tabs from '../_layout/tabs.vue'
 // eslint-disable-next-line import/no-cycle
 import store from './store'
-
-const { Storage, SplashScreen } = Plugins
 
 const routes: Array<RouteRecordRaw> = [
   {

@@ -1,12 +1,10 @@
 import {
-  CameraPhoto, CameraResultType, CameraSource, Plugins,
-} from '@capacitor/core'
+  Camera, Photo, CameraResultType, CameraSource,
+} from '@capacitor/camera'
 import CamHelpers from './_helpers'
 
-const { Camera } = Plugins
-
 export default {
-  async getFullPhoto(): Promise<CameraPhoto> {
+  async getFullPhoto(): Promise<Photo> {
     const photo = await Camera.getPhoto({
       quality: 10,
       allowEditing: false,

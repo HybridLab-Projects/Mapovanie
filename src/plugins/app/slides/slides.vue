@@ -85,13 +85,12 @@ import {
   IonButton,
   IonImg,
   IonIcon,
+  IonText,
 } from '@ionic/vue'
 
 import { arrowForwardOutline } from 'ionicons/icons'
 
-import { Plugins } from '@capacitor/core'
-
-const { Storage } = Plugins
+import { Storage } from '@capacitor/storage'
 
 export default defineComponent({
   name: 'Slides',
@@ -103,6 +102,7 @@ export default defineComponent({
     IonButton,
     IonImg,
     IonIcon,
+    IonText,
   },
   data() {
     return {

@@ -112,7 +112,7 @@ import { megaphoneOutline, locationOutline, mapOutline } from 'ionicons/icons'
 import { Entity } from '@/plugins/app/_config/types'
 import Mapbox from 'mapbox-gl'
 import LocationHelper from '@/plugins/jakub@capacitor/geolocation/_helpers'
-import { GeolocationPosition } from '@capacitor/core'
+import { Position } from '@capacitor/geolocation'
 import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 import { DateTime } from 'luxon'
 import EntityReportModalNav from '../entity-report/entity-report-nav.vue'
@@ -141,7 +141,7 @@ export default defineComponent({
       locationOutline,
       mapOutline,
       id: '0',
-      userLocation: {} as GeolocationPosition,
+      userLocation: {} as Position,
       map: {} as Mapbox.Map,
     }
   },

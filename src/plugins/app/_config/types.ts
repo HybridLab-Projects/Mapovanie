@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-use-before-define */
 
-import { GeolocationPosition } from '@capacitor/core'
+import { Position } from '@capacitor/geolocation'
 
 export interface GroupMember {
     id: number,
@@ -96,5 +96,5 @@ export interface State {
     leaderboardUsers: Array<LeaderboardUser>;
     myMapUnChecked: Array<number>;
     groups: Array<Group>;
-    userLocation: GeolocationPosition
+    userLocation: Position
 }

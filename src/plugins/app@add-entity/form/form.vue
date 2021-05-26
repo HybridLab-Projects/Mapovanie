@@ -49,14 +49,13 @@ import {
 } from '@ionic/vue'
 import Axios from 'axios'
 
-import {
-  Plugins, GeolocationPosition, CameraPhoto,
-} from '@capacitor/core'
+import { Photo } from '@capacitor/camera'
+import { Position } from '@capacitor/geolocation'
+import { Device } from '@capacitor/device'
 import Camera from '@/plugins/jakub@capacitor/camera'
 import Geolocation from '@/plugins/jakub@capacitor/geolocation'
 import Mapbox, { Map } from 'mapbox-gl'
 
-const { Device } = Plugins
 export default defineComponent({
   name: 'Form',
   components: {
@@ -71,8 +70,8 @@ export default defineComponent({
   },
   data() {
     return {
-      image: {} as CameraPhoto,
-      deviceLocation: {} as GeolocationPosition,
+      image: {} as Photo,
+      deviceLocation: {} as Position,
       categoryId: 0,
       groupId: 0,
       description: '',
@@ -105,7 +104,6 @@ export default defineComponent({
       .addTo(this.map)
 
     this.map.on('click', (e) => {
-      console.log(e)
       marker.setLngLat(e.lngLat)
       this.deviceLocation.coords.longitude = e.lngLat.lng
       this.deviceLocation.coords.latitude = e.lngLat.lat
@@ -126,7 +124,7 @@ export default defineComponent({
       })
       try {
         await loading.present()
-        const deviceInfo = await Device.getInfo()
+        const deviceInfo = await Device.getId()
 
         const { longitude, latitude } = this.deviceLocation.coords
 

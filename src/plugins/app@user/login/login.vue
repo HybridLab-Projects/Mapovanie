@@ -56,12 +56,11 @@ import {
   loadingController,
   IonIcon,
 } from '@ionic/vue'
-import { Plugins } from '@capacitor/core'
 import { logoFacebook, logoApple } from 'ionicons/icons'
-import { SignInWithAppleOptions, SignInWithAppleResponse } from '@capacitor-community/apple-sign-in'
+import { SignInWithApple, SignInWithAppleOptions, SignInWithAppleResponse } from '@capacitor-community/apple-sign-in'
+import { FacebookLogin } from '@capacitor-community/facebook-login'
 import Axios from 'axios'
 
-const { SignInWithApple, FacebookLogin } = Plugins
 export default defineComponent({
   name: 'Login',
   components: {
