@@ -3,6 +3,8 @@ import { IonicVue } from '@ionic/vue'
 
 import { defineCustomElements } from '@ionic/pwa-elements/loader'
 
+import VueGtag from 'vue-gtag'
+
 import AHeader from '@/plugins/app/_layout/a-header.vue'
 
 import './custom'
@@ -20,6 +22,13 @@ store.dispatch('appLoad').then(() => {
     })
     .use(router)
     .use(store)
+    .use(VueGtag, {
+      appName: 'Mapovanie',
+      pageTrackerScreenviewEnabled: true,
+      config: {
+        id: 'G-MYF8XK9HJT',
+      },
+    }, router)
 
   console.log('load')
   router.isReady().then(() => {
