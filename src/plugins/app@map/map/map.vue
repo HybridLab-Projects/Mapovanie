@@ -40,7 +40,7 @@ import { mapGetters, mapState } from 'vuex'
 
 import MapFilterModal from '@/plugins/app@map/map-filter/map-filter.vue'
 import { FeatureCollection, GeoJSON, Point } from 'geojson'
-import { Entity } from '@/plugins/app/_config/types'
+import { Category, Entity, Group } from '@/plugins/app/_config/types'
 
 export default defineComponent({
   name: 'Map',
@@ -61,7 +61,10 @@ export default defineComponent({
     }
   },
   computed: {
-    ...mapState(['categories', 'myMapUnChecked']),
+    ...mapState(['myMapUnChecked']),
+    groups(): Group[] {
+      return this.$store.state.groups
+    },
   },
   async ionViewDidEnter() {
     Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
@@ -105,45 +108,25 @@ export default defineComponent({
           'text-size': 12,
         },
       })
+
+      this.groups.forEach((group) => {
+        group.categories.forEach((category) => {
+          this.map.loadImage(category.icon, (err, image) => {
+            if (err || !image) throw err
+            this.map.addImage(category.key, image)
+          })
+        })
+      })
+
       this.map.addLayer({
         id: 'unclustered-point',
         type: 'circle',
         source: 'entities',
         filter: ['!=', 'cluster', true],
         paint: {
-          'circle-color': [
-            'case',
-            // 1
-            ['==', ['get', 'key', ['get', 'category']], 'bin'],
-            '#66E480',
-            // 2
-            ['==', ['get', 'key', ['get', 'category']], 'bench'],
-            '#4CB962',
-            // default
-            '#66E480',
-          ],
-          'circle-radius': 15,
-          'circle-stroke-width': 7.5,
-          'circle-stroke-color': [
-            'case',
-            // 1
-            ['==', ['get', 'key', ['get', 'category']], 'bin'],
-            'rgba(102, 228, 128, 0.5)',
-            // 2
-            ['==', ['get', 'key', ['get', 'category']], 'bench'],
-            'rgba(76, 185, 98, 0.5)',
-            // default
-            'rgba(102, 228, 128, 0.5)',
-          ],
+          'circle-color': '#fff',
+          'circle-radius': 20,
         },
-      })
-      this.map.loadImage('/assets/map/icons/bin.png', (err, image) => {
-        if (err || !image) throw err
-        this.map.addImage('bin', image)
-      })
-      this.map.loadImage('/assets/map/icons/bench.png', (err, image) => {
-        if (err || !image) throw err
-        this.map.addImage('bench', image)
       })
       this.map.addLayer({
         id: 'point-icon',
@@ -151,18 +134,8 @@ export default defineComponent({
         source: 'entities',
         filter: ['!=', 'cluster', true],
         layout: {
-          'icon-image': [
-            'case',
-            // 1
-            ['==', ['get', 'key', ['get', 'category']], 'bin'],
-            'bin',
-            // 2
-            ['==', ['get', 'key', ['get', 'category']], 'bench'],
-            'bench',
-            // default
-            'leaf',
-          ],
-          'icon-size': 0.35,
+          'icon-image': 'ba-lavicky',
+          'icon-size': 0.1,
         },
       })
       this.map.on('click', 'clusters', (e) => {

@@ -13,46 +13,13 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <div v-for="group in groups" :key="group.id">
-        <ion-item
-          :lines="selectedCategory === group.id ? 'none' : 'inset'"
-          button
-          :detail-icon="selectedCategory === group.id ? chevronDown : 'chevron-forward'"
-          class="ion-margin-end"
-          @click="toggleSelectedCategory(group.id)"
-        >
-          <ion-avatar>
-            <img :src="group?.image">
-          </ion-avatar>
-          <!--          <ion-icon-->
-          <!--            slot="end"-->
-          <!--            :icon="star"-->
-          <!--            @click.stop="test()"-->
-          <!--          />-->
-          <ion-label class="ion-margin-start">
-            <h2>{{ group.name }}</h2>
-          </ion-label>
-        </ion-item>
-        <div v-if="selectedCategory === group.id">
-          <ion-item
-            v-for="category in group.categories"
-            :key="category.id"
-            class="ion-margin-start"
-          >
-            <ion-avatar>
-              <img :src="category?.icon">
-            </ion-avatar>
-            <ion-label class="ion-margin-start">
-              {{ category?.full_name }}
-            </ion-label>
-            <ion-checkbox
-              slot="end"
-              :model-value="isChecked(category.id)"
-              @update:model-value="check(category.id)"
-            />
-          </ion-item>
-        </div>
-      </div>
+      <a-map-filter-item
+        v-for="group in groups"
+        :key="group"
+        :group="group"
+        :selected-id="selectedCategory"
+        @itemClick="toggleSelectedCategory(group.id)"
+      />
     </ion-list>
   </ion-content>
 </template>
@@ -77,21 +44,20 @@ import {
 
 import { chevronDown } from 'ionicons/icons'
 import { Category, Group } from '@/plugins/app/_config/types'
+import ACategoryItem from '@/plugins/app/_components/a-category-item.vue'
+import AMapFilterItem from '@/plugins/app/_components/a-map-filter-item.vue'
 
 export default defineComponent({
   name: 'MapFilter',
   components: {
+    AMapFilterItem,
     IonHeader,
     IonContent,
     IonToolbar,
     IonTitle,
     IonButtons,
     IonButton,
-    IonLabel,
-    IonItem,
     IonList,
-    IonCheckbox,
-    IonAvatar,
   },
   props: {
     groups: {
@@ -106,14 +72,6 @@ export default defineComponent({
     }
   },
   methods: {
-    check(id: number) {
-      console.log(typeof id)
-      console.log('check')
-      this.$store.commit('myMapUnCheckedChanged', id)
-    },
-    isChecked(id: number) {
-      return !this.$store.state.myMapUnChecked.some((i) => i === id)
-    },
     async closeModal() {
       await modalController.dismiss()
     },
@@ -121,6 +79,5 @@ export default defineComponent({
       this.selectedCategory = this.selectedCategory === categoryId ? -1 : categoryId
     },
   },
-
 })
 </script>
