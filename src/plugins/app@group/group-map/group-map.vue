@@ -103,7 +103,7 @@ export default defineComponent({
         source: 'entities',
         filter: ['has', 'point_count'],
         paint: {
-          'circle-color': '#CCCCCC',
+          'circle-color': '#fff',
           'circle-radius': 25,
         },
       })
@@ -118,68 +118,36 @@ export default defineComponent({
           'text-size': 12,
         },
       })
+
+      this.group.categories.forEach((category) => {
+        this.map.loadImage(`${category.icon}`, (err, image) => {
+          if (err || !image) throw err
+          this.map.addImage(category.key, image)
+        })
+      })
+
       this.map.addLayer({
         id: 'unclustered-point',
         type: 'circle',
         source: 'entities',
         filter: ['!=', 'cluster', true],
         paint: {
-          'circle-color': [
-            'case',
-            // 1
-            ['==', ['get', 'key', ['get', 'category']], 'bin'],
-            '#66E480',
-            // 2
-            ['==', ['get', 'key', ['get', 'category']], 'bench'],
-            '#4CB962',
-            // default
-            '#66E480',
-          ],
-          'circle-radius': 15,
-          'circle-stroke-width': 7.5,
-          'circle-stroke-color': [
-            'case',
-            // 1
-            ['==', ['get', 'key', ['get', 'category']], 'bin'],
-            'rgba(102, 228, 128, 0.5)',
-            // 2
-            ['==', ['get', 'key', ['get', 'category']], 'bench'],
-            'rgba(76, 185, 98, 0.5)',
-            // default
-            'rgba(102, 228, 128, 0.5)',
-          ],
+          'circle-color': '#fff',
+          'circle-radius': 20,
         },
       })
-      this.map.loadImage('/assets/map/icons/bin.png', (err, image) => {
-        if (err || !image) throw err
-        this.map.addImage('bin', image)
-      })
-      this.map.loadImage('/assets/map/icons/bench.png', (err, image) => {
-        if (err || !image) throw err
-        this.map.addImage('bench', image)
-      })
+
       this.map.addLayer({
         id: 'point-icon',
         type: 'symbol',
         source: 'entities',
         filter: ['!=', 'cluster', true],
         layout: {
-          'icon-image': [
-            'case',
-            // 1
-            ['==', ['get', 'key', ['get', 'category']], 'bin'],
-            'bin',
-            // 2
-            ['==', ['get', 'key', ['get', 'category']], 'bench'],
-            'bench',
-            // default
-            'leaf',
-          ],
-          'icon-size': 0.35,
+          'icon-image': ['get', 'key', ['get', 'category']],
+          'icon-size': 0.08,
         },
       })
       this.map.on('click', 'clusters', (e) => {
-        console.log('clustered')
         const features = this.map.queryRenderedFeatures(e.point, {
           layers: ['clusters'],
         })
@@ -197,7 +165,6 @@ export default defineComponent({
         }
       })
       this.map.on('click', 'unclustered-point', (e) => {
-        console.log('unclustered', e)
         if (e.features) {
           const entityData = e.features[0].properties
           if (entityData) this.$router.push({ name: 'EntityDetail', params: { id: entityData.id } })
