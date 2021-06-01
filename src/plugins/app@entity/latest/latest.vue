@@ -20,11 +20,18 @@
       >
         <ion-refresher-content pulling-icon="lines" />
       </ion-refresher>
-      <a-card
-        v-for="entity in entities"
-        :key="entity.id"
-        :entity="entity"
-      />
+      <div v-if="entities.length">
+        <a-card
+          v-for="entity in entities"
+          :key="entity.id"
+          :entity="entity"
+        />
+      </div>
+      <div v-else class="ion-padding-horizontal">
+        <h2 class="text-gray-400 ion-margin-top ion-text-center">
+          Nemáte žiadne najnovšie príspevky. Skúste sa pripojiť do nejakej skupiny.
+        </h2>
+      </div>
     </ion-content>
   </ion-page>
 </template>

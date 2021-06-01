@@ -39,22 +39,32 @@
       </ion-refresher>
 
       <div v-if="value === 'my'">
-        <ion-list>
+        <ion-list v-if="searchedGroups.length">
           <a-group-item
             v-for="group in searchedGroups"
             :key="group.id"
             :group="group"
           />
         </ion-list>
+        <div v-else>
+          <h2 class="text-gray-400 ion-margin-top ion-text-center">
+            Nie ste v žiadnych skupinách.
+          </h2>
+        </div>
       </div>
       <div v-if="value === 'other'">
-        <ion-list>
+        <ion-list v-if="searchedGroups.length">
           <a-group-item
             v-for="group in searchedGroups"
             :key="group.id"
             :group="group"
           />
         </ion-list>
+        <div v-else>
+          <h2 class="text-gray-400 ion-margin-top ion-text-center">
+            Nie sú dostupné žiadne skupiny.
+          </h2>
+        </div>
       </div>
     </ion-content>
   </ion-page>
