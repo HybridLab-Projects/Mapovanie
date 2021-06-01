@@ -68,7 +68,11 @@ export default defineComponent({
   },
   async ionViewDidEnter() {
     Mapbox.accessToken = process.env.VUE_APP_MAPBOX_TOKEN
-    if (Object.keys(this.map).length) return
+    if (Object.keys(this.map).length) {
+      // @ts-expect-error wrong types
+      this.map.getSource('entities').setData(this.getEntityGeoJson())
+      return
+    }
     this.map = new Mapbox.Map({
       container: 'map-container',
       style: 'mapbox://styles/mapbox/streets-v11',
@@ -93,7 +97,7 @@ export default defineComponent({
         source: 'entities',
         filter: ['has', 'point_count'],
         paint: {
-          'circle-color': '#CCCCCC',
+          'circle-color': '#fff',
           'circle-radius': 25,
         },
       })
@@ -111,7 +115,7 @@ export default defineComponent({
 
       this.groups.forEach((group) => {
         group.categories.forEach((category) => {
-          this.map.loadImage(category.icon, (err, image) => {
+          this.map.loadImage(`${category.icon}`, (err, image) => {
             if (err || !image) throw err
             this.map.addImage(category.key, image)
           })
@@ -134,8 +138,8 @@ export default defineComponent({
         source: 'entities',
         filter: ['!=', 'cluster', true],
         layout: {
-          'icon-image': 'ba-lavicky',
-          'icon-size': 0.1,
+          'icon-image': ['get', 'key', ['get', 'category']],
+          'icon-size': 0.08,
         },
       })
       this.map.on('click', 'clusters', (e) => {
@@ -157,7 +161,6 @@ export default defineComponent({
         }
       })
       this.map.on('click', 'unclustered-point', (e) => {
-        console.log('unclustered', e)
         if (e.features) {
           const entityData = e.features[0].properties
           if (entityData) this.$router.push({ name: 'EntityDetail', params: { id: entityData.id } })
