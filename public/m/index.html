@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Mobilný náhlad</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			outline: 0;
+		}
+
+		body {
+			height: 100vh;
+			width: 100vw;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			background-color: lightgray;
+		}
+
+		.mobile-wrapper {
+			position: relative;
+		}
+
+		.mobile-wrapper img {
+			pointer-events: none;
+			width: 375px;
+			height: 810px;
+			z-index: 1000;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		iframe {
+			width: 325px;
+			height: 616px;
+			border-radius: 8px;
+			padding: 98px 25px;
+			/* visibility: hidden; */
+		}
+
+	</style>
+</head>
+
+<body>
+	<div class="mobile-wrapper">
+		<img src="/m/iphone-8.png" alt="">
+		<iframe id="iframe" frameborder="0"></iframe>
+	</div>
+
+	<script>
+		if (window.innerWidth < 600)
+			window.location = `${location.origin}${location.pathname.substring(2)}`
+
+		document.getElementById('iframe').src = `${location.origin}${location.pathname}`
+
+		setTimeout(() => {
+			document.getElementById('iframe').contentWindow.addEventListener("message", (event) => {
+				history.pushState({}, null, `${location.origin}/m${event.data}`);
+			}, false);
+		}, 400)
+
+	</script>
+</body>
+
+</html>
